@@ -11,7 +11,8 @@ async function loadCompounds() {
 
     catch (error) {
         console.error(error);
-        document.getElementById("compoundList").innerHTML = "Unable to connect to the API.";
+        document.getElementById("compoundList").innerHTML =
+            '<p class="status-text">Unable to connect to the API.</p>';
     }
 }
 
@@ -23,21 +24,27 @@ function displayCompounds(compounds) {
 
     compoundList.innerHTML = "";
 
-    compounds.forEach(compound => {
+    if (!compounds || compounds.length === 0) {
+        compoundList.innerHTML = '<p class="status-text">No compounds found.</p>';
+        return;
+    }
+
+    compounds.forEach((compound, index) => {
         const props = compound.physicalProperties;
-        const elementSymbols = compound.composition
-            .map(c => `${c.symbol}${c.atoms > 1 ? c.atoms : ""}`)
-            .join("");
+        const state = (props.state || "").toLowerCase();
 
         const card = document.createElement("div");
         card.className = "compound-card";
+        card.dataset.state = state;
+        card.style.animationDelay = `${index * 40}ms`;
         card.innerHTML = `
             <div class="compound-formula">${compound.formula}</div>
             <h3>${compound.name}</h3>
-            <p class="compound-state">${props.state}</p>
-            <p>${elementSymbols}</p>
-            <p>Molar mass: ${props.molarMass} g/mol</p>
-            ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord}</span>` : ""}
+            <div class="badge-row">
+                <span class="state-badge" data-state="${state}">${props.state}</span>
+                ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord}</span>` : ""}
+            </div>
+            <p class="compound-description">${compound.description ?? ""}</p>
             <button onclick="viewCompound(${compound.id})"> View Details</button>
         `;
 
@@ -53,28 +60,46 @@ async function viewCompound(id) {
         const response = await fetch(`${API_URL}/compounds/${id}`);
         const compound = await response.json();
         const props = compound.physicalProperties;
-        const elements = compound.composition
-            .map(c => `${c.element} (${c.symbol}): ${c.atoms}`)
-            .join("\n            ");
+        const state = (props.state || "").toLowerCase();
 
-        alert(`
-            ${compound.name} (${compound.formula})
-            SMILES: ${compound.smiles}
+        const elementsList = compound.composition
+            .map(c => `<li>${c.element} (${c.symbol}): ${c.atoms}</li>`)
+            .join("");
 
-            Elements:
-            ${elements}
+        const modalContent = document.getElementById("modalContent");
+        modalContent.innerHTML = `
+            <div class="modal-formula">${compound.formula}</div>
+            <h3 id="modalTitle">${compound.name}</h3>
+            <p class="modal-smiles">SMILES: ${compound.smiles}</p>
 
-            State: ${props.state}
-            Molar Mass: ${props.molarMass} g/mol
-            Density: ${props.densityGPerCm3} g/cm3
-            Melting Point: ${props.meltingPointCelsius ?? "N/A"} C
-            Boiling Point: ${props.boilingPointCelsius ?? "N/A"} C
+            <div class="badge-row">
+                <span class="state-badge" data-state="${state}">${props.state}</span>
+                ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord} (Corrosive)</span>` : ""}
+            </div>
 
-            Safety: ${compound.safetyData.signalWord}${compound.safetyData.isCorrosive ? " (Corrosive)" : ""}
+            <p class="modal-section-title">Elements</p>
+            <ul class="modal-elements">${elementsList}</ul>
 
-            Description:
-            ${compound.description}
-        `);
+            <p class="modal-section-title">Properties</p>
+            <div class="modal-props">
+                <div><span>Molar mass</span>${props.molarMass} g/mol</div>
+                <div><span>Density</span>${props.densityGPerCm3} g/cm3</div>
+                <div><span>Melting point</span>${props.meltingPointCelsius ?? "N/A"} &deg;C</div>
+                <div><span>Boiling point</span>${props.boilingPointCelsius ?? "N/A"} &deg;C</div>
+            </div>
+
+            ${compound.uses && compound.uses.length ? `
+            <p class="modal-section-title">Common Uses</p>
+            <div class="modal-uses">
+                ${compound.uses.map(u => `<span class="use-tag">${u}</span>`).join("")}
+            </div>
+            ` : ""}
+
+            <p class="modal-section-title">Description</p>
+            <p class="modal-description">${compound.description}</p>
+        `;
+
+        openModal();
     }
     catch (error) {
         console.error(error);
@@ -82,6 +107,29 @@ async function viewCompound(id) {
     }
 
 }
+
+// MODAL CONTROLS
+function openModal() {
+    const overlay = document.getElementById("detailOverlay");
+    overlay.hidden = false;
+    requestAnimationFrame(() => overlay.classList.add("visible"));
+}
+
+function closeModal() {
+    const overlay = document.getElementById("detailOverlay");
+    overlay.classList.remove("visible");
+    setTimeout(() => {
+        overlay.hidden = true;
+    }, 200);
+}
+
+document.getElementById("detailOverlay").addEventListener("click", (e) => {
+    if (e.target.id === "detailOverlay") closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+});
 
 // SEARCH
 async function searchCompounds() {
