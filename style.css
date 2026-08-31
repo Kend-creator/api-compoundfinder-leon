@@ -86,9 +86,22 @@ button.secondary {
 }
 
 
-.compound-category {
+.compound-state {
     color: #666;
     font-style: italic;
+    text-transform: capitalize;
+}
+
+
+.badge-danger {
+    display: inline-block;
+    background: #ffe3e3;
+    color: #b3261e;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }
 
 
