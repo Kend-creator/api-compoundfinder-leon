@@ -1,84 +1,87 @@
 const API_URL = "https://simply-cars-api-leon.vercel.app";
 
 
-// GET ALL CARS
-async function loadCars() {
+// GET ALL COMPOUNDS
+async function loadCompounds() {
     try {
-        const response = await fetch(`${API_URL}/cars`);
+        const response = await fetch(`${API_URL}/compounds`);
         const data = await response.json();
-        displayCars(data.cars);
+        displayCompounds(data.compounds);
     }
 
     catch (error) {
         console.error(error);
-        document.getElementById("carList").innerHTML = "Unable to connect to the API.";
+        document.getElementById("compoundList").innerHTML = "Unable to connect to the API.";
     }
 }
 
 
-// DISPLAY CARS
-function displayCars(cars) {
-    const carList =
-        document.getElementById("carList");
+// DISPLAY COMPOUNDS
+function displayCompounds(compounds) {
+    const compoundList =
+        document.getElementById("compoundList");
 
-    carList.innerHTML = "";
+    compoundList.innerHTML = "";
 
-    cars.forEach(car => {
+    compounds.forEach(compound => {
         const card = document.createElement("div");
-        card.className = "car-card";
+        card.className = "compound-card";
         card.innerHTML = `
-            <div class="car-year">${car.year}</div>
-            <h3>${car.make} ${car.model}</h3>
-            <p class="car-engine">${car.engine}</p>
-            <p>${car.horsepower} horsepower/p>
-            <p>${car.description}</p>
-            <button onclick="viewCar(${car.id})"> View Details</button>
+            <div class="compound-formula">${compound.formula}</div>
+            <h3>${compound.name}</h3>
+            <p class="compound-category">${compound.category}</p>
+            <p>${compound.elements.join(", ")}</p>
+            <p>Molar mass: ${compound.molar_mass} g/mol</p>
+            <button onclick="viewCompound(${compound.id})"> View Details</button>
         `;
 
-        carList.appendChild(card);
+        compoundList.appendChild(card);
     });
 
 }
 
-// GET ONE CAR
-async function viewCar(id) {
+// GET ONE COMPOUND
+async function viewCompound(id) {
 
     try {
-        const response = await fetch(`${API_URL}/cars/${id}`);
-        const car = await response.json();
+        const response = await fetch(`${API_URL}/compounds/${id}`);
+        const compound = await response.json();
 
         alert(`
-            ${car.year} ${car.make} ${car.model}
-            Engine:
-            ${car.engine}
+            ${compound.name} (${compound.formula})
+            Elements:
+            ${compound.elements.join(", ")}
 
-            Horsepower:
-            ${car.horsepower}
+            State:
+            ${compound.state}
+
+            Molar Mass:
+            ${compound.molar_mass} g/mol
 
             Description:
-            ${car.description}
+            ${compound.description}
         `);
     }
     catch (error) {
         console.error(error);
-        alert("Unable to retrieve car.");
+        alert("Unable to retrieve compound.");
     }
 
 }
 
 // SEARCH
-async function searchCars() {
+async function searchCompounds() {
 
     const query = document.getElementById("searchInput").value;
     if (!query) {
-        loadCars();
+        loadCompounds();
         return;
     }
     try {
         const response =
-            await fetch(`${API_URL}/cars/search?q=${encodeURIComponent(query)}`);
+            await fetch(`${API_URL}/compounds/search?q=${encodeURIComponent(query)}`);
         const data = await response.json();
-        displayCars(data.results);
+        displayCompounds(data.results);
     }
 
     catch (error) {
@@ -87,4 +90,4 @@ async function searchCars() {
     }
 }
 
-loadCars();
+loadCompounds();
