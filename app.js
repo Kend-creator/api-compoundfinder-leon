@@ -131,6 +131,10 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
 });
 
+document.getElementById("searchInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") searchCompounds();
+});
+
 // SEARCH
 async function searchCompounds() {
 
