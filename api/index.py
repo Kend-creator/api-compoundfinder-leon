@@ -24,19 +24,19 @@ compounds = [
         "formula": "H2O",
         "smiles": "O",
         "physicalProperties": {
-            "molarMass": 18.015,
-            "state": "liquid",
-            "densityGPerCm3": 1.0,
-            "meltingPointCelsius": 0.0,
-            "boilingPointCelsius": 100.0
+        "molarMass": 18.015,
+        "state": "liquid",
+        "densityGPerCm3": 1.0,
+        "meltingPointCelsius": 0.0,
+        "boilingPointCelsius": 100.0
         },
         "composition": [
-            {"element": "Hydrogen", "symbol": "H", "atoms": 2},
-            {"element": "Oxygen", "symbol": "O", "atoms": 1}
+        {"element": "Hydrogen", "symbol": "H", "atoms": 2},
+        {"element": "Oxygen", "symbol": "O", "atoms": 1}
         ],
         "safetyData": {
-            "signalWord": "None",
-            "isCorrosive": False
+        "signalWord": "None",
+        "isCorrosive": False
         },
         "description": "A colorless, odorless liquid essential to all known forms of life."
     },
@@ -47,19 +47,19 @@ compounds = [
         "formula": "CO2",
         "smiles": "O=C=O",
         "physicalProperties": {
-            "molarMass": 44.01,
-            "state": "gas",
-            "densityGPerCm3": 0.00184,
-            "meltingPointCelsius": -56.6,
-            "boilingPointCelsius": -78.5
+        "molarMass": 44.01,
+        "state": "gas",
+        "densityGPerCm3": 0.00184,
+        "meltingPointCelsius": -56.6,
+        "boilingPointCelsius": -78.5
         },
         "composition": [
-            {"element": "Carbon", "symbol": "C", "atoms": 1},
-            {"element": "Oxygen", "symbol": "O", "atoms": 2}
+        {"element": "Carbon", "symbol": "C", "atoms": 1},
+        {"element": "Oxygen", "symbol": "O", "atoms": 2}
         ],
         "safetyData": {
-            "signalWord": "None",
-            "isCorrosive": False
+        "signalWord": "None",
+        "isCorrosive": False
         },
         "description": "A colorless gas produced by respiration and combustion."
     },
@@ -70,19 +70,19 @@ compounds = [
         "formula": "NaCl",
         "smiles": "[Na+].[Cl-]",
         "physicalProperties": {
-            "molarMass": 58.44,
-            "state": "solid",
-            "densityGPerCm3": 2.16,
-            "meltingPointCelsius": 801.0,
-            "boilingPointCelsius": 1465.0
+        "molarMass": 58.44,
+        "state": "solid",
+        "densityGPerCm3": 2.16,
+        "meltingPointCelsius": 801.0,
+        "boilingPointCelsius": 1465.0
         },
         "composition": [
-            {"element": "Sodium", "symbol": "Na", "atoms": 1},
-            {"element": "Chlorine", "symbol": "Cl", "atoms": 1}
+        {"element": "Sodium", "symbol": "Na", "atoms": 1},
+        {"element": "Chlorine", "symbol": "Cl", "atoms": 1}
         ],
         "safetyData": {
-            "signalWord": "None",
-            "isCorrosive": False
+        "signalWord": "None",
+        "isCorrosive": False
         },
         "description": "Common table salt, formed from a metal and a halogen."
     },
@@ -93,20 +93,20 @@ compounds = [
         "formula": "C6H12O6",
         "smiles": "OCC1OC(O)C(O)C(O)C1O",
         "physicalProperties": {
-            "molarMass": 180.16,
-            "state": "solid",
-            "densityGPerCm3": 1.54,
-            "meltingPointCelsius": 150.0,
-            "boilingPointCelsius": None
+        "molarMass": 180.16,
+        "state": "solid",
+        "densityGPerCm3": 1.54,
+        "meltingPointCelsius": 150.0,
+        "boilingPointCelsius": None
         },
         "composition": [
-            {"element": "Carbon", "symbol": "C", "atoms": 6},
-            {"element": "Hydrogen", "symbol": "H", "atoms": 12},
-            {"element": "Oxygen", "symbol": "O", "atoms": 6}
+        {"element": "Carbon", "symbol": "C", "atoms": 6},
+        {"element": "Hydrogen", "symbol": "H", "atoms": 12},
+        {"element": "Oxygen", "symbol": "O", "atoms": 6}
         ],
         "safetyData": {
-            "signalWord": "None",
-            "isCorrosive": False
+        "signalWord": "None",
+        "isCorrosive": False
         },
         "description": "A simple sugar and a key energy source for living cells."
     },
@@ -117,19 +117,19 @@ compounds = [
         "formula": "NH3",
         "smiles": "N",
         "physicalProperties": {
-            "molarMass": 17.03,
-            "state": "gas",
-            "densityGPerCm3": 0.00073,
-            "meltingPointCelsius": -77.7,
-            "boilingPointCelsius": -33.3
+        "molarMass": 17.03,
+        "state": "gas",
+        "densityGPerCm3": 0.00073,
+        "meltingPointCelsius": -77.7,
+        "boilingPointCelsius": -33.3
         },
         "composition": [
-            {"element": "Nitrogen", "symbol": "N", "atoms": 1},
-            {"element": "Hydrogen", "symbol": "H", "atoms": 3}
+        {"element": "Nitrogen", "symbol": "N", "atoms": 1},
+        {"element": "Hydrogen", "symbol": "H", "atoms": 3}
         ],
         "safetyData": {
-            "signalWord": "Warning",
-            "isCorrosive": True
+        "signalWord": "Warning",
+        "isCorrosive": True
         },
         "description": "A pungent gas widely used in fertilizers and cleaning products."
     },
@@ -140,20 +140,20 @@ compounds = [
         "formula": "H2SO4",
         "smiles": "O=S(=O)(O)O",
         "physicalProperties": {
-            "molarMass": 98.079,
-            "state": "liquid",
-            "densityGPerCm3": 1.83,
-            "meltingPointCelsius": 10.31,
-            "boilingPointCelsius": 337.0
+        "molarMass": 98.079,
+        "state": "liquid",
+        "densityGPerCm3": 1.83,
+        "meltingPointCelsius": 10.31,
+        "boilingPointCelsius": 337.0
         },
         "composition": [
-            {"element": "Hydrogen", "symbol": "H", "atoms": 2},
-            {"element": "Sulfur", "symbol": "S", "atoms": 1},
-            {"element": "Oxygen", "symbol": "O", "atoms": 4}
+        {"element": "Hydrogen", "symbol": "H", "atoms": 2},
+        {"element": "Sulfur", "symbol": "S", "atoms": 1},
+        {"element": "Oxygen", "symbol": "O", "atoms": 4}
         ],
         "safetyData": {
-            "signalWord": "Danger",
-            "isCorrosive": True
+        "signalWord": "Danger",
+        "isCorrosive": True
         },
         "description": "A highly corrosive strong acid used widely in industrial processes."
     },
@@ -179,7 +179,8 @@ compounds = [
         "safetyData": {
         "signalWord": "Danger",
         "isCorrosive": False
-        }
+        },
+        "description": "A volatile, flammable, and colorless liquid organic compound commonly used as a solvent, fuel source, and the active alcohol in beverages."
     },
 
     {
@@ -201,7 +202,8 @@ compounds = [
         "safetyData": {
         "signalWord": "Danger",
         "isCorrosive": False
-        }
+        },
+        "description": "The simplest alkane and primary component of natural gas, highly flammable and commonly used as a fuel source."
     },
 
     {
@@ -223,7 +225,8 @@ compounds = [
         "safetyData": {
         "signalWord": "Danger",
         "isCorrosive": True
-        }
+        },
+        "description": "A strong, highly corrosive mineral acid with major industrial applications and a main constituent of gastric acid."
     },
 
     {
@@ -246,7 +249,8 @@ compounds = [
         "safetyData": {
         "signalWord": "Danger",
         "isCorrosive": True
-        }
+        },
+        "description": "A strongly basic, caustic inorganic compound used heavily in soap making, paper production, and chemical synthesis."
     },
 
     {
@@ -269,8 +273,9 @@ compounds = [
         "safetyData": {
         "signalWord": "Danger",
         "isCorrosive": False
-        }
-    }
+        },
+        "description": "A volatile, flammable organic solvent widely used in industrial cleaning, cosmetics, and paint thinners."
+    },
 
 
     {
@@ -291,8 +296,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": true
-        }
+        "isCorrosive": True
+        },
+        "description": "A pale blue, powerful oxidizing agent commonly used as a bleaching agent, disinfectant, and antiseptic."
     },
     
     {
@@ -314,8 +320,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": true
-        }
+        "isCorrosive": True
+        },
+        "description": "A weak organic acid responsible for the sour taste and pungent smell of vinegar, used as a food preservative and solvent."
     },
 
     {
@@ -337,8 +344,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": false
-        }
+        "isCorrosive": False
+        },
+        "description": "A common white mineral substance found in rocks like limestone and marble, used as a building material and antacid."
     },
 
     {
@@ -360,8 +368,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": true
-        }
+        "isCorrosive": True
+        },
+        "description": "A highly corrosive and toxic mineral acid used primarily in the production of nitrogen fertilizers and explosives."
     },
 
     {
@@ -382,9 +391,10 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": false
-        }
-    }
+        "isCorrosive": False
+        },
+        "description": "A colorless, flammable hydrocarbon gas commonly compressed and used as fuel for heating, cooking, and engines."
+    },
 
     {
         "id": 17,
@@ -406,8 +416,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": false
-        }
+        "isCorrosive": False
+        },
+        "description": "A crystalline solid widely known as baking soda, used in leavening, cleaning, and neutralizing excess stomach acid."
     },
 
     {
@@ -429,8 +440,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": false
-        }
+        "isCorrosive": False
+        },
+        "description": "A volatile, clear liquid commonly known as rubbing alcohol, extensively used as a solvent and topical disinfectant."
     },
 
     {
@@ -452,8 +464,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": false
-        }
+        "isCorrosive": False
+        },
+        "description": "A naturally occurring disaccharide composed of glucose and fructose, commonly extracted and refined as table sugar."
     },
 
     {
@@ -474,8 +487,9 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": true
-        }
+        "isCorrosive": True
+        },
+        "description": "A pungent, toxic gas produced by volcanic activity and industrial burning of coal or oil, used as a preservative."
     }
 
 ]
