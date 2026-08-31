@@ -38,6 +38,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Drinking water", "Solvent", "Coolant", "Hydration"],
         "description": "A colorless, odorless liquid essential to all known forms of life."
     },
 
@@ -61,6 +62,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Carbonation", "Fire extinguishers", "Dry ice", "Photosynthesis feedstock"],
         "description": "A colorless gas produced by respiration and combustion."
     },
 
@@ -84,6 +86,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Food seasoning", "Food preservative", "De-icing roads", "Water softening"],
         "description": "Common table salt, formed from a metal and a halogen."
     },
 
@@ -108,6 +111,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Energy source for cells", "IV fluids", "Food sweetener", "Fermentation feedstock"],
         "description": "A simple sugar and a key energy source for living cells."
     },
 
@@ -131,6 +135,7 @@ compounds = [
         "signalWord": "Warning",
         "isCorrosive": True
         },
+                "uses": ["Fertilizer production", "Cleaning products", "Refrigerant"],
         "description": "A pungent gas widely used in fertilizers and cleaning products."
     },
 
@@ -155,6 +160,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Car batteries", "Fertilizer production", "Industrial synthesis", "Metal processing"],
         "description": "A highly corrosive strong acid used widely in industrial processes."
     },
 
@@ -180,6 +186,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": False
         },
+                "uses": ["Solvent", "Fuel additive", "Alcoholic beverages", "Disinfectant"],
         "description": "A volatile, flammable, and colorless liquid organic compound commonly used as a solvent, fuel source, and the active alcohol in beverages."
     },
 
@@ -203,6 +210,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": False
         },
+                "uses": ["Fuel", "Natural gas heating", "Hydrogen production"],
         "description": "The simplest alkane and primary component of natural gas, highly flammable and commonly used as a fuel source."
     },
 
@@ -226,6 +234,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Metal pickling", "pH adjustment", "Food processing"],
         "description": "A strong, highly corrosive mineral acid with major industrial applications and a main constituent of gastric acid."
     },
 
@@ -250,6 +259,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Soap making", "Drain cleaner", "Paper production"],
         "description": "A strongly basic, caustic inorganic compound used heavily in soap making, paper production, and chemical synthesis."
     },
 
@@ -274,6 +284,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": False
         },
+                "uses": ["Nail polish remover", "Industrial solvent", "Paint thinner"],
         "description": "A volatile, flammable organic solvent widely used in industrial cleaning, cosmetics, and paint thinners."
     },
 
@@ -298,6 +309,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Disinfectant", "Bleaching agent", "Antiseptic"],
         "description": "A pale blue, powerful oxidizing agent commonly used as a bleaching agent, disinfectant, and antiseptic."
     },
     
@@ -322,6 +334,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Food preservative (vinegar)", "Solvent", "Textile dyeing"],
         "description": "A weak organic acid responsible for the sour taste and pungent smell of vinegar, used as a food preservative and solvent."
     },
 
@@ -346,6 +359,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Antacid", "Building material", "Calcium supplement"],
         "description": "A common white mineral substance found in rocks like limestone and marble, used as a building material and antacid."
     },
 
@@ -370,6 +384,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Fertilizer production", "Explosives manufacturing", "Metal etching"],
         "description": "A highly corrosive and toxic mineral acid used primarily in the production of nitrogen fertilizers and explosives."
     },
 
@@ -393,6 +408,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": False
         },
+                "uses": ["Heating fuel", "Cooking gas", "Engine fuel"],
         "description": "A colorless, flammable hydrocarbon gas commonly compressed and used as fuel for heating, cooking, and engines."
     },
 
@@ -418,6 +434,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Baking (leavening agent)", "Antacid", "Cleaning agent"],
         "description": "A crystalline solid widely known as baking soda, used in leavening, cleaning, and neutralizing excess stomach acid."
     },
 
@@ -442,6 +459,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": False
         },
+                "uses": ["Rubbing alcohol / disinfectant", "Solvent", "Electronics cleaning"],
         "description": "A volatile, clear liquid commonly known as rubbing alcohol, extensively used as a solvent and topical disinfectant."
     },
 
@@ -466,6 +484,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
+                "uses": ["Sweetener", "Food preservative", "Fermentation feedstock"],
         "description": "A naturally occurring disaccharide composed of glucose and fructose, commonly extracted and refined as table sugar."
     },
 
@@ -489,6 +508,7 @@ compounds = [
         "signalWord": "Danger",
         "isCorrosive": True
         },
+                "uses": ["Food preservative", "Wine production", "Industrial bleaching agent"],
         "description": "A pungent, toxic gas produced by volcanic activity and industrial burning of coal or oil, used as a preservative."
     }
 
@@ -526,11 +546,13 @@ def search_compounds(q: str = Query(..., min_length=1)):
     for compound in compounds:
         element_names = " ".join(c["element"] for c in compound["composition"])
         element_symbols = " ".join(c["symbol"] for c in compound["composition"])
+        uses_text = " ".join(compound.get("uses", []))
         searchable_text = (
             f"{compound['name']} "
             f"{compound['formula']} "
             f"{element_names} "
-            f"{element_symbols}"
+            f"{element_symbols} "
+            f"{uses_text}"
         ).lower()
 
         if q in searchable_text:
