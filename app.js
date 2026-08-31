@@ -24,14 +24,20 @@ function displayCompounds(compounds) {
     compoundList.innerHTML = "";
 
     compounds.forEach(compound => {
+        const props = compound.physicalProperties;
+        const elementSymbols = compound.composition
+            .map(c => `${c.symbol}${c.atoms > 1 ? c.atoms : ""}`)
+            .join("");
+
         const card = document.createElement("div");
         card.className = "compound-card";
         card.innerHTML = `
             <div class="compound-formula">${compound.formula}</div>
             <h3>${compound.name}</h3>
-            <p class="compound-category">${compound.category}</p>
-            <p>${compound.elements.join(", ")}</p>
-            <p>Molar mass: ${compound.molar_mass} g/mol</p>
+            <p class="compound-state">${props.state}</p>
+            <p>${elementSymbols}</p>
+            <p>Molar mass: ${props.molarMass} g/mol</p>
+            ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord}</span>` : ""}
             <button onclick="viewCompound(${compound.id})"> View Details</button>
         `;
 
@@ -46,17 +52,25 @@ async function viewCompound(id) {
     try {
         const response = await fetch(`${API_URL}/compounds/${id}`);
         const compound = await response.json();
+        const props = compound.physicalProperties;
+        const elements = compound.composition
+            .map(c => `${c.element} (${c.symbol}): ${c.atoms}`)
+            .join("\n            ");
 
         alert(`
             ${compound.name} (${compound.formula})
+            SMILES: ${compound.smiles}
+
             Elements:
-            ${compound.elements.join(", ")}
+            ${elements}
 
-            State:
-            ${compound.state}
+            State: ${props.state}
+            Molar Mass: ${props.molarMass} g/mol
+            Density: ${props.densityGPerCm3} g/cm3
+            Melting Point: ${props.meltingPointCelsius ?? "N/A"} C
+            Boiling Point: ${props.boilingPointCelsius ?? "N/A"} C
 
-            Molar Mass:
-            ${compound.molar_mass} g/mol
+            Safety: ${compound.safetyData.signalWord}${compound.safetyData.isCorrosive ? " (Corrosive)" : ""}
 
             Description:
             ${compound.description}
