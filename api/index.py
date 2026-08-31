@@ -156,7 +156,236 @@ compounds = [
             "isCorrosive": True
         },
         "description": "A highly corrosive strong acid used widely in industrial processes."
+    },
+
+    
+    {
+        "id": 7,
+        "name": "Ethanol",
+        "formula": "C2H6O",
+        "smiles": "CCO",
+        "physicalProperties": {
+        "molarMass": 46.07,
+        "state": "liquid",
+        "densityGPerCm3": 0.789,
+        "meltingPointCelsius": -114.1,
+        "boilingPointCelsius": 78.37
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 2 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 6 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False
+        }
+    },
+
+    {
+        "id": 8,
+        "name": "Methane",
+        "formula": "CH4",
+        "smiles": "C",
+        "physicalProperties": {
+        "molarMass": 16.04,
+        "state": "gas",
+        "densityGPerCm3": 0.000656,
+        "meltingPointCelsius": -182.5,
+        "boilingPointCelsius": -161.5
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 1 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 4 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False
+        }
+    },
+
+    {
+        "id": 9,
+        "name": "Hydrochloric Acid",
+        "formula": "HCl",
+        "smiles": "Cl",
+        "physicalProperties": {
+        "molarMass": 36.46,
+        "state": "liquid",
+        "densityGPerCm3": 1.19,
+        "meltingPointCelsius": -30.0,
+        "boilingPointCelsius": 108.5
+        },
+        "composition": [
+        { "element": "Hydrogen", "symbol": "H", "atoms": 1 },
+        { "element": "Chlorine", "symbol": "Cl", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True
+        }
+    },
+
+    {
+        "id": 10,
+        "name": "Sodium Hydroxide",
+        "formula": "NaOH",
+        "smiles": "[OH-].[Na+]",
+        "physicalProperties": {
+        "molarMass": 39.997,
+        "state": "solid",
+        "densityGPerCm3": 2.13,
+        "meltingPointCelsius": 323.0,
+        "boilingPointCelsius": 1388.0
+        },
+        "composition": [
+        { "element": "Sodium", "symbol": "Na", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 1 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True
+        }
+    },
+
+    {
+        "id": 11,
+        "name": "Acetone",
+        "formula": "C3H6O",
+        "smiles": "CC(=O)C",
+        "physicalProperties": {
+        "molarMass": 58.08,
+        "state": "liquid",
+        "densityGPerCm3": 0.784,
+        "meltingPointCelsius": -94.7,
+        "boilingPointCelsius": 56.05
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 3 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 6 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False
+        }
     }
+
+
+    {
+        "id": 12,
+        "name": "Hydrogen Peroxide",
+        "formula": "H2O2",
+        "smiles": "OO",
+        "physicalProperties": {
+        "molarMass": 34.014,
+        "state": "liquid",
+        "densityGPerCm3": 1.45,
+        "meltingPointCelsius": -0.43,
+        "boilingPointCelsius": 150.2
+        },
+        "composition": [
+        { "element": "Hydrogen", "symbol": "H", "atoms": 2 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": true
+        }
+    },
+    
+    {
+        "id": 13,
+        "name": "Acetic Acid",
+        "formula": "C2H4O2",
+        "smiles": "CC(=O)O",
+        "physicalProperties": {
+        "molarMass": 60.05,
+        "state": "liquid",
+        "densityGPerCm3": 1.049,
+        "meltingPointCelsius": 16.6,
+        "boilingPointCelsius": 117.9
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 2 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 4 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": true
+        }
+    },
+
+    {
+        "id": 14,
+        "name": "Calcium Carbonate",
+        "formula": "CaCO3",
+        "smiles": "[Ca+2].[O-]C([O-])=O",
+        "physicalProperties": {
+        "molarMass": 100.086,
+        "state": "solid",
+        "densityGPerCm3": 2.71,
+        "meltingPointCelsius": 1339.0,
+        "boilingPointCelsius": 0.0
+        },
+        "composition": [
+        { "element": "Calcium", "symbol": "Ca", "atoms": 1 },
+        { "element": "Carbon", "symbol": "C", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": false
+        }
+    },
+
+    {
+        "id": 15,
+        "name": "Nitric Acid",
+        "formula": "HNO3",
+        "smiles": "[O-][N+](=O)O",
+        "physicalProperties": {
+        "molarMass": 63.01,
+        "state": "liquid",
+        "densityGPerCm3": 1.51,
+        "meltingPointCelsius": -42.0,
+        "boilingPointCelsius": 83.0
+        },
+        "composition": [
+        { "element": "Hydrogen", "symbol": "H", "atoms": 1 },
+        { "element": "Nitrogen", "symbol": "N", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": true
+        }
+    },
+
+    {
+        "id": 16,
+        "name": "Propane",
+        "formula": "C3H8",
+        "smiles": "CCC",
+        "physicalProperties": {
+        "molarMass": 44.1,
+        "state": "gas",
+        "densityGPerCm3": 0.00183,
+        "meltingPointCelsius": -187.7,
+        "boilingPointCelsius": -42.1
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 3 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 8 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": false
+        }
+    }
+
 
 ]
 
