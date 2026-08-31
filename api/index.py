@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title="Simple Car API",
-    description="A beginner-friendly REST API containing information about cars.",
+    title="Simple Compound Element API",
+    description="A beginner-friendly REST API containing information about chemical compounds.",
     version="1.0.0"
 )
 
@@ -15,57 +15,62 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# CAR DATA
-cars = [
+# COMPOUND DATA
+compounds = [
 
     {
         "id": 1,
-        "make": "Toyota",
-        "model": "Corolla",
-        "year": 1998,
-        "engine": "1.6L 4-cylinder",
-        "horsepower": 105,
-        "description": "A practical and reliable compact sedan."
+        "name": "Water",
+        "formula": "H2O",
+        "elements": ["Hydrogen", "Oxygen"],
+        "molar_mass": 18.015,
+        "state": "Liquid",
+        "category": "Oxide",
+        "description": "A colorless, odorless liquid essential to all known forms of life."
     },
 
     {
         "id": 2,
-        "make": "Honda",
-        "model": "Civic Si",
-        "year": 1999,
-        "engine": "1.6L 4-cylinder",
-        "horsepower": 160,
-        "description": "A sporty compact car popular with enthusiasts."
+        "name": "Carbon Dioxide",
+        "formula": "CO2",
+        "elements": ["Carbon", "Oxygen"],
+        "molar_mass": 44.01,
+        "state": "Gas",
+        "category": "Oxide",
+        "description": "A colorless gas produced by respiration and combustion."
     },
 
     {
         "id": 3,
-        "make": "Mitsubishi",
-        "model": "Eclipse GSX",
-        "year": 1999,
-        "engine": "2.0L Turbo 4-cylinder",
-        "horsepower": 210,
-        "description": "A turbocharged AWD coupe built for performance."
+        "name": "Sodium Chloride",
+        "formula": "NaCl",
+        "elements": ["Sodium", "Chlorine"],
+        "molar_mass": 58.44,
+        "state": "Solid",
+        "category": "Salt",
+        "description": "Common table salt, formed from a metal and a halogen."
     },
 
     {
         "id": 4,
-        "make": "Subaru",
-        "model": "Impreza WRX",
-        "year": 2002,
-        "engine": "2.0L Turbo 4-cylinder",
-        "horsepower": 227,
-        "description": "A turbocharged AWD performance sedan."
+        "name": "Glucose",
+        "formula": "C6H12O6",
+        "elements": ["Carbon", "Hydrogen", "Oxygen"],
+        "molar_mass": 180.16,
+        "state": "Solid",
+        "category": "Carbohydrate",
+        "description": "A simple sugar and a key energy source for living cells."
     },
 
     {
         "id": 5,
-        "make": "Mazda",
-        "model": "MX-5 Miata",
-        "year": 2001,
-        "engine": "1.8L 4-cylinder",
-        "horsepower": 142,
-        "description": "A lightweight two-seat roadster famous for its handling."
+        "name": "Ammonia",
+        "formula": "NH3",
+        "elements": ["Nitrogen", "Hydrogen"],
+        "molar_mass": 17.03,
+        "state": "Gas",
+        "category": "Base",
+        "description": "A pungent gas widely used in fertilizers and cleaning products."
     }
 
 ]
@@ -75,40 +80,40 @@ cars = [
 def home():
 
     return {
-        "message": "Welcome to the Simple Car API!",
+        "message": "Welcome to the Simple Compound Element API!",
         "endpoints": [
-            "/cars",
-            "/cars/{id}",
-            "/cars/search"
+            "/compounds",
+            "/compounds/{id}",
+            "/compounds/search"
         ]
     }
 
 
-# GET ALL CARS
-@app.get("/cars")
-def get_cars():
+# GET ALL COMPOUNDS
+@app.get("/compounds")
+def get_compounds():
 
     return {
-        "count": len(cars),
-        "cars": cars
+        "count": len(compounds),
+        "compounds": compounds
     }
 
 
-# SEARCH CARS
-@app.get("/cars/search")
-def search_cars( q: str = Query(..., min_length=1)):
+# SEARCH COMPOUNDS
+@app.get("/compounds/search")
+def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
-    for car in cars:
+    for compound in compounds:
         searchable_text = (
-            f"{car['make']} "
-            f"{car['model']} "
-            f"{car['year']} "
-            f"{car['engine']}"
+            f"{compound['name']} "
+            f"{compound['formula']} "
+            f"{' '.join(compound['elements'])} "
+            f"{compound['category']}"
         ).lower()
 
         if q in searchable_text:
-            results.append(car)
+            results.append(compound)
 
     return {
         "query": q,
@@ -116,18 +121,16 @@ def search_cars( q: str = Query(..., min_length=1)):
         "results": results
     }
 
-# GET ONE CAR
-@app.get("/cars/{car_id}")
-def get_car(car_id: int):
+# GET ONE COMPOUND
+@app.get("/compounds/{compound_id}")
+def get_compound(compound_id: int):
 
-    for car in cars:
+    for compound in compounds:
 
-        if car["id"] == car_id:
-            return car
+        if compound["id"] == compound_id:
+            return compound
 
     raise HTTPException(
         status_code=404,
-        detail="Car not found."
+        detail="Compound not found."
     )
-
-
