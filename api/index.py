@@ -386,6 +386,97 @@ compounds = [
         }
     }
 
+    {
+        "id": 17,
+        "name": "Sodium Bicarbonate",
+        "formula": "NaHCO3",
+        "smiles": "[Na+].OC([O-])=O",
+        "physicalProperties": {
+        "molarMass": 84.007,
+        "state": "solid",
+        "densityGPerCm3": 2.2,
+        "meltingPointCelsius": 50.0,
+        "boilingPointCelsius": 0.0
+        },
+        "composition": [
+        { "element": "Sodium", "symbol": "Na", "atoms": 1 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 1 },
+        { "element": "Carbon", "symbol": "C", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": false
+        }
+    },
+
+    {
+        "id": 18,
+        "name": "Isopropanol",
+        "formula": "C3H8O",
+        "smiles": "CC(C)O",
+        "physicalProperties": {
+        "molarMass": 60.1,
+        "state": "liquid",
+        "densityGPerCm3": 0.786,
+        "meltingPointCelsius": -89.0,
+        "boilingPointCelsius": 82.6
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 3 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 8 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": false
+        }
+    },
+
+    {
+        "id": 19,
+        "name": "Sucrose",
+        "formula": "C12H22O11",
+        "smiles": "C1(C(C(C(C(O1)CO)O)O)O)OC2(C(C(C(O2)CO)O)O)CO",
+        "physicalProperties": {
+        "molarMass": 342.3,
+        "state": "solid",
+        "densityGPerCm3": 1.587,
+        "meltingPointCelsius": 186.0,
+        "boilingPointCelsius": 0.0
+        },
+        "composition": [
+        { "element": "Carbon", "symbol": "C", "atoms": 12 },
+        { "element": "Hydrogen", "symbol": "H", "atoms": 22 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 11 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": false
+        }
+    },
+
+    {
+        "id": 20,
+        "name": "Sulfur Dioxide",
+        "formula": "SO2",
+        "smiles": "O=S=O",
+        "physicalProperties": {
+        "molarMass": 64.066,
+        "state": "gas",
+        "densityGPerCm3": 0.00263,
+        "meltingPointCelsius": -72.0,
+        "boilingPointCelsius": -10.0
+        },
+        "composition": [
+        { "element": "Sulfur", "symbol": "S", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": true
+        }
+    }
 
 ]
 
