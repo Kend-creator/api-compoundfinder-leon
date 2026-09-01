@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompoundFinder API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="title-row">
+                <h1>CompoundFinder<span class="title-accent">API</span></h1>
+                <span class="version-tag">v1.0.0</span>
+            </div>
+            <p class="subtitle">Lookup molecular data over a REST interface</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="search">
+            <input type="text" id="searchInput" placeholder="Search by name or formula, e.g. H2O">
+            <button onclick="searchCompounds()">Search</button>
+            <button class="secondary" onclick="loadCompounds()">Show all</button>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <h2>Compounds</h2>
+                <span class="section-rule"></span>
+            </div>
+            <div id="compoundList" class="compound-list">
+                <p class="status-text">Loading compounds…</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data provided by the Simple Compound Element API &middot; CompoundFinder API v1.0.0</p>
+    </footer>
+
+    <div id="detailOverlay" class="modal-overlay" hidden>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
