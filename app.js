@@ -1,4 +1,4 @@
-const API_URL = "https://simply-cars-api-leon.vercel.app";
+const API_URL = "https://api-compoundfinder-leon.vercel.app/";
 
 
 // GET ALL COMPOUNDS
