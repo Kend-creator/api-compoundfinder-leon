@@ -1,4 +1,4 @@
-const API_URL = "https://api-compoundfinder-leon-enm8.vercel.app";
+const API_URL = "";
 
 
 // GET ALL COMPOUNDS
