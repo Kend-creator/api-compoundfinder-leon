@@ -701,10 +701,7 @@ def get_compounds():
 # ===========================================================
 # SEARCH COMPOUNDS (Protected)
 # ===========================================================
-# ===========================================================
-# SEARCH COMPOUNDS (Protected)
-# ===========================================================
-@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_api_key)])
+@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_API_KEY)])
 def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
