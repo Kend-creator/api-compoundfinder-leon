@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+from typing import Optional, Literal
 
 # ================================
 # CONFIGURATION
@@ -20,6 +22,43 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ===========================================================
+# DATA MODEL
+# ===========================================================
+
+class CompositionElement(BaseModel):
+    element: str = Field(min_length=1)
+    symbol: str = Field(min_length=1, max_length=3)
+    atoms: int = Field(gt=0)
+
+class PhysicalProperties(BaseModel):
+    molarMass: float = Field(gt=0)
+    state: Literal["solid", "liquid", "gas", "aqueous"]
+    densityGPerCm3: float = Field(gt=0)
+    meltingPointCelsius: Optional[float] = None
+    boilingPointCelsius: Optional[float] = None
+    pHValue: Optional[float] = Field(default=None, ge=0, le=14)
+
+class SafetyData(BaseModel):
+    signalWord: Literal["None", "Warning", "Danger"]
+    isCorrosive: bool
+    isFlammable: bool
+    isToxic: bool
+    hazardStatements: list[str] = Field(default_factory=list)
+
+class Compound(BaseModel):
+    id: int
+    name: str = Field(min_length=1)
+    formula: str = Field(min_length=1)
+    smiles: str = Field(min_length=1)
+    compoundType: Literal["acid", "base", "salt", "organic", "element", "other"]
+    casNumber: str = Field(min_length=1)
+    physicalProperties: PhysicalProperties
+    composition: list[CompositionElement]
+    safetyData: SafetyData
+    uses: list[str] = Field(default_factory=list)
+    description: str = Field(min_length=1)
 
 # COMPOUND DATA
 compounds = [
@@ -606,6 +645,10 @@ compounds = [
     }
 
 ]
+
+# Validation of dataset
+validated_compounds = [Compound(**compound).model_dump() for compound in compounds]
+compounds = validated_compounds
 
 # HOME
 @app.get("/")
