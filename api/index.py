@@ -44,7 +44,7 @@ compounds = [
         "signalWord": "None",
         "isCorrosive": False
         },
-                "uses": ["Drinking water", "Solvent", "Coolant", "Hydration"],
+        "uses": ["Drinking water", "Solvent", "Coolant", "Hydration"],
         "description": "A colorless, odorless liquid essential to all known forms of life."
     },
 
