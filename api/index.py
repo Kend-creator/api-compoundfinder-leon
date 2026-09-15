@@ -1,10 +1,16 @@
 from fastapi import FastAPI, HTTPException, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+# ================================
+# CONFIGURATION
+# ================================
+API_Key = "student-api-key-123"
+API_Version = "1.0.0"
+
 app = FastAPI(
     title="Simple Compound Element API",
     description="A beginner-friendly REST API containing information about chemical compounds.",
-    version="1.0.0"
+    version=API_Version
 )
 
 app.add_middleware(
