@@ -337,6 +337,75 @@ button.secondary:hover {
     margin: 8px 0;
 }
 
+.badge-danger {
+    display: inline-block;
+    background: var(--hazard-bg);
+    color: var(--hazard);
+    border: 1px solid rgba(226, 89, 63, 0.4);
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin: 8px 0;
+}
+
+.type-badge {
+    display: inline-block;
+    text-transform: capitalize;
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(143, 208, 255, 0.1);
+    color: var(--accent-bright);
+    border: 1px solid var(--line-bright);
+}
+
+.badge-flammable {
+    display: inline-block;
+    background: rgba(255, 165, 0, 0.12);
+    color: #f0a541;
+    border: 1px solid rgba(240, 165, 65, 0.4);
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 3px;
+}
+
+.badge-toxic {
+    display: inline-block;
+    background: rgba(160, 100, 220, 0.12);
+    color: #b088e8;
+    border: 1px solid rgba(176, 136, 232, 0.4);
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 3px;
+}
+
+.modal-cas {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    font-size: 0.82em;
+    margin: 0 0 12px;
+}
+
+.hazard-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--hazard-bg);
+    color: var(--hazard);
+    border: 1px solid rgba(226, 89, 63, 0.4);
+}
+
 .compound-card button {
     margin-top: 12px;
     width: 100%;
