@@ -655,7 +655,7 @@ compounds = validated_compounds
 # API KEY AUTHENTICATION
 # ===========================================================
 def verify_api_key(x_api_key: Optional[str] = Header(default=None)):
-    if x_api_key != API_KEY:
+    if x_api_key != API_Key:
         raise HTTPException(
             status_code=401,
             detail="Invalid or missing API key."
