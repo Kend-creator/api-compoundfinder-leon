@@ -29,12 +29,15 @@ compounds = [
         "name": "Water",
         "formula": "H2O",
         "smiles": "O",
+        "compoundType": "other",
+        "casNumber": "7732-18-5",
         "physicalProperties": {
         "molarMass": 18.015,
         "state": "liquid",
         "densityGPerCm3": 1.0,
         "meltingPointCelsius": 0.0,
-        "boilingPointCelsius": 100.0
+        "boilingPointCelsius": 100.0,
+        "pHValue": 7.0
         },
         "composition": [
         {"element": "Hydrogen", "symbol": "H", "atoms": 2},
@@ -42,9 +45,12 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": False
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
         },
-        "uses": ["Drinking water", "Solvent", "Coolant", "Hydration"],
+                "uses": ["Drinking water", "Solvent", "Coolant", "Hydration"],
         "description": "A colorless, odorless liquid essential to all known forms of life."
     },
 
@@ -53,12 +59,15 @@ compounds = [
         "name": "Carbon Dioxide",
         "formula": "CO2",
         "smiles": "O=C=O",
+        "compoundType": "other",
+        "casNumber": "124-38-9",
         "physicalProperties": {
         "molarMass": 44.01,
         "state": "gas",
         "densityGPerCm3": 0.00184,
         "meltingPointCelsius": -56.6,
-        "boilingPointCelsius": -78.5
+        "boilingPointCelsius": -78.5,
+        "pHValue": None
         },
         "composition": [
         {"element": "Carbon", "symbol": "C", "atoms": 1},
@@ -66,7 +75,10 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": False
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
         },
                 "uses": ["Carbonation", "Fire extinguishers", "Dry ice", "Photosynthesis feedstock"],
         "description": "A colorless gas produced by respiration and combustion."
@@ -77,12 +89,15 @@ compounds = [
         "name": "Sodium Chloride",
         "formula": "NaCl",
         "smiles": "[Na+].[Cl-]",
+        "compoundType": "salt",
+        "casNumber": "7647-14-5",
         "physicalProperties": {
         "molarMass": 58.44,
         "state": "solid",
         "densityGPerCm3": 2.16,
         "meltingPointCelsius": 801.0,
-        "boilingPointCelsius": 1465.0
+        "boilingPointCelsius": 1465.0,
+        "pHValue": 7.0
         },
         "composition": [
         {"element": "Sodium", "symbol": "Na", "atoms": 1},
@@ -90,7 +105,10 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": False
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
         },
                 "uses": ["Food seasoning", "Food preservative", "De-icing roads", "Water softening"],
         "description": "Common table salt, formed from a metal and a halogen."
@@ -101,12 +119,15 @@ compounds = [
         "name": "Glucose",
         "formula": "C6H12O6",
         "smiles": "OCC1OC(O)C(O)C(O)C1O",
+        "compoundType": "organic",
+        "casNumber": "50-99-7",
         "physicalProperties": {
         "molarMass": 180.16,
         "state": "solid",
         "densityGPerCm3": 1.54,
         "meltingPointCelsius": 150.0,
-        "boilingPointCelsius": None
+        "boilingPointCelsius": None,
+        "pHValue": 6.0
         },
         "composition": [
         {"element": "Carbon", "symbol": "C", "atoms": 6},
@@ -115,7 +136,10 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "None",
-        "isCorrosive": False
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
         },
                 "uses": ["Energy source for cells", "IV fluids", "Food sweetener", "Fermentation feedstock"],
         "description": "A simple sugar and a key energy source for living cells."
@@ -126,20 +150,26 @@ compounds = [
         "name": "Ammonia",
         "formula": "NH3",
         "smiles": "N",
+        "compoundType": "base",
+        "casNumber": "7664-41-7",
         "physicalProperties": {
         "molarMass": 17.03,
         "state": "gas",
         "densityGPerCm3": 0.00073,
         "meltingPointCelsius": -77.7,
-        "boilingPointCelsius": -33.3
+        "boilingPointCelsius": -33.3,
+        "pHValue": 11.6
         },
         "composition": [
         {"element": "Nitrogen", "symbol": "N", "atoms": 1},
         {"element": "Hydrogen", "symbol": "H", "atoms": 3}
         ],
         "safetyData": {
-        "signalWord": "Warning",
-        "isCorrosive": True
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": True,
+        "isToxic": True,
+        "hazardStatements": ["H221", "H314", "H331"]
         },
                 "uses": ["Fertilizer production", "Cleaning products", "Refrigerant"],
         "description": "A pungent gas widely used in fertilizers and cleaning products."
@@ -412,7 +442,7 @@ compounds = [
         ],
         "safetyData": {
         "signalWord": "Danger",
-        "isCorrosive": False
+        "isCorrosive": False,
         },
                 "uses": ["Heating fuel", "Cooking gas", "Engine fuel"],
         "description": "A colorless, flammable hydrocarbon gas commonly compressed and used as fuel for heating, cooking, and engines."
