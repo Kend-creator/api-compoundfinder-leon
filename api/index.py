@@ -701,20 +701,32 @@ def get_compounds():
 # ===========================================================
 # SEARCH COMPOUNDS (Protected)
 # ===========================================================
-@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_API_KEY)])
+# ===========================================================
+# SEARCH COMPOUNDS (Protected)
+# ===========================================================
+@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_api_key)])
 def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
+
     for compound in compounds:
         element_names = " ".join(c["element"] for c in compound["composition"])
         element_symbols = " ".join(c["symbol"] for c in compound["composition"])
         uses_text = " ".join(compound.get("uses", []))
+        hazard_text = " ".join(compound["safetyData"].get("hazardStatements", []))
+
         searchable_text = (
             f"{compound['name']} "
             f"{compound['formula']} "
+            f"{compound['smiles']} "
+            f"{compound.get('compoundType', '')} "
+            f"{compound.get('casNumber', '')} "
             f"{element_names} "
             f"{element_symbols} "
-            f"{uses_text}"
+            f"{uses_text} "
+            f"{compound['physicalProperties']['state']} "
+            f"{compound['safetyData']['signalWord']} "
+            f"{hazard_text}"
         ).lower()
 
         if q in searchable_text:
