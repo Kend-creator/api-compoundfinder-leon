@@ -32,6 +32,7 @@ function displayCompounds(compounds) {
     compounds.forEach((compound, index) => {
         const props = compound.physicalProperties;
         const state = (props.state || "").toLowerCase();
+        const safety = compound.safetyData;
 
         const card = document.createElement("div");
         card.className = "compound-card";
@@ -42,7 +43,10 @@ function displayCompounds(compounds) {
             <h3>${compound.name}</h3>
             <div class="badge-row">
                 <span class="state-badge" data-state="${state}">${props.state}</span>
-                ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord}</span>` : ""}
+                ${compound.compoundType ? `<span class="type-badge">${compound.compoundType}</span>` : ""}
+                ${safety.isCorrosive ? `<span class="badge-danger">${safety.signalWord}</span>` : ""}
+                ${safety.isFlammable ? `<span class="badge-flammable">Flammable</span>` : ""}
+                ${safety.isToxic ? `<span class="badge-toxic">Toxic</span>` : ""}
             </div>
             <p class="compound-description">${compound.description ?? ""}</p>
             <button onclick="viewCompound(${compound.id})"> View Details</button>
@@ -60,6 +64,7 @@ async function viewCompound(id) {
         const response = await fetch(`${API_URL}/compounds/${id}`);
         const compound = await response.json();
         const props = compound.physicalProperties;
+        const safety = compound.safetyData;
         const state = (props.state || "").toLowerCase();
 
         const elementsList = compound.composition
@@ -71,10 +76,14 @@ async function viewCompound(id) {
             <div class="modal-formula">${compound.formula}</div>
             <h3 id="modalTitle">${compound.name}</h3>
             <p class="modal-smiles">SMILES: ${compound.smiles}</p>
+            ${compound.casNumber ? `<p class="modal-cas">CAS: ${compound.casNumber}</p>` : ""}
 
             <div class="badge-row">
                 <span class="state-badge" data-state="${state}">${props.state}</span>
-                ${compound.safetyData.isCorrosive ? `<span class="badge-danger">${compound.safetyData.signalWord} (Corrosive)</span>` : ""}
+                ${compound.compoundType ? `<span class="type-badge">${compound.compoundType}</span>` : ""}
+                ${safety.isCorrosive ? `<span class="badge-danger">${safety.signalWord} (Corrosive)</span>` : ""}
+                ${safety.isFlammable ? `<span class="badge-flammable">Flammable</span>` : ""}
+                ${safety.isToxic ? `<span class="badge-toxic">Toxic</span>` : ""}
             </div>
 
             <p class="modal-section-title">Elements</p>
@@ -86,7 +95,15 @@ async function viewCompound(id) {
                 <div><span>Density</span>${props.densityGPerCm3} g/cm3</div>
                 <div><span>Melting point</span>${props.meltingPointCelsius ?? "N/A"} &deg;C</div>
                 <div><span>Boiling point</span>${props.boilingPointCelsius ?? "N/A"} &deg;C</div>
+                <div><span>pH value</span>${props.pHValue ?? "N/A"}</div>
             </div>
+
+            ${safety.hazardStatements && safety.hazardStatements.length ? `
+            <p class="modal-section-title">Hazard Statements</p>
+            <div class="modal-uses">
+                ${safety.hazardStatements.map(h => `<span class="hazard-tag">${h}</span>`).join("")}
+            </div>
+            ` : ""}
 
             ${compound.uses && compound.uses.length ? `
             <p class="modal-section-title">Common Uses</p>
