@@ -1,10 +1,12 @@
 const API_URL = "";
-
+const API_Key = "student-api-key-123"
 
 // GET ALL COMPOUNDS
 async function loadCompounds() {
     try {
-        const response = await fetch(`${API_URL}/compounds`);
+        const response = await fetch(`${API_URL}/api/v1/compounds`, {
+            headers: { "x-api-key": API_KEY }
+        });
         const data = await response.json();
         displayCompounds(data.compounds);
     }
