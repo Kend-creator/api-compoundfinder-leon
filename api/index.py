@@ -7,13 +7,13 @@ from typing import Optional, Literal
 # ================================
 # CONFIGURATION
 # ================================
-API_Key = "student-api-key-123"
-API_Version = "1.0.0"
+API_KEY = "student-api-key-123"
+API_VERSION = "1.0.0"
 
 app = FastAPI(
     title="Simple Compound Element API",
     description="A beginner-friendly REST API containing information about chemical compounds.",
-    version=API_Version
+    version=API_VERSION
 )
 
 app.add_middleware(
@@ -654,8 +654,8 @@ compounds = validated_compounds
 # ===========================================================
 # API KEY AUTHENTICATION
 # ===========================================================
-def verify_api_key(x_api_key: Optional[str] = Header(default=None)):
-    if x_api_key != API_Key:
+def verify_API_KEY(x_API_KEY: Optional[str] = Header(default=None)):
+    if x_API_KEY != API_KEY:
         raise HTTPException(
             status_code=401,
             detail="Invalid or missing API key."
@@ -691,7 +691,7 @@ def home():
 # ===========================================================
 # GET ALL COMPOUNDS (Protected)
 # ===========================================================
-@app.get("/api/v1/compounds", dependencies=[Depends(verify_api_key)])
+@app.get("/api/v1/compounds", dependencies=[Depends(verify_API_KEY)])
 def get_compounds():
     return {
         "count": len(compounds),
@@ -701,7 +701,7 @@ def get_compounds():
 # ===========================================================
 # SEARCH COMPOUNDS (Protected)
 # ===========================================================
-@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_api_key)])
+@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_API_KEY)])
 def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
@@ -729,7 +729,7 @@ def search_compounds(q: str = Query(..., min_length=1)):
 # ===========================================================
 # GET ONE COMPOUND (Protected)
 # ===========================================================
-@app.get("/api/v1/compounds/{compound_id}", dependencies=[Depends(verify_api_key)])
+@app.get("/api/v1/compounds/{compound_id}", dependencies=[Depends(verify_API_KEY)])
 def get_compound(compound_id: int):
     for compound in compounds:
         if compound["id"] == compound_id:
