@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException, Header, Query
+from fastapi import FastAPI, HTTPException, Header, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
 from pydantic import BaseModel, Field
 from typing import Optional, Literal
 
@@ -661,32 +662,46 @@ def verify_api_key(x_api_key: Optional[str] = Header(default=None)):
         )
     return True
 
-# HOME
+# ===========================================================
+# HEALTH CHECK (Public)
+# ===========================================================
+@app.get("/health")
+def health_check():
+    return {
+        "status": "ok",
+        "service": "Simple Compound Element API",
+        "version": API_VERSION,
+        "timestamp": datetime.utcnow().isoformat() + "Z"
+    }
+
+# ===========================================================
+# HOME (Public)
+# ===========================================================
 @app.get("/")
 def home():
-
     return {
         "message": "Welcome to the Simple Compound Element API!",
         "endpoints": [
-            "/compounds",
-            "/compounds/{id}",
-            "/compounds/search"
+            "/api/v1/compounds",
+            "/api/v1/compounds/{id}",
+            "/api/v1/compounds/search"
         ]
     }
 
-
-# GET ALL COMPOUNDS
-@app.get("/compounds")
+# ===========================================================
+# GET ALL COMPOUNDS (Protected)
+# ===========================================================
+@app.get("/api/v1/compounds", dependencies=[Depends(verify_api_key)])
 def get_compounds():
-
     return {
         "count": len(compounds),
         "compounds": compounds
     }
 
-
-# SEARCH COMPOUNDS
-@app.get("/compounds/search")
+# ===========================================================
+# SEARCH COMPOUNDS (Protected)
+# ===========================================================
+@app.get("/api/v1/compounds/search", dependencies=[Depends(verify_api_key)])
 def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
@@ -711,16 +726,13 @@ def search_compounds(q: str = Query(..., min_length=1)):
         "results": results
     }
 
-# GET ONE COMPOUND
-@app.get("/compounds/{compound_id}")
+# ===========================================================
+# GET ONE COMPOUND (Protected)
+# ===========================================================
+@app.get("/api/v1/compounds/{compound_id}", dependencies=[Depends(verify_api_key)])
 def get_compound(compound_id: int):
-
     for compound in compounds:
-
         if compound["id"] == compound_id:
             return compound
 
-    raise HTTPException(
-        status_code=404,
-        detail="Compound not found."
-    )
+    raise HTTPException(status_code=404, detail="Compound not found.")
