@@ -1,5 +1,5 @@
 const API_URL = "";
-const API_Key = "student-api-key-123"
+const API_Key = "student-api-key-123";
 
 // GET ALL COMPOUNDS
 async function loadCompounds() {
