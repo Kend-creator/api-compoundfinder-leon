@@ -1,11 +1,11 @@
 const API_URL = "";
-const API_Key = "student-api-key-123";
+const API_KEY = "student-api-key-123";
 
 // GET ALL COMPOUNDS
 async function loadCompounds() {
     try {
         const response = await fetch(`${API_URL}/api/v1/compounds`, {
-            headers: { "x-api-key": API_Key }
+            headers: { "x-api-key": API_KEY }
         });
         const data = await response.json();
         displayCompounds(data.compounds);
@@ -63,7 +63,9 @@ function displayCompounds(compounds) {
 async function viewCompound(id) {
 
     try {
-        const response = await fetch(`${API_URL}/compounds/${id}`);
+        const response = await fetch(`${API_URL}/api/v1/compounds/${id}`, {
+            headers: { "x-api-key": API_KEY }
+        });
         const compound = await response.json();
         const props = compound.physicalProperties;
         const safety = compound.safetyData;
@@ -163,8 +165,9 @@ async function searchCompounds() {
         return;
     }
     try {
-        const response =
-            await fetch(`${API_URL}/compounds/search?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`${API_URL}/api/v1/compounds/search?q=${encodeURIComponent(query)}`, {
+            headers: { "x-api-key": API_KEY }
+        });
         const data = await response.json();
         displayCompounds(data.results);
     }
