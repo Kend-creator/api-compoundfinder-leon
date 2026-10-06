@@ -613,6 +613,366 @@ compounds = [
         },
                 "uses": ["Sweetener", "Food preservative", "Fermentation feedstock"],
         "description": "A naturally occurring disaccharide composed of glucose and fructose, commonly extracted and refined as table sugar."
+    },
+
+    {
+        "id": 21,
+        "name": "Potassium Iodide",
+        "formula": "KI",
+        "smiles": "[K+].[I-]",
+        "compoundType": "salt",
+        "casNumber": "7681-11-0",
+        "physicalProperties": {
+        "molarMass": 166.0,
+        "state": "solid",
+        "densityGPerCm3": 3.123,
+        "meltingPointCelsius": 681.0,
+        "boilingPointCelsius": 1330.0,
+        "pHValue": 7.0
+        },
+        "composition": [
+        { "element": "Potassium", "symbol": "K", "atoms": 1 },
+        { "element": "Iodine", "symbol": "I", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H372"]
+        },
+        "uses": ["Iodized salt", "Thyroid protection during radiation emergencies", "Photography", "Expectorant"],
+        "description": "A white crystalline salt that is the most common source of iodine in nutrition and medicine."
+    },
+
+    {
+        "id": 22,
+        "name": "Magnesium Fluoride",
+        "formula": "MgF2",
+        "smiles": "[Mg+2].[F-].[F-]",
+        "compoundType": "salt",
+        "casNumber": "7783-40-6",
+        "physicalProperties": {
+        "molarMass": 62.30,
+        "state": "solid",
+        "densityGPerCm3": 3.148,
+        "meltingPointCelsius": 1263.0,
+        "boilingPointCelsius": 2260.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Magnesium", "symbol": "Mg", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H315", "H319", "H335"]
+        },
+        "uses": ["Anti-reflective lens coatings", "Optical windows", "Ceramics", "Aluminum metallurgy"],
+        "description": "A transparent, poorly soluble ionic solid valued for its optical clarity from ultraviolet to infrared wavelengths."
+    },
+
+    {
+        "id": 23,
+        "name": "Aluminium Phosphide",
+        "formula": "AlP",
+        "smiles": "[Al]#P",
+        "compoundType": "other",
+        "casNumber": "20859-73-8",
+        "physicalProperties": {
+        "molarMass": 57.96,
+        "state": "solid",
+        "densityGPerCm3": 2.85,
+        "meltingPointCelsius": 2550.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Aluminium", "symbol": "Al", "atoms": 1 },
+        { "element": "Phosphorus", "symbol": "P", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": True,
+        "isToxic": True,
+        "hazardStatements": ["H260", "H300", "H330", "H400"]
+        },
+        "uses": ["Grain fumigant", "Rodenticide", "Semiconductor research"],
+        "description": "A dark crystalline compound that releases highly toxic phosphine gas on contact with moisture, used as a pest fumigant."
+    },
+
+    {
+        "id": 24,
+        "name": "Lithium Bromide",
+        "formula": "LiBr",
+        "smiles": "[Li+].[Br-]",
+        "compoundType": "salt",
+        "casNumber": "7550-35-8",
+        "physicalProperties": {
+        "molarMass": 86.85,
+        "state": "solid",
+        "densityGPerCm3": 3.464,
+        "meltingPointCelsius": 552.0,
+        "boilingPointCelsius": 1310.0,
+        "pHValue": 7.0
+        },
+        "composition": [
+        { "element": "Lithium", "symbol": "Li", "atoms": 1 },
+        { "element": "Bromine", "symbol": "Br", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H315", "H319", "H335"]
+        },
+        "uses": ["Absorption chillers (air conditioning)", "Desiccant", "Organic synthesis"],
+        "description": "A highly hygroscopic salt used as a desiccant and as the working fluid in industrial absorption refrigeration systems."
+    },
+
+    {
+        "id": 25,
+        "name": "Gallium Arsenide",
+        "formula": "GaAs",
+        "smiles": "[Ga]#[As]",
+        "compoundType": "other",
+        "casNumber": "1303-00-0",
+        "physicalProperties": {
+        "molarMass": 144.64,
+        "state": "solid",
+        "densityGPerCm3": 5.316,
+        "meltingPointCelsius": 1238.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Gallium", "symbol": "Ga", "atoms": 1 },
+        { "element": "Arsenic", "symbol": "As", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H350", "H360F", "H372"]
+        },
+        "uses": ["Solar cells", "LEDs and laser diodes", "Microwave integrated circuits"],
+        "description": "A III-V semiconductor with high electron mobility, used in high-frequency electronics and optoelectronic devices."
+    },
+
+    {
+        "id": 26,
+        "name": "Cadmium Telluride",
+        "formula": "CdTe",
+        "smiles": "[Cd]=[Te]",
+        "compoundType": "other",
+        "casNumber": "1306-25-8",
+        "physicalProperties": {
+        "molarMass": 240.01,
+        "state": "solid",
+        "densityGPerCm3": 5.85,
+        "meltingPointCelsius": 1041.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Cadmium", "symbol": "Cd", "atoms": 1 },
+        { "element": "Tellurium", "symbol": "Te", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H341", "H350", "H361fd", "H372", "H410"]
+        },
+        "uses": ["Thin-film solar panels", "Infrared optics", "Radiation detectors"],
+        "description": "A crystalline semiconductor widely used as the light-absorbing layer in thin-film photovoltaic modules."
+    },
+
+    {
+        "id": 27,
+        "name": "Silicon Tetrafluoride",
+        "formula": "SiF4",
+        "smiles": "F[Si](F)(F)F",
+        "compoundType": "other",
+        "casNumber": "7783-61-1",
+        "physicalProperties": {
+        "molarMass": 104.08,
+        "state": "gas",
+        "densityGPerCm3": 0.00469,
+        "meltingPointCelsius": -90.2,
+        "boilingPointCelsius": -86.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Silicon", "symbol": "Si", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 4 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H280", "H314", "H331"]
+        },
+        "uses": ["Semiconductor manufacturing", "Fluorosilicic acid production", "Plasma etching"],
+        "description": "A colorless, pungent gas that fumes in moist air and is used in electronics manufacturing and fluoride chemistry."
+    },
+
+    {
+        "id": 28,
+        "name": "Xenon Difluoride",
+        "formula": "XeF2",
+        "smiles": "F[Xe]F",
+        "compoundType": "other",
+        "casNumber": "13709-36-9",
+        "physicalProperties": {
+        "molarMass": 169.29,
+        "state": "solid",
+        "densityGPerCm3": 4.32,
+        "meltingPointCelsius": 129.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Xenon", "symbol": "Xe", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H272", "H314", "H330"]
+        },
+        "uses": ["Silicon etching in MEMS fabrication", "Fluorinating agent", "Semiconductor processing"],
+        "description": "A rare, stable compound of a noble gas, forming white crystals that act as a strong fluorinating and oxidizing agent."
+    },
+
+    {
+        "id": 29,
+        "name": "Iron(III) Bromide",
+        "formula": "FeBr3",
+        "smiles": "Br[Fe](Br)Br",
+        "compoundType": "salt",
+        "casNumber": "10031-26-2",
+        "physicalProperties": {
+        "molarMass": 295.56,
+        "state": "solid",
+        "densityGPerCm3": 4.5,
+        "meltingPointCelsius": 200.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Iron", "symbol": "Fe", "atoms": 1 },
+        { "element": "Bromine", "symbol": "Br", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H314"]
+        },
+        "uses": ["Lewis acid catalyst", "Aromatic bromination", "Organic synthesis"],
+        "description": "A dark red-brown, moisture-sensitive solid used as a Lewis acid catalyst for brominating aromatic compounds."
+    },
+
+    {
+        "id": 30,
+        "name": "Lead(II) Iodide",
+        "formula": "PbI2",
+        "smiles": "I[Pb]I",
+        "compoundType": "salt",
+        "casNumber": "10101-63-0",
+        "physicalProperties": {
+        "molarMass": 461.01,
+        "state": "solid",
+        "densityGPerCm3": 6.16,
+        "meltingPointCelsius": 402.0,
+        "boilingPointCelsius": 954.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Lead", "symbol": "Pb", "atoms": 1 },
+        { "element": "Iodine", "symbol": "I", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H332", "H360", "H373", "H410"]
+        },
+        "uses": ["Perovskite solar cells", "X-ray and gamma-ray detectors", "Thermoelectric materials", "Photography"],
+        "description": "A bright yellow, poorly soluble solid known for forming 'golden rain' crystals and used as a precursor for perovskite solar cells."
+    },
+
+    {
+        "id": 31,
+        "name": "Mercury(II) Iodide",
+        "formula": "HgI2",
+        "smiles": "I[Hg]I",
+        "compoundType": "salt",
+        "casNumber": "7774-29-0",
+        "physicalProperties": {
+        "molarMass": 454.4,
+        "state": "solid",
+        "densityGPerCm3": 6.36,
+        "meltingPointCelsius": 259.0,
+        "boilingPointCelsius": 350.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Mercury", "symbol": "Hg", "atoms": 1 },
+        { "element": "Iodine", "symbol": "I", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H300", "H310", "H330", "H373", "H410"]
+        },
+        "uses": ["Radiation detectors", "Nessler's reagent", "Thermochromic materials"],
+        "description": "A highly toxic red solid that changes color to yellow when heated, used in specialized detectors and analytical reagents."
+    },
+
+    {
+        "id": 32,
+        "name": "Silver Bromide",
+        "formula": "AgBr",
+        "smiles": "[Ag+].[Br-]",
+        "compoundType": "salt",
+        "casNumber": "7785-23-1",
+        "physicalProperties": {
+        "molarMass": 187.77,
+        "state": "solid",
+        "densityGPerCm3": 6.473,
+        "meltingPointCelsius": 432.0,
+        "boilingPointCelsius": 1502.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Silver", "symbol": "Ag", "atoms": 1 },
+        { "element": "Bromine", "symbol": "Br", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H410"]
+        },
+        "uses": ["Photographic film and paper", "Photochromic lenses", "Silver halide emulsions"],
+        "description": "A pale yellow, light-sensitive salt that darkens on exposure to light, forming the basis of traditional photography."
     }
 
 ]
