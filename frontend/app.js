@@ -1,4 +1,4 @@
-const API_URL = "";
+const API_URL = "https://api-compoundfinder-leon.vercel.app";
 const API_KEY = "student-api-key-123";
 
 const FETCH_OPTIONS = {
