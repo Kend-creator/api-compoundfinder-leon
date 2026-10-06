@@ -365,7 +365,7 @@ compounds = [
         },
         "uses": ["Ceramic armor", "Cutting tools", "Aluminum smelting electrodes", "Wear-resistant coatings"],
         "description": "An extremely hard, electrically conductive ceramic with a very high melting point and strong resistance to wear and corrosion."
-    }
+    },
 
     {
         "id": 11,
