@@ -338,6 +338,36 @@ compounds = [
     },
 
     {
+        "id": 10,
+        "name": "Titanium Diboride",
+        "formula": "TiB2",
+        "smiles": "B#[Ti]#B",
+        "compoundType": "other",
+        "casNumber": "12045-63-5",
+        "physicalProperties": {
+        "molarMass": 69.49,
+        "state": "solid",
+        "densityGPerCm3": 4.52,
+        "meltingPointCelsius": 3225.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Titanium", "symbol": "Ti", "atoms": 1 },
+        { "element": "Boron", "symbol": "B", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H315", "H319", "H335"]
+        },
+        "uses": ["Ceramic armor", "Cutting tools", "Aluminum smelting electrodes", "Wear-resistant coatings"],
+        "description": "An extremely hard, electrically conductive ceramic with a very high melting point and strong resistance to wear and corrosion."
+    }
+
+    {
         "id": 11,
         "name": "Acetone",
         "formula": "C3H6O",
@@ -613,6 +643,36 @@ compounds = [
         },
                 "uses": ["Sweetener", "Food preservative", "Fermentation feedstock"],
         "description": "A naturally occurring disaccharide composed of glucose and fructose, commonly extracted and refined as table sugar."
+    },
+
+    {
+        "id": 20,
+        "name": "Zinc Selenide",
+        "formula": "ZnSe",
+        "smiles": "[Zn]=[Se]",
+        "compoundType": "other",
+        "casNumber": "1315-09-9",
+        "physicalProperties": {
+        "molarMass": 144.38,
+        "state": "solid",
+        "densityGPerCm3": 5.27,
+        "meltingPointCelsius": 1525.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Zinc", "symbol": "Zn", "atoms": 1 },
+        { "element": "Selenium", "symbol": "Se", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H301", "H331", "H373", "H410"]
+        },
+        "uses": ["Infrared optics", "CO2 laser lenses and windows", "Thermal imaging", "Blue-green LEDs"],
+        "description": "A pale yellow semiconductor that transmits infrared light extremely well, making it a standard material for high-power laser optics."
     },
 
     {
