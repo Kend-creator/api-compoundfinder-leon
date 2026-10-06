@@ -1033,6 +1033,547 @@ compounds = [
         },
         "uses": ["Photographic film and paper", "Photochromic lenses", "Silver halide emulsions"],
         "description": "A pale yellow, light-sensitive salt that darkens on exposure to light, forming the basis of traditional photography."
+    },
+
+    {
+        "id": 33,
+        "name": "Lanthanum Hexaboride",
+        "formula": "LaB6",
+        "smiles": "[B].[B].[B].[B].[B].[B].[La]",
+        "compoundType": "other",
+        "casNumber": "12008-21-8",
+        "physicalProperties": {
+        "molarMass": 203.77,
+        "state": "solid",
+        "densityGPerCm3": 4.72,
+        "meltingPointCelsius": 2210.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Lanthanum", "symbol": "La", "atoms": 1 },
+        { "element": "Boron", "symbol": "B", "atoms": 6 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H315", "H319", "H335"]
+        },
+        "uses": ["Electron microscope cathodes", "Electron beam sources", "Hall-effect thrusters", "X-ray tubes"],
+        "description": "A refractory ceramic with a very low work function, prized as a long-lasting electron emitter in scientific instruments."
+    },
+
+    {
+        "id": 34,
+        "name": "Bismuth(III) Iodide",
+        "formula": "BiI3",
+        "smiles": "I[Bi](I)I",
+        "compoundType": "salt",
+        "casNumber": "7787-64-6",
+        "physicalProperties": {
+        "molarMass": 589.69,
+        "state": "solid",
+        "densityGPerCm3": 5.78,
+        "meltingPointCelsius": 408.6,
+        "boilingPointCelsius": 542.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Bismuth", "symbol": "Bi", "atoms": 1 },
+        { "element": "Iodine", "symbol": "I", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H315", "H319", "H335"]
+        },
+        "uses": ["Dragendorff's reagent (alkaloid detection)", "Radiation detectors", "Lead-free perovskite solar cell research"],
+        "description": "A dark gray to brown crystalline solid that is a relatively low-toxicity heavy-metal halide, used in analytical chemistry and emerging photovoltaic research."
+    },
+
+    {
+        "id": 35,
+        "name": "Indium Antimonide",
+        "formula": "InSb",
+        "smiles": "[In]#[Sb]",
+        "compoundType": "other",
+        "casNumber": "1312-41-0",
+        "physicalProperties": {
+        "molarMass": 236.58,
+        "state": "solid",
+        "densityGPerCm3": 5.775,
+        "meltingPointCelsius": 525.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Indium", "symbol": "In", "atoms": 1 },
+        { "element": "Antimony", "symbol": "Sb", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H332", "H411"]
+        },
+        "uses": ["Infrared detectors", "Thermal imaging cameras", "Magnetic field sensors", "High-speed transistors"],
+        "description": "A narrow-gap semiconductor with very high electron mobility, widely used in infrared sensing and imaging."
+    },
+
+    {
+        "id": 36,
+        "name": "Tin(II) Fluoride",
+        "formula": "SnF2",
+        "smiles": "F[Sn]F",
+        "compoundType": "salt",
+        "casNumber": "7783-47-3",
+        "physicalProperties": {
+        "molarMass": 156.71,
+        "state": "solid",
+        "densityGPerCm3": 4.57,
+        "meltingPointCelsius": 213.0,
+        "boilingPointCelsius": 850.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Tin", "symbol": "Sn", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H314", "H332"]
+        },
+        "uses": ["Fluoride toothpaste", "Dental cavity prevention", "Tin plating", "Ceramic glazes"],
+        "description": "A white crystalline salt, also called stannous fluoride, best known as an active ingredient in toothpaste."
+    },
+
+    {
+        "id": 37,
+        "name": "Copper(I) Iodide",
+        "formula": "CuI",
+        "smiles": "[Cu]I",
+        "compoundType": "salt",
+        "casNumber": "7681-65-4",
+        "physicalProperties": {
+        "molarMass": 190.45,
+        "state": "solid",
+        "densityGPerCm3": 5.67,
+        "meltingPointCelsius": 606.0,
+        "boilingPointCelsius": 1290.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Copper", "symbol": "Cu", "atoms": 1 },
+        { "element": "Iodine", "symbol": "I", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H302", "H315", "H319", "H410"]
+        },
+        "uses": ["Cloud seeding", "Cross-coupling catalyst in organic synthesis", "Thermochromic materials"],
+        "description": "A white to tan, poorly soluble solid used as a catalyst in organic synthesis and in atmospheric cloud seeding."
+    },
+
+    {
+        "id": 38,
+        "name": "Tungsten Hexafluoride",
+        "formula": "WF6",
+        "smiles": "F[W](F)(F)(F)(F)F",
+        "compoundType": "other",
+        "casNumber": "7783-82-6",
+        "physicalProperties": {
+        "molarMass": 297.83,
+        "state": "gas",
+        "densityGPerCm3": 0.0124,
+        "meltingPointCelsius": 2.3,
+        "boilingPointCelsius": 17.1,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Tungsten", "symbol": "W", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 6 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H280", "H314", "H330"]
+        },
+        "uses": ["Chemical vapor deposition of tungsten", "Semiconductor interconnects", "Microchip manufacturing"],
+        "description": "One of the densest known gases, used to deposit thin tungsten metal layers in microelectronics."
+    },
+
+    {
+        "id": 39,
+        "name": "Cobalt(II) Bromide",
+        "formula": "CoBr2",
+        "smiles": "Br[Co]Br",
+        "compoundType": "salt",
+        "casNumber": "7789-43-7",
+        "physicalProperties": {
+        "molarMass": 218.74,
+        "state": "solid",
+        "densityGPerCm3": 4.909,
+        "meltingPointCelsius": 678.0,
+        "boilingPointCelsius": 927.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Cobalt", "symbol": "Co", "atoms": 1 },
+        { "element": "Bromine", "symbol": "Br", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H317", "H334", "H350", "H360F", "H410"]
+        },
+        "uses": ["Humidity indicators", "Invisible ink", "Catalyst in organic synthesis"],
+        "description": "A green crystalline solid that turns pink when hydrated, which makes it useful as a moisture indicator."
+    },
+
+    {
+        "id": 40,
+        "name": "Barium Fluoride",
+        "formula": "BaF2",
+        "smiles": "[Ba+2].[F-].[F-]",
+        "compoundType": "salt",
+        "casNumber": "7787-32-8",
+        "physicalProperties": {
+        "molarMass": 175.32,
+        "state": "solid",
+        "densityGPerCm3": 4.89,
+        "meltingPointCelsius": 1368.0,
+        "boilingPointCelsius": 2260.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Barium", "symbol": "Ba", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H301", "H332"]
+        },
+        "uses": ["Infrared optical windows", "Scintillation radiation detectors", "Enamels and glazes"],
+        "description": "A colorless crystalline solid that transmits light from ultraviolet to infrared, used in optics and radiation detection."
+    },
+
+    {
+        "id": 41,
+        "name": "Zirconium Tetrafluoride",
+        "formula": "ZrF4",
+        "smiles": "F[Zr](F)(F)F",
+        "compoundType": "salt",
+        "casNumber": "7783-64-4",
+        "physicalProperties": {
+        "molarMass": 167.22,
+        "state": "solid",
+        "densityGPerCm3": 4.43,
+        "meltingPointCelsius": 932.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Zirconium", "symbol": "Zr", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 4 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H314", "H332"]
+        },
+        "uses": ["Fluoride glass optical fibers (ZBLAN)", "Nuclear fuel processing", "Zirconium metal production"],
+        "description": "A white, sublimating solid that is a key ingredient in fluoride glasses used for infrared fiber optics."
+    },
+
+    {
+        "id": 42,
+        "name": "Cesium Fluoride",
+        "formula": "CsF",
+        "smiles": "[Cs+].[F-]",
+        "compoundType": "salt",
+        "casNumber": "13400-13-0",
+        "physicalProperties": {
+        "molarMass": 151.9,
+        "state": "solid",
+        "densityGPerCm3": 4.64,
+        "meltingPointCelsius": 703.0,
+        "boilingPointCelsius": 1251.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Cesium", "symbol": "Cs", "atoms": 1 },
+        { "element": "Fluorine", "symbol": "F", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H301", "H311", "H331"]
+        },
+        "uses": ["Fluorinating reagent in organic synthesis", "Specialty glass", "Brazing flux"],
+        "description": "A highly hygroscopic white salt and a common, strongly basic fluoride source for organic chemistry."
+    },
+
+    {
+        "id": 43,
+        "name": "Rubidium Chloride",
+        "formula": "RbCl",
+        "smiles": "[Rb+].[Cl-]",
+        "compoundType": "salt",
+        "casNumber": "7791-11-9",
+        "physicalProperties": {
+        "molarMass": 120.92,
+        "state": "solid",
+        "densityGPerCm3": 2.80,
+        "meltingPointCelsius": 718.0,
+        "boilingPointCelsius": 1390.0,
+        "pHValue": 7.0
+        },
+        "composition": [
+        { "element": "Rubidium", "symbol": "Rb", "atoms": 1 },
+        { "element": "Chlorine", "symbol": "Cl", "atoms": 1 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H302"]
+        },
+        "uses": ["Biochemical research (density gradient centrifugation)", "Electrophysiology", "Atomic clock research"],
+        "description": "A white, water-soluble alkali metal halide used mainly in biochemical and physiological research."
+    },
+
+    {
+        "id": 44,
+        "name": "Strontium Titanate",
+        "formula": "SrTiO3",
+        "smiles": "[O-2].[O-2].[O-2].[Ti+4].[Sr+2]",
+        "compoundType": "other",
+        "casNumber": "12060-59-2",
+        "physicalProperties": {
+        "molarMass": 183.49,
+        "state": "solid",
+        "densityGPerCm3": 5.12,
+        "meltingPointCelsius": 2080.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Strontium", "symbol": "Sr", "atoms": 1 },
+        { "element": "Titanium", "symbol": "Ti", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
+        },
+        "uses": ["Capacitors", "Varistors", "Substrate for thin-film superconductors", "Optical lenses"],
+        "description": "A perovskite oxide with a very high dielectric constant, widely used in electronic components and as a crystal growth substrate."
+    },
+
+    {
+        "id": 45,
+        "name": "Germanium Tetrachloride",
+        "formula": "GeCl4",
+        "smiles": "Cl[Ge](Cl)(Cl)Cl",
+        "compoundType": "other",
+        "casNumber": "10038-98-9",
+        "physicalProperties": {
+        "molarMass": 214.4,
+        "state": "liquid",
+        "densityGPerCm3": 1.844,
+        "meltingPointCelsius": -49.5,
+        "boilingPointCelsius": 86.5,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Germanium", "symbol": "Ge", "atoms": 1 },
+        { "element": "Chlorine", "symbol": "Cl", "atoms": 4 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H314", "H331"]
+        },
+        "uses": ["Fiber-optic cable manufacturing", "Germanium metal production", "Polymerization catalyst"],
+        "description": "A colorless, fuming liquid that hydrolyzes in moist air and is a key precursor for the cores of optical fibers."
+    },
+
+    {
+        "id": 46,
+        "name": "Nickel(II) Chloride",
+        "formula": "NiCl2",
+        "smiles": "Cl[Ni]Cl",
+        "compoundType": "salt",
+        "casNumber": "7718-54-9",
+        "physicalProperties": {
+        "molarMass": 129.6,
+        "state": "solid",
+        "densityGPerCm3": 3.55,
+        "meltingPointCelsius": 1001.0,
+        "boilingPointCelsius": None,
+        "pHValue": 4.0
+        },
+        "composition": [
+        { "element": "Nickel", "symbol": "Ni", "atoms": 1 },
+        { "element": "Chlorine", "symbol": "Cl", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H301", "H331", "H350", "H360D", "H372", "H410"]
+        },
+        "uses": ["Nickel electroplating", "Catalyst in organic synthesis", "Ammonia absorption", "Ceramic pigments"],
+        "description": "A yellow anhydrous solid that forms green hydrated crystals, widely used in electroplating and as a source of nickel."
+    },
+
+    {
+        "id": 47,
+        "name": "Chromium(III) Oxide",
+        "formula": "Cr2O3",
+        "smiles": "O=[Cr]O[Cr]=O",
+        "compoundType": "other",
+        "casNumber": "1308-38-9",
+        "physicalProperties": {
+        "molarMass": 151.99,
+        "state": "solid",
+        "densityGPerCm3": 5.22,
+        "meltingPointCelsius": 2435.0,
+        "boilingPointCelsius": 4000.0,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Chromium", "symbol": "Cr", "atoms": 2 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
+        },
+        "uses": ["Green pigment", "Refractory bricks", "Metal polishing compounds", "Ceramic glazes"],
+        "description": "A very stable, dark green oxide used as a pigment and as a hard, heat-resistant industrial material."
+    },
+
+    {
+        "id": 48,
+        "name": "Manganese Dioxide",
+        "formula": "MnO2",
+        "smiles": "O=[Mn]=O",
+        "compoundType": "other",
+        "casNumber": "1313-13-9",
+        "physicalProperties": {
+        "molarMass": 86.94,
+        "state": "solid",
+        "densityGPerCm3": 5.026,
+        "meltingPointCelsius": 535.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Manganese", "symbol": "Mn", "atoms": 1 },
+        { "element": "Oxygen", "symbol": "O", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "Warning",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": True,
+        "hazardStatements": ["H302", "H332"]
+        },
+        "uses": ["Dry-cell and alkaline batteries", "Glass decolorizing", "Oxidizing catalyst", "Pigments"],
+        "description": "A dark brown-black solid and the main cathode material in common batteries, also used as an oxidizing agent and catalyst."
+    },
+
+    {
+        "id": 49,
+        "name": "Molybdenum Disulfide",
+        "formula": "MoS2",
+        "smiles": "S=[Mo]=S",
+        "compoundType": "other",
+        "casNumber": "1317-33-5",
+        "physicalProperties": {
+        "molarMass": 160.07,
+        "state": "solid",
+        "densityGPerCm3": 5.06,
+        "meltingPointCelsius": 2375.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Molybdenum", "symbol": "Mo", "atoms": 1 },
+        { "element": "Sulfur", "symbol": "S", "atoms": 2 }
+        ],
+        "safetyData": {
+        "signalWord": "None",
+        "isCorrosive": False,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": []
+        },
+        "uses": ["Solid lubricant", "Hydrodesulfurization catalyst", "Transistors and electronics research"],
+        "description": "A silvery-black layered material that works as a dry lubricant and is studied as a two-dimensional semiconductor."
+    },
+
+    {
+        "id": 50,
+        "name": "Gold(III) Chloride",
+        "formula": "AuCl3",
+        "smiles": "Cl[Au](Cl)Cl",
+        "compoundType": "salt",
+        "casNumber": "13453-07-1",
+        "physicalProperties": {
+        "molarMass": 303.33,
+        "state": "solid",
+        "densityGPerCm3": 3.9,
+        "meltingPointCelsius": 254.0,
+        "boilingPointCelsius": None,
+        "pHValue": None
+        },
+        "composition": [
+        { "element": "Gold", "symbol": "Au", "atoms": 1 },
+        { "element": "Chlorine", "symbol": "Cl", "atoms": 3 }
+        ],
+        "safetyData": {
+        "signalWord": "Danger",
+        "isCorrosive": True,
+        "isFlammable": False,
+        "isToxic": False,
+        "hazardStatements": ["H302", "H314"]
+        },
+        "uses": ["Gold plating", "Gold nanoparticle synthesis", "Catalyst in organic synthesis", "Photography toning"],
+        "description": "A red crystalline solid that is a common starting material for gold chemistry and nanoparticle production."
     }
 
 ]
