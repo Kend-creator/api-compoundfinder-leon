@@ -1,5 +1,7 @@
+import os
+
 const API_URL = "https://api-compoundfinder-leon.vercel.app";
-const API_KEY = "student-api-key-123";
+API_KEY = os.environ.get("API_KEY")
 
 const FETCH_OPTIONS = {
     headers: { "x-api-key": API_KEY }
