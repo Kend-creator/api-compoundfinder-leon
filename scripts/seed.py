@@ -1,4 +1,3 @@
-# seed.py
 import os
 from supabase import create_client
 from seed_data import compounds
