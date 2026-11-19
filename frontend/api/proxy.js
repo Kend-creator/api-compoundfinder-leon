@@ -21,7 +21,10 @@ export default async function handler(req, res) {
     try {
         const upstream = await fetch(
             `${process.env.API_URL}/api/v1${path}${query}`,
-            { headers: { "x-api-key": process.env.API_KEY } }
+            {
+                headers: { "x-api-key": process.env.API_KEY },
+                signal: AbortSignal.timeout(8000),
+            }
         );
         const data = await upstream.json();
         res.status(upstream.status).json(data);
