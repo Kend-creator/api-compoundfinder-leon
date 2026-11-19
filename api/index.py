@@ -201,8 +201,14 @@ def search_compounds(q: str = Query(..., min_length=1)):
 # ===========================================================
 @app.get("/api/v1/compounds/{compound_id}", dependencies=[Depends(verify_API_KEY)])
 def get_compound(compound_id: int):
-    for compound in compounds:
-        if compound["id"] == compound_id:
-            return compound
+    result = (
+        supabase.table("compounds")
+        .select(COMPOUND_SELECT)
+        .eq("id", compound_id)
+        .execute()
+    )
 
-    raise HTTPException(status_code=404, detail="Compound not found.")
+    if not result.data:
+        raise HTTPException(status_code=404, detail="Compound not found.")
+
+    return to_api(result.data[0])
