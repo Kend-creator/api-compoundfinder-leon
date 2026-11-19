@@ -27,8 +27,12 @@ export default async function handler(req, res) {
             }
         );
         const data = await upstream.json();
-        res.status(upstream.status).json(data);
-    } catch (error) {
-        res.status(502).json({ error: "Could not reach the API" });
+
+                if (upstream.ok) {
+            res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
+        }
+        return res.status(upstream.status).json(data);
+    } catch {
+        return res.status(502).json({ error: "Could not reach the API" });
     }
 }
