@@ -12,7 +12,11 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Invalid path" });
     }
 
-    const query = req.query.q ? `?q=${encodeURIComponent(req.query.q)}` : "";
+    const isSearch = path === "/compounds/search";
+    if (isSearch && (typeof q !== "string" || !q.trim())) {
+        return res.status(400).json({ error: "Missing search query" });
+    }
+    const query = isSearch ? `?q=${encodeURIComponent(q)}` : "";
 
     try {
         const upstream = await fetch(
