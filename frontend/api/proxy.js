@@ -1,4 +1,10 @@
 export default async function handler(req, res) {
+    // Only allow GET requests
+    if (req.method !== "GET") {
+        res.setHeader("Allow", "GET");
+        return res.status(405).json({ error: "Method not allowed" });
+    }
+
     const path = req.query.path || "";
 
     // Only allow the three read routes this site needs
