@@ -10,7 +10,7 @@ from typing import Optional, Literal
 # ================================
 # CONFIGURATION
 # ================================
-API_KEY = "student-api-key-123"
+API_KEY = os.environ["API_KEY"]
 API_VERSION = "1.0.0"
 
 supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
