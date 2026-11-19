@@ -168,7 +168,7 @@ def search_compounds(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
 
-    for compound in compounds:
+    for compound in fetch_all():
         element_names = " ".join(c["element"] for c in compound["composition"])
         element_symbols = " ".join(c["symbol"] for c in compound["composition"])
         uses_text = " ".join(compound.get("uses", []))
