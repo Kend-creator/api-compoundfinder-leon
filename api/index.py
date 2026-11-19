@@ -67,6 +67,52 @@ class Compound(BaseModel):
     description: str = Field(min_length=1)
 
 # ===========================================================
+# DATABASE HELPERS (Supabase)
+# ===========================================================
+# Joins each compound with its rows from compound_composition
+COMPOUND_SELECT = "*, compound_composition(element, symbol, atoms)"
+
+def to_api(row):
+    """Convert a database row (snake_case, flat) into the API's response shape,
+    validating it against the Compound model on the way out."""
+    compound = {
+        "id": row["id"],
+        "name": row["name"],
+        "formula": row["formula"],
+        "smiles": row["smiles"],
+        "compoundType": row["compound_type"],
+        "casNumber": row["cas_number"],
+        "physicalProperties": {
+            "molarMass": row["molar_mass"],
+            "state": row["state"],
+            "densityGPerCm3": row["density"],
+            "meltingPointCelsius": row["melting_point"],
+            "boilingPointCelsius": row["boiling_point"],
+            "pHValue": row["ph_value"],
+        },
+        "composition": row["compound_composition"],
+        "safetyData": {
+            "signalWord": row["signal_word"],
+            "isCorrosive": row["is_corrosive"],
+            "isFlammable": row["is_flammable"],
+            "isToxic": row["is_toxic"],
+            "hazardStatements": row["hazard_statements"] or [],
+        },
+        "uses": row["uses"] or [],
+        "description": row["description"],
+    }
+    return Compound(**compound).model_dump()
+
+def fetch_all():
+    result = (
+        supabase.table("compounds")
+        .select(COMPOUND_SELECT)
+        .order("id")
+        .execute()
+    )
+    return [to_api(row) for row in result.data]
+
+# ===========================================================
 # API KEY AUTHENTICATION
 # ===========================================================
 def verify_API_KEY(x_API_KEY: Optional[str] = Header(default=None)):
