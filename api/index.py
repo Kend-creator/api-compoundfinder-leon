@@ -154,6 +154,7 @@ def home():
 # ===========================================================
 @app.get("/api/v1/compounds", dependencies=[Depends(verify_API_KEY)])
 def get_compounds():
+    compounds = fetch_all()
     return {
         "count": len(compounds),
         "compounds": compounds
