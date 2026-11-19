@@ -1,3 +1,6 @@
+import os
+from supabase import create_client
+
 from fastapi import FastAPI, HTTPException, Header, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
@@ -9,6 +12,8 @@ from typing import Optional, Literal
 # ================================
 API_KEY = "student-api-key-123"
 API_VERSION = "1.0.0"
+
+supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 
 app = FastAPI(
     title="Simple Compound Element API",
