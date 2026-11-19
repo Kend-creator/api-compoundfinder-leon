@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompoundGuessr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <span class="topbar-title">CompoundGuessr</span>
+        <span class="topbar-counter" id="guessesLeft">5 guesses left</span>
+    </div>
+
+    <main class="stage">
+        <div class="guess-zone">
+            <p class="tagline">Guess the mystery compound.</p>
+
+            <div class="hint-card">
+                <span class="hint-label">Hint</span>
+                <p id="hintText" class="hint-text"></p>
+            </div>
+
+            <div class="guess-input-row">
+                <input
+                    type="text"
+                    id="guessInput"
+                    list="compoundNames"
+                    placeholder="Type a compound name..."
+                    autocomplete="off"
+                >
+                <datalist id="compoundNames"></datalist>
+                <button id="submitGuessBtn">Guess</button>
+            </div>
+            <p id="guessError" class="guess-error"></p>
+
+            <div class="clue-legend">
+                <span><span class="legend-dot hit"></span> Match</span>
+                <span><span class="legend-dot close"></span> Close</span>
+                <span><span class="legend-dot miss"></span> No match</span>
+            </div>
+        </div>
+
+        <div id="guessHistory" class="guess-feed"></div>
+    </main>
+
+    <div id="roundEndPanel" class="round-end-panel" hidden>
+        <div class="round-card">
+            <div id="roundEndContent"></div>
+            <button id="playAgainBtn" class="primary">Play again</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
