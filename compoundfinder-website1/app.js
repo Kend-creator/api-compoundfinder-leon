@@ -1,14 +1,9 @@
-const API_URL = "https://api-compoundfinder-leon.vercel.app";
-const API_KEY = "student-api-key-123";
-
-const FETCH_OPTIONS = {
-    headers: { "x-api-key": API_KEY }
-};
+const PROXY_URL = "/api/proxy";
 
 // GET ALL COMPOUNDS
 async function loadCompounds() {
     try {
-        const response = await fetch(`${API_URL}/api/v1/compounds`, FETCH_OPTIONS);
+        const response = await fetch(`${PROXY_URL}?path=/compounds`);
         if (!response.ok) throw new Error("API request failed.");
         const data = await response.json();
         displayCompounds(data.compounds);
@@ -66,7 +61,7 @@ function displayCompounds(compounds) {
 async function viewCompound(id) {
 
     try {
-        const response = await fetch(`${API_URL}/api/v1/compounds/${id}`, FETCH_OPTIONS);
+        const response = await fetch(`${PROXY_URL}?path=/compounds/${id}`);
         if (!response.ok) throw new Error("API request failed.");
         const compound = await response.json();
         const props = compound.physicalProperties;
@@ -168,7 +163,7 @@ async function searchCompounds() {
     }
     try {
         const response =
-            await fetch(`${API_URL}/api/v1/compounds/search?q=${encodeURIComponent(query)}`, FETCH_OPTIONS);
+            await fetch(`${PROXY_URL}?path=/compounds/search&q=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error("API request failed.");
         const data = await response.json();
         displayCompounds(data.results);
