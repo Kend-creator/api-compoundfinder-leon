@@ -625,3 +625,22 @@ for resetting default browser layout and design
 .feature-card:hover::after {
   transform: scaleX(1);
 }
+
+/* Feature Card Top Elements Design */
+.card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #9aa6b5;
+  font:
+    500 9px "DM Mono",
+    monospace;
+  letter-spacing: 0.1em;
+}
+
+.card-tag {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
+  padding: 5px 7px;
+}
