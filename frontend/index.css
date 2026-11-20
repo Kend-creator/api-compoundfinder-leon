@@ -1006,3 +1006,46 @@ html[data-theme="dark"] .sun-icon {
 html[data-theme="dark"] .menu-button span {
   background: #e7f1ff;
 }
+
+html[data-theme="dark"] .hero {
+  background:
+    radial-gradient(circle at 78% 44%, #1768bd 0%, #104d8d 21%, transparent 49%),
+    linear-gradient(125deg, #0a1d36 0%, #0b3768 57%, #0758a1 100%);
+  border-bottom-color: #24496f;
+}
+
+html[data-theme="dark"] .hero::before {
+  background: linear-gradient(90deg, #091c35 70%, transparent);
+}
+
+html[data-theme="dark"] .hero-grid {
+  background-image:
+    linear-gradient(#4d7bad 1px, transparent 1px),
+    linear-gradient(90deg, #4d7bad 1px, transparent 1px);
+  opacity: 0.26;
+}
+
+html[data-theme="dark"] .status-pill {
+  color: #b8cde5;
+  background: rgba(11, 42, 75, 0.85);
+  border-color: #39658e;
+}
+
+html[data-theme="dark"] .hero-copy > p {
+  color: #bed2e9;
+}
+
+html[data-theme="dark"] .text-action {
+  color: #e5f0ff;
+  border-bottom-color: #55779d;
+}
+
+html[data-theme="dark"] .trust-line,
+html[data-theme="dark"] .scroll-cue,
+html[data-theme="dark"] .lab-note {
+  color: #91aac5;
+}
+
+html[data-theme="dark"] .trust-line strong {
+  color: #d7e7f8;
+}
