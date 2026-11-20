@@ -134,6 +134,7 @@ for resetting default browser layout and design
   transform: rotate(54deg);
 }
 
+/* Main Design Elements */
 .main-nav {
   display: flex;
   align-items: center;
