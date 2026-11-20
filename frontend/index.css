@@ -424,3 +424,31 @@ for resetting default browser layout and design
   stroke: #8396b2;
   stroke-width: 6;
 }
+
+/* Atom Design */
+.atom {
+  stroke: #fff;
+  stroke-width: 5;
+}
+
+.atom-blue {
+  fill: #1769e0;
+}
+
+.atom-white {
+  fill: #dcecff;
+  stroke: #8295af;
+  stroke-width: 4;
+}
+
+.atom-navy {
+  fill: #0c2144;
+}
+
+.atom-labels {
+  fill: white;
+  text-anchor: middle;
+  font:
+    600 17px "DM Mono",
+    monospace;
+}
