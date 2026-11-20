@@ -1122,3 +1122,18 @@ html[data-theme="dark"] .feature-card p {
 html[data-theme="dark"] .card-action {
   color: #d9e8f8;
 }
+
+html[data-theme="dark"] footer {
+  background: #030c18;
+  color: #7891ad;
+}
+
+html[data-theme="dark"] .toast {
+  background: #e8f2ff;
+  color: #071629;
+  box-shadow: 6px 6px 0 #1769e0;
+}
+
+html[data-theme="dark"] .toast .toast-message {
+  color: #071629;
+}
