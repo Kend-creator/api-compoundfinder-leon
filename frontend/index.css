@@ -583,3 +583,45 @@ for resetting default browser layout and design
   border-top: 1px solid #9db9dc;
   border-left: 1px solid #9db9dc;
 }
+
+/* Feature Card Design */
+.feature-card {
+  position: relative;
+  min-height: 425px;
+  padding: 22px 25px 25px;
+  background: #f4f8ff;
+  border: 0;
+  border-right: 1px solid #9db9dc;
+  border-bottom: 1px solid #9db9dc;
+  color: #0c1627;
+  text-align: left;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  background: var(--accent);
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+
+.feature-card:hover {
+  z-index: 2;
+  transform: translateY(-8px);
+  background: #e8f2ff;
+  box-shadow: 0 22px 40px #1b365817;
+}
+
+.feature-card:hover::after {
+  transform: scaleX(1);
+}
