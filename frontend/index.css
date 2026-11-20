@@ -733,3 +733,45 @@ footer {
 .footer-brand {
   color: #fff;
 }
+
+/* Toast Design */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  z-index: 100;
+  transform: translate(-50%, 30px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 13px 17px;
+  background: #0c1627;
+  color: #fff;
+  box-shadow: 6px 6px 0 #b9d3fa;
+  font-size: 12px;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.toast span {
+  color: #69a5ff;
+  font:
+    500 9px "DM Mono",
+    monospace;
+  letter-spacing: 0.13em;
+  margin-right: 12px;
+}
+
+.toast .toast-message {
+  color: #fff;
+  font:
+    500 12px "Manrope",
+    sans-serif;
+  letter-spacing: 0;
+  margin-right: 0;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
