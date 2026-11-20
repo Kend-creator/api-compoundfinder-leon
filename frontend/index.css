@@ -222,6 +222,7 @@ for resetting default browser layout and design
   display: none;
 }
 
+/* Hero Layout and Parent Elements Design */
 .hero {
   min-height: 685px;
   background:
@@ -261,6 +262,7 @@ for resetting default browser layout and design
   z-index: 2;
 }
 
+/* Status Pill Design */
 .status-pill {
   width: max-content;
   display: flex;
