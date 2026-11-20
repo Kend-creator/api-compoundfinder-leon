@@ -666,3 +666,13 @@ for resetting default browser layout and design
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* Feature Card Eyebrow Design */
+.card-eyebrow {
+  color: var(--accent);
+  font:
+    500 10px "DM Mono",
+    monospace;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
