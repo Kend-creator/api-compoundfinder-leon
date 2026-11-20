@@ -1081,3 +1081,44 @@ html[data-theme="dark"] .formula {
 html[data-theme="dark"] .orbit {
   border-color: #6e96bf;
 }
+
+html[data-theme="dark"] .experiences {
+  background: #071629;
+}
+
+html[data-theme="dark"] .section-heading > p {
+  color: #9fb4ca;
+}
+
+html[data-theme="dark"] .feature-grid {
+  border-color: #315479;
+}
+
+html[data-theme="dark"] .feature-card {
+  color: #edf5ff;
+  background: #0d223d;
+  border-color: #315479;
+}
+
+html[data-theme="dark"] .feature-card:hover {
+  background: #12305a;
+  box-shadow: 0 22px 42px #00081475;
+}
+
+html[data-theme="dark"] .card-topline {
+  color: #8099b4;
+}
+
+html[data-theme="dark"] .card-tag,
+html[data-theme="dark"] .icon-box {
+  background: color-mix(in srgb, var(--accent) 18%, #0d223d);
+  border-color: color-mix(in srgb, var(--accent) 42%, #0d223d);
+}
+
+html[data-theme="dark"] .feature-card p {
+  color: #a8bdd3;
+}
+
+html[data-theme="dark"] .card-action {
+  color: #d9e8f8;
+}
