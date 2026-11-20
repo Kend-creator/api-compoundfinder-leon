@@ -971,3 +971,38 @@ html[data-theme="dark"] .text-action span,
 html[data-theme="dark"] .section-kicker {
   color: #67a9ff;
 }
+
+html[data-theme="dark"] .main-nav a {
+  color: #b7c9df;
+}
+
+html[data-theme="dark"] .main-nav button {
+  background: #2b82ef;
+}
+
+html[data-theme="dark"] .main-nav button:hover {
+  background: #56a0ff;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  color: #ffd56a;
+  background: #102b4c;
+  border-color: #31577f;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  color: #ffe39a;
+  border-color: #67a9ff;
+}
+
+html[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+html[data-theme="dark"] .sun-icon {
+  display: block;
+}
+
+html[data-theme="dark"] .menu-button span {
+  background: #e7f1ff;
+}
