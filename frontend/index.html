@@ -17,9 +17,9 @@
 
             <nav class="main-nav" aria-label="Main navigation">
                 <a href="./finder/">Finder</a>
-                <a href="#experiences">Craft</a>
-                <a href="#experiences">Combine</a>
-                <button type="button" data-launch="Compound Guessr">Play Guessr</button>
+                <a href="./craft/">Craft</a>
+                <a href="./combine/">Combine</a>
+                <a href="./guessr/">Play Guessr</a>
             </nav>
 
             <div class="topbar-actions">
@@ -112,33 +112,31 @@
                     </div>
 
                     <div class="feature-grid">
-                        <button
-                        class="feature-card"
-                        type="button"
-                        style="--accent: #1769e0"
-                        data-launch="Compound Finder"
+                        <a
+                            class="feature-card"
+                            href="./finder/"
+                            style="--accent: #1769e0"
                         >
-                        <span class="card-topline"
-                            ><span>01</span><span class="card-tag">DATABASE</span></span
-                        >
-                        <span class="icon-box">
+                            <span class="card-topline"
+                            ><span>01</span><span class="card-tag">DATABASE</span></span>
+                            <span class="icon-box">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="10.8" cy="10.8" r="6.3"></circle>
                             <path d="m15.4 15.4 4.2 4.2M8.3 8.2h5M8.3 11h3.4"></path>
                             </svg>
-                        </span>
-                        <span class="card-eyebrow">Explore</span>
-                        <h3>Compound Finder</h3>
-                        <p>
+                            </span>
+                            <span class="card-eyebrow">Explore</span>
+                            <h3>Compound Finder</h3>
+                            <p>
                             Search a growing library of compounds. Get structures, properties, safety details,
                             and more.
-                        </p>
-                        <span class="card-action">Browse compounds <i>→</i></span>
-                        </button>
+                            </p>
+                            <span class="card-action">Browse compounds <i>→</i></span>
+                        </a>
 
                         <a
                             class="feature-card"
-                            href="./finder/"
+                            href="./craft/"
                             style="--accent: #7047eb"
                         >
                             <span class="card-topline"><span>02</span><span class="card-tag">SANDBOX</span></span>
@@ -159,12 +157,11 @@
                             <span class="card-action">Start crafting <i>→</i></span>
                         </a>
 
-                        <button
+                        <a
                             class="feature-card"
-                            type="button"
+                            href="./combine/"
                             style="--accent: #008aa4"
-                            data-launch="Compound Combine"
-                            >
+                        >
                             <span class="card-topline"
                                 ><span>03</span><span class="card-tag">SIMULATOR</span></span
                             >
@@ -183,14 +180,13 @@
                                 goggles required.
                             </p>
                             <span class="card-action">Enter the lab <i>→</i></span>
-                        </button>
+                        </a>
 
-                        <button
+                        <a
                             class="feature-card"
-                            type="button"
+                            href="./guessr/"
                             style="--accent: #e05b32"
-                            data-launch="Compound Guessr"
-                            >
+                        >
                             <span class="card-topline"
                                 ><span>04</span><span class="card-tag">QUIZ GAME</span></span
                             >
@@ -208,7 +204,7 @@
                                 your streak alive.
                             </p>
                             <span class="card-action">Play the game <i>→</i></span>
-                        </button>
+                        </a>
 
                     </div>
 
