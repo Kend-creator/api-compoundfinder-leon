@@ -260,3 +260,26 @@ for resetting default browser layout and design
   max-width: 660px;
   z-index: 2;
 }
+
+.status-pill {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  border: 1px solid #c9d5e6;
+  background: rgba(225, 239, 255, 0.82);
+  color: #536074;
+  font:
+    500 10px "DM Mono",
+    monospace;
+  letter-spacing: 0.15em;
+}
+
+.status-pill span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #18a56f;
+  box-shadow: 0 0 0 4px #18a56f1c;
+}
