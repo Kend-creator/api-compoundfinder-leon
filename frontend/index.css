@@ -1,3 +1,4 @@
+/* Font Imports and Default Design Elements */
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
 :root {
   font-family: "Manrope", sans-serif;
@@ -6,6 +7,12 @@
   font-synthesis: none;
 }
 
+/* 
+
+Reset Codes;
+for resetting default browser layout and design 
+
+*/
 @layer base {
   *,
   *::before,
@@ -42,11 +49,13 @@
   }
 }
 
+/* Site Shell Design Elements */
 .site-shell {
   min-height: 100vh;
   overflow: hidden;
 }
 
+/* Topbar Design Elements */
 .topbar {
   height: 76px;
   padding: 0 clamp(24px, 5vw, 78px);
@@ -60,6 +69,7 @@
   z-index: 50;
 }
 
+/* Brand/Logo Design Elements */
 .brand {
   display: inline-flex;
   align-items: center;
