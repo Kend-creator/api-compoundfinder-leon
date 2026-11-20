@@ -644,3 +644,25 @@ for resetting default browser layout and design
   border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
   padding: 5px 7px;
 }
+
+/* Feature Card Icon Box Design */
+.icon-box {
+  width: 58px;
+  height: 58px;
+  margin: 48px 0 32px;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, white);
+}
+
+.icon-box svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
