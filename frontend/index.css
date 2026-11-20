@@ -314,3 +314,48 @@ for resetting default browser layout and design
   gap: 28px;
   margin-top: 36px;
 }
+
+/* Hero Actions Design */
+.primary-action {
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  background: #1769e0;
+  color: #fff;
+  padding: 16px 18px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid #1769e0;
+  box-shadow: 6px 6px 0 #c9dcfa;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.primary-action:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #c9dcfa;
+}
+
+.primary-action span {
+  font-size: 19px;
+}
+
+.text-action {
+  padding: 9px 0;
+  border: 0;
+  border-bottom: 1px solid #aab7c9;
+  background: transparent;
+  color: #253348;
+  font:
+    600 13px "Manrope",
+    sans-serif;
+}
+
+.text-action span {
+  color: #1769e0;
+  margin-left: 8px;
+}
