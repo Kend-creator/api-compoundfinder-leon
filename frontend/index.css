@@ -943,3 +943,31 @@ footer {
     animation: none;
   }
 }
+
+/* Dark Theme*/
+html[data-theme="dark"] {
+  color-scheme: dark;
+  color: #edf5ff;
+  background: #061224;
+}
+
+html[data-theme="dark"] body {
+  background: #061224;
+}
+
+html[data-theme="dark"] .topbar {
+  background: rgba(6, 21, 41, 0.95);
+  border-bottom-color: #25466c;
+}
+
+html[data-theme="dark"] .brand {
+  color: #f2f7ff;
+}
+
+html[data-theme="dark"] .brand strong,
+html[data-theme="dark"] .main-nav a:hover,
+html[data-theme="dark"] .hero h1 em,
+html[data-theme="dark"] .text-action span,
+html[data-theme="dark"] .section-kicker {
+  color: #67a9ff;
+}
