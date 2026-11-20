@@ -28,6 +28,7 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
+/* Close the mobile menu when a link is clicked */
 function closeMenu() {
   navigation.classList.remove("is-open");
   menuButton.setAttribute("aria-expanded", "false");
@@ -40,4 +41,18 @@ menuButton.addEventListener("click", () => {
 
 navigation.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", closeMenu);
+});
+
+/* Toast and Toast Timer */
+document.querySelectorAll("[data-launch]").forEach((button) => {
+  button.addEventListener("click", () => {
+    clearTimeout(toastTimer);
+    toastMessage.textContent = `${button.dataset.launch} is ready for your API connection.`;
+    toast.classList.add("is-visible");
+    closeMenu();
+
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+    }, 2800);
+  });
 });
