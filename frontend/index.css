@@ -573,3 +573,13 @@ for resetting default browser layout and design
   font-size: 13px;
   line-height: 1.75;
 }
+
+/* Feature Grid Layout */
+.feature-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #9db9dc;
+  border-left: 1px solid #9db9dc;
+}
