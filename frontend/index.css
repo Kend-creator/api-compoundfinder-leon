@@ -399,6 +399,16 @@ for resetting default browser layout and design
 }
 
 /* Molecule Stage Design */
+
+.molecule-stage {
+  height: min(580px, 47vw);
+  min-height: 480px;
+  max-width: 650px;
+  width: 100%;
+  justify-self: end;
+  position: relative;
+}
+
 .molecule-stage::before {
   content: "";
   position: absolute;
