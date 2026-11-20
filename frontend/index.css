@@ -714,3 +714,22 @@ for resetting default browser layout and design
 .feature-card:hover .card-action i {
   transform: translateX(5px);
 }
+
+/* Footer */
+footer {
+  min-height: 100px;
+  padding: 25px clamp(24px, 7vw, 112px);
+  background: #0c1627;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #738096;
+  font:
+    400 9px "DM Mono",
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.footer-brand {
+  color: #fff;
+}
