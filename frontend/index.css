@@ -932,3 +932,14 @@ footer {
     transform: translateY(0);
   }
 }
+
+/* Reduced Motion Animation */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .molecule-svg {
+    animation: none;
+  }
+}
