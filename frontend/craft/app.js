@@ -1,6 +1,4 @@
-const API_URL = "https://api-compoundfinder-leon.vercel.app";
-const API_KEY = "student-api-key-123";
-const FETCH_OPTIONS = { headers: { "x-api-key": API_KEY } };
+const PROXY_URL = "/api/proxy";
 
 const STORAGE_KEY = "compoundcraft_discovered";
 
