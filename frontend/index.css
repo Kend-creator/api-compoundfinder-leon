@@ -377,3 +377,23 @@ for resetting default browser layout and design
   color: #49566a;
   font-weight: 500;
 }
+
+.mini-atoms {
+  display: flex;
+  align-items: center;
+}
+
+.mini-atoms i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1769e0;
+  border: 2px solid #d9eaff;
+  margin-left: -2px;
+}
+
+.mini-atoms i:nth-child(2) {
+  width: 11px;
+  height: 11px;
+  background: #0c1627;
+}
