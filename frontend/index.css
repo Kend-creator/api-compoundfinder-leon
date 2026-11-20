@@ -539,3 +539,37 @@ for resetting default browser layout and design
   padding: 100px clamp(24px, 7vw, 112px) 115px;
   background: #fff;
 }
+
+/* Section Heading Design */
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 60px;
+  max-width: 1280px;
+  margin: 0 auto 48px;
+}
+
+.section-kicker {
+  display: block;
+  margin-bottom: 15px;
+  color: #1769e0;
+  font:
+    500 10px "DM Mono",
+    monospace;
+  letter-spacing: 0.16em;
+}
+
+.section-heading h2 {
+  font-size: clamp(34px, 4vw, 55px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 650;
+}
+
+.section-heading > p {
+  max-width: 400px;
+  color: #667387;
+  font-size: 13px;
+  line-height: 1.75;
+}
