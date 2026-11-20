@@ -470,3 +470,19 @@ footer {
     line-height: 1.5;
     margin-top: 10px;
 }
+
+/* Link Design and Layout */
+.back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.15s ease;
+}
+
+.back-link:hover {
+    color: var(--accent-bright);
+}
