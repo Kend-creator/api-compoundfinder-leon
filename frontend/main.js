@@ -47,7 +47,7 @@ navigation.querySelectorAll("a").forEach((link) => {
 document.querySelectorAll("[data-launch]").forEach((button) => {
   button.addEventListener("click", () => {
     clearTimeout(toastTimer);
-    toastMessage.textContent = `${button.dataset.launch} is ready for your API connection.`;
+    toastMessage.textContent = `${button.dataset.launch} is coming soon!`;
     toast.classList.add("is-visible");
     closeMenu();
 
