@@ -802,3 +802,133 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* Media Size 720px Layout Design */
+@media (max-width: 760px) {
+  .topbar {
+    height: 68px;
+  }
+
+  .menu-button {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 0;
+  }
+
+  .menu-button span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: #0c1627;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: #fff;
+    border-bottom: 1px solid #c9d8eb;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    transform: translateY(-130%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 220ms ease,
+      opacity 180ms ease;
+  }
+
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .main-nav button {
+    width: 100%;
+  }
+
+  .hero {
+    min-height: auto;
+    display: block;
+    padding-top: 65px;
+  }
+
+  .hero::before {
+    inset: 0;
+    background: linear-gradient(#d9eaff 0%, #d9eaffee 58%, transparent);
+  }
+
+  .hero h1 {
+    font-size: clamp(49px, 15vw, 72px);
+  }
+
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .trust-line {
+    margin-top: 34px;
+  }
+
+  .molecule-stage {
+    height: 400px;
+    min-height: 0;
+    margin: 30px auto -55px;
+    transform: none;
+  }
+
+  .formula-one {
+    left: 5%;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+
+  .experiences {
+    padding-top: 75px;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading > p {
+    margin-top: 24px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    min-height: 390px;
+  }
+
+  footer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 13px;
+  }
+
+  .toast {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+    transform: translateY(30px);
+  }
+
+  .toast.is-visible {
+    transform: translateY(0);
+  }
+}
