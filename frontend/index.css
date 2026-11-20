@@ -397,3 +397,30 @@ for resetting default browser layout and design
   height: 11px;
   background: #0c1627;
 }
+
+/* Molecule Stage Design */
+.molecule-stage::before {
+  content: "";
+  position: absolute;
+  width: 66%;
+  aspect-ratio: 1;
+  top: 16%;
+  left: 17%;
+  background: radial-gradient(circle, #d6e6ff 0%, #e5f0ff99 37%, transparent 68%);
+  filter: blur(8px);
+}
+
+.molecule-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 20px 16px #1b4c8d14);
+  animation: molecule-float 7s ease-in-out infinite;
+}
+
+/* Molecule Lines Design */
+.molecule-lines path {
+  fill: none;
+  stroke: #8396b2;
+  stroke-width: 6;
+}
