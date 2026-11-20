@@ -489,3 +489,26 @@ for resetting default browser layout and design
   transform: rotate(90deg) translateX(100%);
   transform-origin: right top;
 }
+
+.orbit {
+  position: absolute;
+  border: 1px dashed #9eb4d2;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.orbit-one {
+  width: 74%;
+  height: 48%;
+  left: 13%;
+  top: 25%;
+  transform: rotate(28deg);
+}
+
+.orbit-two {
+  width: 60%;
+  height: 70%;
+  left: 20%;
+  top: 14%;
+  transform: rotate(-25deg);
+}
