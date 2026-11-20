@@ -59,3 +59,67 @@
   position: relative;
   z-index: 50;
 }
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #0c1627;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.brand strong {
+  color: #1769e0;
+}
+
+.brand-mark {
+  width: 31px;
+  height: 27px;
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.brand-mark span {
+  position: absolute;
+  border-radius: 50%;
+  background: #1769e0;
+  width: 8px;
+  height: 8px;
+}
+
+.brand-mark span:nth-child(1) {
+  top: 2px;
+  left: 11px;
+}
+
+.brand-mark span:nth-child(2) {
+  bottom: 2px;
+  left: 2px;
+}
+
+.brand-mark span:nth-child(3) {
+  bottom: 2px;
+  right: 2px;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  height: 1.5px;
+  width: 15px;
+  top: 14px;
+  left: 5px;
+  background: #1769e0;
+  transform: rotate(-54deg);
+  transform-origin: center;
+}
+
+.brand-mark::after {
+  left: 12px;
+  transform: rotate(54deg);
+}
