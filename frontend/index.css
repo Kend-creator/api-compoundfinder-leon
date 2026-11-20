@@ -359,3 +359,21 @@ for resetting default browser layout and design
   color: #1769e0;
   margin-left: 8px;
 }
+
+/* Trust Line Design */
+.trust-line {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 48px;
+  color: #7b8798;
+  font:
+    400 10px "DM Mono",
+    monospace;
+  letter-spacing: 0.04em;
+}
+
+.trust-line strong {
+  color: #49566a;
+  font-weight: 500;
+}
