@@ -1137,3 +1137,14 @@ html[data-theme="dark"] .toast {
 html[data-theme="dark"] .toast .toast-message {
   color: #071629;
 }
+
+@media (max-width: 760px) {
+  html[data-theme="dark"] .main-nav {
+    background: #081b32;
+    border-bottom-color: #25466c;
+  }
+
+  html[data-theme="dark"] .hero::before {
+    background: linear-gradient(#091c35 0%, #091c35ee 58%, transparent);
+  }
+}
