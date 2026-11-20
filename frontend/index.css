@@ -475,3 +475,17 @@ for resetting default browser layout and design
   right: 2%;
   bottom: 19%;
 }
+
+/* Lab Note Design */
+.lab-note {
+  position: absolute;
+  right: 2%;
+  top: 17%;
+  color: #7d8da4;
+  font:
+    500 9px "DM Mono",
+    monospace;
+  letter-spacing: 0.15em;
+  transform: rotate(90deg) translateX(100%);
+  transform-origin: right top;
+}
