@@ -676,3 +676,41 @@ for resetting default browser layout and design
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
+
+/* Feature Card Elements Design */
+.feature-card h3 {
+  margin: 8px 0 13px;
+  font-size: 24px;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.feature-card p {
+  color: #687588;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.card-action {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #26364c;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.card-action i {
+  color: var(--accent);
+  font-style: normal;
+  font-size: 17px;
+  transition: transform 180ms ease;
+}
+
+.feature-card:hover .card-action i {
+  transform: translateX(5px);
+}
