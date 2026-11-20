@@ -775,3 +775,14 @@ footer {
   opacity: 1;
   transform: translate(-50%, 0);
 }
+
+/* Molecule Animation */
+@keyframes molecule-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
