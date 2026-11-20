@@ -452,3 +452,26 @@ for resetting default browser layout and design
     600 17px "DM Mono",
     monospace;
 }
+
+/* Mini Formula Designs */
+.formula {
+  position: absolute;
+  background: rgba(221, 237, 255, 0.9);
+  border: 1px solid #cbd8e9;
+  padding: 8px 10px;
+  color: #486079;
+  font:
+    500 10px "DM Mono",
+    monospace;
+  box-shadow: 4px 4px 0 #dce8f8;
+}
+
+.formula-one {
+  top: 12%;
+  left: 0;
+}
+
+.formula-two {
+  right: 2%;
+  bottom: 19%;
+}
