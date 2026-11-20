@@ -285,3 +285,32 @@ for resetting default browser layout and design
   background: #18a56f;
   box-shadow: 0 0 0 4px #18a56f1c;
 }
+
+/* Hero Elements Design */
+.hero h1 {
+  margin: 28px 0 22px;
+  font-size: clamp(56px, 6.6vw, 99px);
+  line-height: 0.92;
+  letter-spacing: -0.068em;
+  font-weight: 700;
+}
+
+.hero h1 em {
+  color: #1769e0;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.hero-copy > p {
+  max-width: 555px;
+  color: #59677b;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 36px;
+}
