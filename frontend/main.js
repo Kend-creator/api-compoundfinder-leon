@@ -12,3 +12,16 @@ function updateThemeButton(theme) {
 }
 
 updateThemeButton(document.documentElement.dataset.theme || "light");
+
+themeToggle.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme;
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = nextTheme;
+  updateThemeButton(nextTheme);
+
+  try {
+    localStorage.setItem("compound-lab-theme", nextTheme);
+  } catch {
+    // The theme still changes when storage is unavailable.
+  }
+});
