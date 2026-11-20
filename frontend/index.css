@@ -184,3 +184,40 @@ for resetting default browser layout and design
   align-items: center;
   gap: 10px;
 }
+
+.theme-toggle {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #c9d8eb;
+  border-radius: 50%;
+  background: #f4f8ff;
+  color: #1b3557;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  color: #1769e0;
+  border-color: #8eb7ed;
+  transform: rotate(-8deg);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sun-icon {
+  display: none;
+}
