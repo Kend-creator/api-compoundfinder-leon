@@ -13,7 +13,7 @@ async function init() {
     loadDiscoveredFromStorage();
 
     try {
-        const response = await fetch(`${API_URL}/api/v1/compounds`, FETCH_OPTIONS);
+        const response = await fetch(`${PROXY_URL}?path=/compounds`);
         if (!response.ok) throw new Error("API request failed.");
         const data = await response.json();
         allCompounds = data.compounds;
