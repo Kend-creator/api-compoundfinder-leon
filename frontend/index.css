@@ -133,3 +133,45 @@ for resetting default browser layout and design
   left: 12px;
   transform: rotate(54deg);
 }
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.main-nav a {
+  color: #536074;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+
+.main-nav a:hover {
+  color: #1769e0;
+}
+
+.main-nav button {
+  border: 0;
+  background: #0c1627;
+  color: white;
+  padding: 12px 19px;
+  border-radius: 2px;
+  font:
+    600 12px "Manrope",
+    sans-serif;
+  letter-spacing: 0.03em;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.main-nav button:hover {
+  transform: translateY(-2px);
+  background: #1769e0;
+}
+
+.menu-button {
+  display: none;
+}
