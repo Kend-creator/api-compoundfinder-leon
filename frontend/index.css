@@ -177,3 +177,10 @@ for resetting default browser layout and design
 .menu-button {
   display: none;
 }
+
+/* Topbar Actions (theme toggle base) Design Elements */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
