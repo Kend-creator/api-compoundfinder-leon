@@ -533,3 +533,9 @@ for resetting default browser layout and design
   height: 1px;
   background: #abb8c8;
 }
+
+/* Experiences Base Design */
+.experiences {
+  padding: 100px clamp(24px, 7vw, 112px) 115px;
+  background: #fff;
+}
