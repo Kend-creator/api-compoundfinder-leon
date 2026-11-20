@@ -786,3 +786,19 @@ footer {
     transform: translateY(-12px) rotate(1deg);
   }
 }
+
+/* Media Size 1050px Layout Design */
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr 0.8fr;
+  }
+
+  .molecule-stage {
+    transform: scale(0.88);
+    transform-origin: right center;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
