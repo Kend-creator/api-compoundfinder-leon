@@ -213,3 +213,19 @@ def get_compound(compound_id: int):
         raise HTTPException(status_code=404, detail="Compound not found.")
 
     return to_api(result.data[0])
+
+# ===========================================================
+# GET ALL ELEMENTS (Protected)
+# ===========================================================
+@app.get("/api/v1/elements", dependencies=[Depends(verify_API_KEY)])
+def get_elements():
+    result = (
+        supabase.table("elements")
+        .select("*")
+        .order("atomic_number")
+        .execute()
+    )
+    return {
+        "count": len(result.data),
+        "elements": result.data
+    }
