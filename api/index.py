@@ -223,6 +223,17 @@ def get_compound(compound_id: int):
     return to_api(result.data[0])
 
 # ===========================================================
+# HELPER: VOWEL DROP FOR PREFIX + ROOT
+# ===========================================================
+def format_prefix_and_root(prefix: str, root: str) -> str:
+    if not prefix:
+        return f"{root}ide"
+    if prefix[-1] in ("o", "a") and root[0] in ("a", "e", "i", "o", "u"):
+        prefix = prefix[:-1]
+    return f"{prefix}{root}ide"
+
+
+# ===========================================================
 # GET ALL ELEMENTS (Protected)
 # ===========================================================
 @app.get("/api/v1/elements", dependencies=[Depends(verify_API_KEY)])
@@ -336,3 +347,5 @@ def craft_compound(payload: CraftRequest):
             ]
         }
     }
+
+
