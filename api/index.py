@@ -237,3 +237,102 @@ def get_elements():
         "count": len(result.data),
         "elements": result.data
     }
+
+# ===========================================================
+# COMPOUND CRAFT (Combine Elements -> Existing/Named Compound)
+# ===========================================================
+@app.post("/api/v1/compounds/craft", dependencies=[Depends(verify_API_KEY)])
+def craft_compound(payload: CraftRequest):
+    # Normalize input into {symbol: atoms}
+    target_comp = {}
+    for item in payload.elements:
+        sym = item.symbol.strip().capitalize()
+        target_comp[sym] = target_comp.get(sym, 0) + item.atoms
+
+    if len(target_comp) != 2:
+        raise HTTPException(status_code=400, detail="Please select 2 distinct elements.")
+
+    # Check if this exact composition already exists in the `compounds` table
+    for existing in fetch_all():
+        existing_comp = {
+            c["symbol"]: c["atoms"] for c in existing["composition"]
+        }
+        if existing_comp == target_comp:
+            return {
+                "isKnownCompound": True,
+                "compound": existing
+            }
+
+    # If not in `compounds` yet, 
+    # Generate IUPAC name from `elements` & `number_prefixes`
+    symbols = list(target_comp.keys())
+    atom_counts = list(target_comp.values())
+
+    elem_res = supabase.table("elements").select("*").in_("symbol", symbols).execute()
+    if len(elem_res.data) != 2:
+        raise HTTPException(status_code=404, detail="One or more elements not found in database.")
+
+    elem_map = {row["symbol"]: row for row in elem_res.data}
+
+    prefix_res = supabase.table("number_prefixes").select("*").in_("atom_count", atom_counts).execute()
+    prefix_map = {row["atom_count"]: row["prefix"] for row in prefix_res.data}
+
+    items = []
+    for sym, atoms in target_comp.items():
+        db_el = elem_map[sym]
+        items.append({
+            "element": db_el["name"],
+            "symbol": sym,
+            "atoms": atoms,
+            "root": db_el["name_root"] or db_el["name"].lower(),
+            "category": db_el["category"],
+            "group_num": db_el["group_num"] or 0,
+            "period": db_el["period"],
+        })
+
+    if any(x["category"] == "noble gas" for x in items):
+        raise HTTPException(status_code=400, detail="Noble gases rarely form compounds.")
+
+    nonmetal_types = {"nonmetal", "halogen", "metalloid"}
+    is_nonmetal = [x["category"] in nonmetal_types for x in items]
+
+    if is_nonmetal[0] != is_nonmetal[1]:
+        # Ionic: Metal first, Nonmetal second (no Greek prefixes)
+        bond_type = "ionic"
+        first = items[0] if not is_nonmetal[0] else items[1]
+        second = items[1] if not is_nonmetal[0] else items[0]
+        crafted_name = f"{first['element']} {second['root']}ide".capitalize()
+
+    elif all(is_nonmetal):
+        # Covalent: Sort by IUPAC group/period order, apply Greek prefixes from DB
+        bond_type = "covalent"
+        items.sort(key=lambda x: (x["group_num"], -x["period"]))
+        first, second = items[0], items[1]
+
+        first_prefix = "" if first["atoms"] == 1 else prefix_map.get(first["atoms"], "")
+        second_prefix = prefix_map.get(second["atoms"], "")
+
+        first_part = f"{first_prefix}{first['element'].lower()}".capitalize()
+        second_part = format_prefix_and_root(second_prefix, second["root"])
+        crafted_name = f"{first_part} {second_part}"
+
+    else:
+        raise HTTPException(status_code=400, detail="Two metals form an alloy, not a compound.")
+
+    formula = "".join(
+        f"{el['symbol']}{el['atoms'] if el['atoms'] > 1 else ''}"
+        for el in (first, second)
+    )
+
+    return {
+        "isKnownCompound": False,
+        "compound": {
+            "name": crafted_name,
+            "formula": formula,
+            "bondType": bond_type,
+            "composition": [
+                {"element": first["element"], "symbol": first["symbol"], "atoms": first["atoms"]},
+                {"element": second["element"], "symbol": second["symbol"], "atoms": second["atoms"]}
+            ]
+        }
+    }
