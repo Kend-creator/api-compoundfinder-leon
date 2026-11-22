@@ -156,7 +156,10 @@ def home():
         "endpoints": [
             "/api/v1/compounds",
             "/api/v1/compounds/{id}",
-            "/api/v1/compounds/search"
+            "/api/v1/compounds/search",
+            "/api/v1/elements",
+            "/api/v1/compounds/craft",
+            "/api/v1/compounds/combine"
         ]
     }
 
