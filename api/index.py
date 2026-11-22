@@ -356,7 +356,7 @@ def craft_compound(payload: CraftRequest):
 
 
 # ===========================================================
-# COMPOUND COMBINE (React 2 Compounds -> Products)
+# COMPOUND COMBINE (Combine 2 Compounds -> Products)
 # ===========================================================
 @app.post("/api/v1/compounds/combine", dependencies=[Depends(verify_API_KEY)])
 def combine_compounds(payload: CombineRequest):
@@ -383,12 +383,11 @@ def combine_compounds(payload: CombineRequest):
 
     reaction = reaction_res.data[0]
 
-    # Fetch all product participants for this reaction
+    # Fetch ALL participants (both reactants and products) to build equation + products
     participants_res = (
         supabase.table("reaction_participants")
         .select("compound_id, coefficient, role")
         .eq("reaction_id", reaction["id"])
-        .eq("role", "product")
         .execute()
     )
 
@@ -396,27 +395,47 @@ def combine_compounds(payload: CombineRequest):
         return {
             "reacted": False,
             "reactantKey": reactant_key,
-            "message": "Reaction found, but no product compounds are linked.",
+            "message": "Reaction found, but no participants are linked.",
             "products": []
         }
 
-    # Fetch full compound details for each product and format with to_api()
-    product_ids = [p["compound_id"] for p in participants_res.data]
-    coeff_map = {p["compound_id"]: p["coefficient"] for p in participants_res.data}
-
+    # Fetch full compound details for all participants
+    all_ids = list({p["compound_id"] for p in participants_res.data})
     compounds_res = (
         supabase.table("compounds")
         .select(COMPOUND_SELECT)
-        .in_("id", product_ids)
+        .in_("id", all_ids)
         .execute()
     )
+    compound_map = {row["id"]: to_api(row) for row in compounds_res.data}
 
+    reactant_terms = []
+    product_terms = []
     products = []
-    for row in compounds_res.data:
-        products.append({
-            "coefficient": coeff_map.get(row["id"], 1),
-            "compound": to_api(row)
-        })
+
+    for p in participants_res.data:
+        comp = compound_map.get(p["compound_id"])
+        if not comp:
+            continue
+
+        coeff = p["coefficient"] or 1
+        prefix = f"{coeff} " if coeff > 1 else ""
+        term = f"{prefix}{comp['formula']}"
+
+        if p["role"] == "reactant":
+            reactant_terms.append(term)
+        elif p["role"] == "product":
+            product_terms.append(term)
+            products.append({
+                "coefficient": coeff,
+                "compound": comp
+            })
+
+    equation = (
+        f"{' + '.join(reactant_terms)} -> {' + '.join(product_terms)}"
+        if reactant_terms and product_terms
+        else None
+    )
 
     return {
         "reacted": True,
@@ -424,9 +443,10 @@ def combine_compounds(payload: CombineRequest):
         "reaction": {
             "id": reaction["id"],
             "name": reaction.get("name"),
-            "equation": reaction.get("equation"),
             "reactionType": reaction.get("reaction_type"),
+            "equation": equation,
             "description": reaction.get("description")
         },
         "products": products
     }
+
