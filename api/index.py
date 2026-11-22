@@ -66,6 +66,14 @@ class Compound(BaseModel):
     uses: list[str] = Field(default_factory=list)
     description: str = Field(min_length=1)
 
+class CraftElementInput(BaseModel):
+    symbol: str = Field(min_length=1, max_length=3)
+    atoms: int = Field(gt=0)
+
+class CraftRequest(BaseModel):
+    elements: list[CraftElementInput] = Field(min_length=2, max_length=2)
+
+
 # ===========================================================
 # DATABASE HELPERS (Supabase)
 # ===========================================================
