@@ -73,6 +73,9 @@ class CraftElementInput(BaseModel):
 class CraftRequest(BaseModel):
     elements: list[CraftElementInput] = Field(min_length=2, max_length=2)
 
+class CombineRequest(BaseModel):
+    compoundIds: list[int] = Field(min_length=2, max_length=2)
+
 
 # ===========================================================
 # DATABASE HELPERS (Supabase)
@@ -349,3 +352,78 @@ def craft_compound(payload: CraftRequest):
     }
 
 
+# ===========================================================
+# COMPOUND COMBINE (React 2 Compounds -> Products)
+# ===========================================================
+@app.post("/api/v1/compounds/combine", dependencies=[Depends(verify_API_KEY)])
+def combine_compounds(payload: CombineRequest):
+    # Normalize reactant_key by sorting IDs numerically
+    sorted_ids = sorted(payload.compoundIds)
+    reactant_key = f"{sorted_ids[0]}+{sorted_ids[1]}"
+
+    # Look up the reaction in Supabase
+    reaction_res = (
+        supabase.table("reactions")
+        .select("*")
+        .eq("reactant_key", reactant_key)
+        .execute()
+    )
+
+    # If no reaction is found in database
+    if not reaction_res.data:
+        return {
+            "reacted": False,
+            "reactantKey": reactant_key,
+            "message": "No chemical reaction occurs between these compounds.",
+            "products": []
+        }
+
+    reaction = reaction_res.data[0]
+
+    # Fetch all product participants for this reaction
+    participants_res = (
+        supabase.table("reaction_participants")
+        .select("compound_id, coefficient, role")
+        .eq("reaction_id", reaction["id"])
+        .eq("role", "product")
+        .execute()
+    )
+
+    if not participants_res.data:
+        return {
+            "reacted": False,
+            "reactantKey": reactant_key,
+            "message": "Reaction found, but no product compounds are linked.",
+            "products": []
+        }
+
+    # Fetch full compound details for each product and format with to_api()
+    product_ids = [p["compound_id"] for p in participants_res.data]
+    coeff_map = {p["compound_id"]: p["coefficient"] for p in participants_res.data}
+
+    compounds_res = (
+        supabase.table("compounds")
+        .select(COMPOUND_SELECT)
+        .in_("id", product_ids)
+        .execute()
+    )
+
+    products = []
+    for row in compounds_res.data:
+        products.append({
+            "coefficient": coeff_map.get(row["id"], 1),
+            "compound": to_api(row)
+        })
+
+    return {
+        "reacted": True,
+        "reactantKey": reactant_key,
+        "reaction": {
+            "id": reaction["id"],
+            "name": reaction.get("name"),
+            "equation": reaction.get("equation"),
+            "reactionType": reaction.get("reaction_type"),
+            "description": reaction.get("description")
+        },
+        "products": products
+    }
