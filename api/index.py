@@ -585,3 +585,66 @@ def build_ionic_product(cation: dict, anion: dict) -> dict:
         "name": f"{cation['name']} {anion['name']}".capitalize(),
         "formula": f"{c_part}{a_part}"
     }
+
+# ===========================================================
+# GET USER COMPOUND DISCOVERIES (Protected)
+# ===========================================================
+
+@app.get(
+    "/api/v1/discoveries",
+    dependencies=[Depends(verify_API_KEY)],
+)
+def get_discoveries(
+    all_users: bool = Query(default=False),
+    user_id: Optional[str] = Query(default=None),
+    current_user: dict = Depends(get_current_user),
+):
+    is_admin = current_user["role"] == "admin"
+
+    query = (
+        supabase.table("compound_discoveries")
+        .select("id, user_id, compound_id, discovered_at")
+        .order("discovered_at", desc=True)
+    )
+
+    if all_users and is_admin:
+        if user_id:
+            query = query.eq("user_id", user_id)
+    else:
+        target_user_id = user_id if (user_id and is_admin) else current_user["id"]
+        query = query.eq("user_id", target_user_id)
+
+    disc_res = query.execute()
+    discovery_rows = disc_res.data or []
+
+    if not discovery_rows:
+        return {
+            "count": 0,
+            "discoveries": [],
+        }
+
+    compound_ids = list({row["compound_id"] for row in discovery_rows})
+    comp_res = (
+        supabase.table("compounds")
+        .select(COMPOUND_SELECT)
+        .in_("id", compound_ids)
+        .execute()
+    )
+    compound_map = {row["id"]: to_api(row) for row in (comp_res.data or [])}
+
+    items = []
+    for row in discovery_rows:
+        comp = compound_map.get(row["compound_id"])
+        if comp:
+            items.append({
+                "id": row.get("id"),
+                "userId": row["user_id"],
+                "compoundId": row["compound_id"],
+                "discoveredAt": row["discovered_at"],
+                "compound": comp,
+            })
+
+    return {
+        "count": len(items),
+        "discoveries": items,
+    }
