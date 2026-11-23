@@ -331,7 +331,10 @@ def get_elements():
 # COMPOUND CRAFT (Combine Elements -> Existing/Named Compound)
 # ===========================================================
 @app.post("/api/v1/compounds/craft", dependencies=[Depends(verify_API_KEY)])
-def craft_compound(payload: CraftRequest):
+def craft_compound(
+    payload: CraftRequest,
+    current_user: Optional[dict] = Depends(get_optional_current_user)
+    ):
     # Normalize input into {symbol: atoms}
     target_comp = {}
     for item in payload.elements:
@@ -347,9 +350,15 @@ def craft_compound(payload: CraftRequest):
             c["symbol"]: c["atoms"] for c in existing["composition"]
         }
         if existing_comp == target_comp:
+            newly_discovered = False
+            if current_user:
+                newly_discovered = record_user_discovery(
+                    current_user["id"], existing["id"]
+                )
             return {
                 "isKnownCompound": True,
-                "compound": existing
+                "newlyDiscovered": newly_discovered,
+                "compound": existing,
             }
 
     # If not in `compounds` yet, 
