@@ -494,3 +494,19 @@ def parse_ionic_compound(formula: str, elem_map: dict, poly_map: dict):
             return cation, anion
 
     return None
+
+def build_ionic_product(cation: dict, anion: dict) -> dict:
+    """Balances charges (crisscross method) and builds name + formula."""
+    c_charge = abs(cation["charge"])
+    a_charge = abs(anion["charge"])
+    divisor = math.gcd(c_charge, a_charge)
+    c_sub = a_charge // divisor
+    a_sub = c_charge // divisor
+
+    c_part = f"({cation['formula']}){c_sub}" if (cation["is_poly"] and c_sub > 1) else f"{cation['formula']}{c_sub if c_sub > 1 else ''}"
+    a_part = f"({anion['formula']}){a_sub}" if (anion["is_poly"] and a_sub > 1) else f"{anion['formula']}{a_sub if a_sub > 1 else ''}"
+
+    return {
+        "name": f"{cation['name']} {anion['name']}".capitalize(),
+        "formula": f"{c_part}{a_part}"
+    }
