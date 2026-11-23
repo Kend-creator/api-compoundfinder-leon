@@ -218,7 +218,7 @@ def health_check():
         "status": "ok",
         "service": "Simple Compound Element API",
         "version": API_VERSION,
-        "timestamp": datetime.utcnow().isoformat() + "Z"
+        "timestamp": datetime.now(timezone.utc).isoformat() + "Z"
     }
 
 # ===========================================================
