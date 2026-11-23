@@ -479,10 +479,21 @@ def combine_compounds(
             if cat1["formula"] != cat2["formula"] and an1["formula"] != an2["formula"]:
                 prod1 = build_ionic_product(cat1, an2)
                 prod2 = build_ionic_product(cat2, an1)
+
+                newly_discovered_ids = []
+                if current_user:
+                    all_known = fetch_all()
+                    formula_to_id = {c["formula"]: c["id"] for c in all_known}
+                    for prod in (prod1, prod2):
+                        matched_id = formula_to_id.get(prod["formula"])
+                        if matched_id and record_user_discovery(current_user["id"], matched_id):
+                            newly_discovered_ids.append(matched_id)
+
                 return {
                     "reacted": True,
                     "isKnownReaction": False,
                     "reactantKey": reactant_key,
+                    "newlyDiscoveredCompoundIds": newly_discovered_ids,
                     "reaction": {
                         "name": "Double Replacement Reaction",
                         "reactionType": "double-replacement",
@@ -494,13 +505,6 @@ def combine_compounds(
                         {"coefficient": 1, "compound": prod2}
                     ]
                 }
-
-        return {
-            "reacted": False,
-            "reactantKey": reactant_key,
-            "message": "No chemical reaction occurs between these compounds.",
-            "products": []
-        }
 
 
     reaction = reaction_res.data[0]
