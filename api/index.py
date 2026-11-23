@@ -4,7 +4,7 @@ from supabase import create_client
 
 from fastapi import FastAPI, HTTPException, Header, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
+from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 from typing import Optional, Literal
 
@@ -135,15 +135,7 @@ def fetch_all():
 # ===========================================================
 
 # Gets the current user from the Authorization Bearer token in the request header
-def get_current_user(
-    authorization: Optional[str] = Header(default=None),
-) -> dict:
-    if not authorization or not authorization.lower().startswith("bearer "):
-        raise HTTPException(
-            status_code=401,
-            detail="Missing or invalid Authorization Bearer token.",
-        )
-
+def _authenticate_bearer(authorization: str) -> dict:
     token = authorization.split(" ", 1)[1].strip()
     user_res = supabase.auth.get_user(token)
     if not user_res or not user_res.user:
@@ -163,13 +155,23 @@ def get_current_user(
         "role": role,
     }
 
+def get_current_user(
+    authorization: Optional[str] = Header(default=None),
+) -> dict:
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(
+            status_code=401,
+            detail="Missing or invalid Authorization Bearer token.",
+        )
+    return _authenticate_bearer(authorization)
+
 # Let's Craft and Combine work for both unauthenticated users
 def get_optional_current_user(
     authorization: Optional[str] = Header(default=None),
 ) -> Optional[dict]:
     if not authorization or not authorization.lower().startswith("bearer "):
         return None
-    return get_current_user(authorization)
+    return _authenticate_bearer(authorization)
 
 # Requires Admin role for certain endpoints
 def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
@@ -177,6 +179,7 @@ def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
         raise HTTPException(status_code=403, detail="Admin privileges required.")
     return current_user
 
+# Records a discovery for a user if not already recorded. Returns True if newly discovered.
 def record_user_discovery(user_id: str, compound_id: int) -> bool:
     """Inserts a discovery if not already recorded. Returns True if newly discovered."""
     existing = (
