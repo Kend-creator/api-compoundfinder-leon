@@ -782,7 +782,7 @@ def create_discovery(
     }
 
 # ===========================================================
-# DELETE DISCOVERY - ADMIN ONLY (Protected)
+# DELETE DISCOVERY (Protected)
 # ===========================================================
 
 @app.delete(
