@@ -177,6 +177,24 @@ def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
         raise HTTPException(status_code=403, detail="Admin privileges required.")
     return current_user
 
+def record_user_discovery(user_id: str, compound_id: int) -> bool:
+    """Inserts a discovery if not already recorded. Returns True if newly discovered."""
+    existing = (
+        supabase.table("compound_discoveries")
+        .select("id")
+        .eq("user_id", user_id)
+        .eq("compound_id", compound_id)
+        .execute()
+    )
+    if existing.data:
+        return False
+
+    supabase.table("compound_discoveries").insert({
+        "user_id": user_id,
+        "compound_id": compound_id,
+    }).execute()
+    return True
+
 # ===========================================================
 # API KEY AUTHENTICATION
 # ===========================================================
