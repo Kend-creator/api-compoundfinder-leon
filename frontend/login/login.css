@@ -142,3 +142,48 @@ button {
   color: #1769e0;
   font-size: 16px;
 }
+
+/* 05. Light and dark theme toggle */
+.theme-toggle {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #c7d8ec;
+  border-radius: 50%;
+  background: #f3f8ff;
+  color: #1b416e;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  color: #1769e0;
+  border-color: #8bb6ec;
+  transform: rotate(-8deg);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sun-icon {
+  display: none;
+}
+
+/* 06. Split-screen login layout */
+.login-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(430px, 0.94fr) minmax(520px, 1.06fr);
+}
+
