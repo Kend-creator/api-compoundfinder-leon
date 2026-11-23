@@ -84,6 +84,7 @@ class DiscoveryCreate(BaseModel):
 # ===========================================================
 # DATABASE HELPERS (Supabase)
 # ===========================================================
+
 # Joins each compound with its rows from compound_composition
 COMPOUND_SELECT = "*, compound_composition(element, symbol, atoms)"
 
@@ -126,6 +127,38 @@ def fetch_all():
         .execute()
     )
     return [to_api(row) for row in result.data]
+
+# ===========================================================
+# AUTH HELPERS
+# ===========================================================
+
+def get_current_user(
+    authorization: Optional[str] = Header(default=None),
+) -> dict:
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(
+            status_code=401,
+            detail="Missing or invalid Authorization Bearer token.",
+        )
+
+    token = authorization.split(" ", 1)[1].strip()
+    user_res = supabase.auth.get_user(token)
+    if not user_res or not user_res.user:
+        raise HTTPException(status_code=401, detail="Invalid or expired user session.")
+
+    user_id = str(user_res.user.id)
+    profile_res = (
+        supabase.table("profiles")
+        .select("id, role, created_at")
+        .eq("id", user_id)
+        .execute()
+    )
+
+    role = profile_res.data[0]["role"] if profile_res.data else "user"
+    return {
+        "id": user_id,
+        "role": role,
+    }
 
 # ===========================================================
 # API KEY AUTHENTICATION
