@@ -77,6 +77,9 @@ class CraftRequest(BaseModel):
 class CombineRequest(BaseModel):
     compoundIds: list[int] = Field(min_length=2, max_length=2)
 
+class DiscoveryCreate(BaseModel):
+    compoundId: int = Field(gt=0)
+    userId: Optional[str] = None
 
 # ===========================================================
 # DATABASE HELPERS (Supabase)
