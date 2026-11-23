@@ -232,6 +232,7 @@ def home():
             "/api/v1/elements",
             "/api/v1/compounds/craft",
             "/api/v1/compounds/combine"
+            "/api/v1/discoveries"
         ]
     }
 
