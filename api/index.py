@@ -134,6 +134,7 @@ def fetch_all():
 # AUTH HELPERS
 # ===========================================================
 
+# Gets the current user from the Authorization Bearer token in the request header
 def get_current_user(
     authorization: Optional[str] = Header(default=None),
 ) -> dict:
@@ -162,6 +163,15 @@ def get_current_user(
         "role": role,
     }
 
+# Let's Craft and Combine work for both unauthenticated users
+def get_optional_current_user(
+    authorization: Optional[str] = Header(default=None),
+) -> Optional[dict]:
+    if not authorization or not authorization.lower().startswith("bearer "):
+        return None
+    return get_current_user(authorization)
+
+# Requires Admin role for certain endpoints
 def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
     if current_user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin privileges required.")
