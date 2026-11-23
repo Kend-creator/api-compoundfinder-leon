@@ -440,7 +440,10 @@ def craft_compound(
 # COMPOUND COMBINE (Combine 2 Compounds -> Products)
 # ===========================================================
 @app.post("/api/v1/compounds/combine", dependencies=[Depends(verify_API_KEY)])
-def combine_compounds(payload: CombineRequest):
+def combine_compounds(
+    payload: CombineRequest,
+    current_user: Optional[dict] = Depends(get_optional_current_user),
+    ):
     # Normalize reactant_key by sorting IDs numerically
     sorted_ids = sorted(payload.compoundIds)
     reactant_key = f"{sorted_ids[0]}+{sorted_ids[1]}"
@@ -527,6 +530,7 @@ def combine_compounds(payload: CombineRequest):
     reactant_terms = []
     product_terms = []
     products = []
+    newly_discovered_ids = []
 
     for p in participants_res.data:
         comp = compound_map.get(p["compound_id"])
@@ -545,6 +549,8 @@ def combine_compounds(payload: CombineRequest):
                 "coefficient": coeff,
                 "compound": comp
             })
+            if current_user and record_user_discovery(current_user["id"], comp["id"]):
+                newly_discovered_ids.append(comp["id"])
 
     equation = (
         f"{' + '.join(reactant_terms)} -> {' + '.join(product_terms)}"
@@ -555,6 +561,7 @@ def combine_compounds(payload: CombineRequest):
     return {
         "reacted": True,
         "reactantKey": reactant_key,
+        "newlyDiscoveredCompoundIds": newly_discovered_ids,
         "reaction": {
             "id": reaction["id"],
             "name": reaction.get("name"),
