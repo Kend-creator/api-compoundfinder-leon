@@ -651,3 +651,173 @@ button {
   stroke-linejoin: round;
 }
 
+/* 13. Dark-mode palette */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  color: #e8f2ff;
+  background: #061225;
+}
+
+html[data-theme="dark"] .login-page {
+  background: #061225;
+}
+
+html[data-theme="dark"] .login-topbar {
+  border-bottom-color: #254569;
+  background: rgba(5, 20, 39, 0.94);
+}
+
+html[data-theme="dark"] .brand {
+  color: #f0f6ff;
+}
+
+html[data-theme="dark"] .brand strong,
+html[data-theme="dark"] .back-link span,
+html[data-theme="dark"] .form-kicker,
+html[data-theme="dark"] .forgot-link,
+html[data-theme="dark"] .signup-link {
+  color: #69aaff;
+}
+
+html[data-theme="dark"] .back-link {
+  color: #a9bdd5;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  color: #ffd56d;
+  border-color: #315578;
+  background: #102a49;
+}
+
+html[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+html[data-theme="dark"] .sun-icon {
+  display: block;
+}
+
+html[data-theme="dark"] .form-panel {
+  background: linear-gradient(#18324d55 1px, transparent 1px), #08192d;
+}
+
+html[data-theme="dark"] .form-wrap h2 {
+  color: #eff6ff;
+}
+
+html[data-theme="dark"] .form-intro,
+html[data-theme="dark"] .remember-control,
+html[data-theme="dark"] .signup-copy {
+  color: #93a8c0;
+}
+
+html[data-theme="dark"] .field-group label,
+html[data-theme="dark"] .label-row {
+  color: #c8d8ea;
+}
+
+html[data-theme="dark"] .input-shell {
+  border-color: #34516f;
+  background: #0c2139;
+}
+
+html[data-theme="dark"] .input-shell input {
+  color: #e8f2ff;
+}
+
+html[data-theme="dark"] .custom-checkbox {
+  border-color: #45617e;
+  background: #0c2139;
+}
+
+html[data-theme="dark"] .submit-button {
+  box-shadow: 6px 6px 0 #102e53;
+}
+
+html[data-theme="dark"] .form-divider::before,
+html[data-theme="dark"] .form-divider::after {
+  background: #2a4059;
+}
+
+html[data-theme="dark"] .security-note,
+html[data-theme="dark"] .form-status.is-visible {
+  border-color: #2d4c6c;
+  background: #0c2139;
+  color: #9bb0c8;
+}
+
+/* 14. Responsive tablet and mobile layout */
+@media (max-width: 950px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .login-visual {
+    min-height: 600px;
+    padding-top: 130px;
+  }
+
+  .login-molecule {
+    position: absolute;
+    right: -40px;
+    bottom: 10px;
+    width: 50%;
+    opacity: 0.62;
+  }
+
+  .visual-copy {
+    max-width: 570px;
+  }
+
+  .visual-footer {
+    position: relative;
+    z-index: 2;
+  }
+
+  .form-panel {
+    min-height: auto;
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 620px) {
+  .login-topbar {
+    height: 68px;
+  }
+
+  .back-link {
+    display: none;
+  }
+
+  .login-visual {
+    min-height: 540px;
+    padding: 115px 24px 40px;
+  }
+
+  .visual-copy h1 {
+    font-size: clamp(48px, 14vw, 64px);
+  }
+
+  .login-molecule {
+    width: 83%;
+    right: -90px;
+    bottom: 0;
+  }
+
+  .visual-footer span:last-child {
+    display: none;
+  }
+
+  .form-panel {
+    padding: 65px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
