@@ -1,4 +1,5 @@
 import os
+import math
 from supabase import create_client
 
 from fastapi import FastAPI, HTTPException, Header, Query, Depends
@@ -450,3 +451,46 @@ def combine_compounds(payload: CombineRequest):
         "products": products
     }
 
+# ===========================================================
+# HELPER FUNCTION (Parsing Ionic Compounds into Cation + Anion)
+# ===========================================================
+
+def parse_ionic_compound(formula: str, elem_map: dict, poly_map: dict):
+    """Splits a formula like 'AgNO3' or 'CaCl2' into (cation_dict, anion_dict) using DB data."""
+    # Check if compound starts with a polyatomic cation (e.g., NH4)
+    cation = None
+    rest = formula
+    for p_form, p_data in sorted(poly_map.items(), key=lambda x: -len(x[0])):
+        if p_data["charge"] > 0 and rest.startswith(p_form):
+            cation = {"formula": p_form, "name": p_data["name"], "charge": p_data["charge"], "is_poly": True}
+            rest = rest[len(p_form):].lstrip("0123456789")
+            break
+
+    # Otherwise match a metal/hydrogen cation from `elements`
+    if not cation:
+        for sym, e_data in sorted(elem_map.items(), key=lambda x: -len(x[0])):
+            if e_data["default_charge"] > 0 and rest.startswith(sym):
+                cation = {"formula": sym, "name": e_data["name"], "charge": e_data["default_charge"], "is_poly": False}
+                rest = rest[len(sym):].lstrip("0123456789")
+                break
+
+    if not cation or not rest:
+        return None
+
+    # Strip parentheses around polyatomic ions like Ca(OH)2 -> OH
+    clean_rest = rest.strip("()0123456789")
+
+    # Match polyatomic anion first
+    for p_form, p_data in sorted(poly_map.items(), key=lambda x: -len(x[0])):
+        if p_data["charge"] < 0 and (rest.startswith(p_form) or clean_rest == p_form):
+            anion = {"formula": p_form, "name": p_data["name"], "charge": p_data["charge"], "is_poly": True}
+            return cation, anion
+
+    # Otherwise match monatomic nonmetal anion from `elements`
+    for sym, e_data in sorted(elem_map.items(), key=lambda x: -len(x[0])):
+        if e_data["default_charge"] < 0 and rest.startswith(sym):
+            root = e_data["name_root"] or e_data["name"].lower()
+            anion = {"formula": sym, "name": f"{root}ide", "charge": e_data["default_charge"], "is_poly": False}
+            return cation, anion
+
+    return None
