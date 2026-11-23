@@ -66,6 +66,7 @@ class Compound(BaseModel):
     safetyData: SafetyData
     uses: list[str] = Field(default_factory=list)
     description: str = Field(min_length=1)
+    imageUrl: Optional[str] = None
 
 class CraftElementInput(BaseModel):
     symbol: str = Field(min_length=1, max_length=3)
@@ -116,6 +117,7 @@ def to_api(row):
         },
         "uses": row["uses"] or [],
         "description": row["description"],
+        "imageUrl": row.get("image_url"),
     }
     return Compound(**compound).model_dump()
 
