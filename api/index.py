@@ -648,3 +648,81 @@ def get_discoveries(
         "count": len(items),
         "discoveries": items,
     }
+
+# ===========================================================
+# POST NEW DISCOVERY (Protected)
+# ===========================================================
+
+@app.post(
+    "/api/v1/discoveries",
+    status_code=201,
+    dependencies=[Depends(verify_API_KEY)],
+)
+def create_discovery(
+    payload: DiscoveryCreate,
+    current_user: dict = Depends(get_current_user),
+):
+    target_user_id = current_user["id"]
+    if payload.userId and payload.userId != current_user["id"]:
+        if current_user["role"] != "admin":
+            raise HTTPException(
+                status_code=403,
+                detail="Only admins can record discoveries for another user.",
+            )
+        target_user_id = payload.userId
+
+    # Verify the compound exists in `compounds`
+    comp_res = (
+        supabase.table("compounds")
+        .select(COMPOUND_SELECT)
+        .eq("id", payload.compoundId)
+        .execute()
+    )
+    if not comp_res.data:
+        raise HTTPException(status_code=404, detail="Compound not found.")
+
+    # Check if already discovered by this user
+    existing_res = (
+        supabase.table("compound_discoveries")
+        .select("id, user_id, compound_id, discovered_at")
+        .eq("user_id", target_user_id)
+        .eq("compound_id", payload.compoundId)
+        .execute()
+    )
+
+    if existing_res.data:
+        existing = existing_res.data[0]
+        return {
+            "alreadyDiscovered": True,
+            "discovery": {
+                "id": existing.get("id"),
+                "userId": existing["user_id"],
+                "compoundId": existing["compound_id"],
+                "discoveredAt": existing["discovered_at"],
+                "compound": to_api(comp_res.data[0]),
+            },
+        }
+
+    insert_res = (
+        supabase.table("compound_discoveries")
+        .insert({
+            "user_id": target_user_id,
+            "compound_id": payload.compoundId,
+        })
+        .execute()
+    )
+
+    if not insert_res.data:
+        raise HTTPException(status_code=500, detail="Failed to record discovery.")
+
+    created = insert_res.data[0]
+    return {
+        "alreadyDiscovered": False,
+        "discovery": {
+            "id": created.get("id"),
+            "userId": created["user_id"],
+            "compoundId": created["compound_id"],
+            "discoveredAt": created["discovered_at"],
+            "compound": to_api(comp_res.data[0]),
+        },
+    }
