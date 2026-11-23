@@ -360,3 +360,151 @@ button {
   letter-spacing: 0.12em;
 }
 
+/* 09. Form panel and heading */
+.form-panel {
+  min-height: 760px;
+  display: grid;
+  place-items: center;
+  padding: 125px clamp(35px, 8vw, 135px) 65px;
+  background: linear-gradient(#d8e5f4 1px, transparent 1px), #f8fbff;
+  background-size: 100% 72px;
+}
+
+.form-wrap {
+  width: min(100%, 470px);
+}
+
+.form-kicker {
+  color: #1769e0;
+  font:
+    500 9px "DM Mono",
+    monospace;
+  letter-spacing: 0.16em;
+}
+
+.form-wrap h2 {
+  margin: 14px 0 12px;
+  color: #0b1728;
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.form-intro {
+  margin: 0 0 35px;
+  color: #647489;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* 10. Field labels, inputs, and validation */
+.field-group {
+  margin-bottom: 21px;
+}
+
+.field-group label,
+.label-row {
+  color: #35465c;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.field-group > label,
+.label-row {
+  margin-bottom: 9px;
+}
+
+.forgot-link,
+.signup-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #1769e0;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.input-shell {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  border: 1px solid #b7c9dd;
+  background: #fff;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.input-shell:focus-within {
+  border-color: #1769e0;
+  box-shadow: 0 0 0 3px #1769e014;
+}
+
+.input-shell.is-invalid {
+  border-color: #c74949;
+}
+
+.input-shell > svg,
+.password-toggle svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: #71849a;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.input-shell input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #132238;
+  font-size: 13px;
+}
+
+.input-shell input::placeholder {
+  color: #9aa8b8;
+}
+
+.password-toggle {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.eye-closed {
+  display: none;
+}
+
+.password-toggle.is-visible .eye-open {
+  display: none;
+}
+
+.password-toggle.is-visible .eye-closed {
+  display: block;
+}
+
+.field-error {
+  min-height: 16px;
+  display: block;
+  padding-top: 5px;
+  color: #b63838;
+  font-size: 9px;
+}
+
