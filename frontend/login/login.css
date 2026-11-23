@@ -508,3 +508,146 @@ button {
   font-size: 9px;
 }
 
+/* 11. Remember control and primary submit action */
+.remember-control {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 2px 0 26px;
+  color: #68798d;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.remember-control input {
+  position: absolute;
+  opacity: 0;
+}
+
+.custom-checkbox {
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #a9bdd2;
+  background: #fff;
+}
+
+.custom-checkbox svg {
+  width: 11px;
+  height: 11px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.8;
+  opacity: 0;
+}
+
+.remember-control input:checked + .custom-checkbox {
+  border-color: #1769e0;
+  background: #1769e0;
+}
+
+.remember-control input:checked + .custom-checkbox svg {
+  opacity: 1;
+}
+
+.submit-button {
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 19px;
+  border: 1px solid #1769e0;
+  background: #1769e0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 6px 6px 0 #c5dbf9;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.submit-button:hover {
+  background: #0e56bd;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #c5dbf9;
+}
+
+.submit-button b {
+  font-size: 20px;
+}
+
+.form-status {
+  min-height: 42px;
+  margin-top: 15px;
+  padding: 0;
+  color: #576c84;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.form-status.is-visible {
+  padding: 11px 13px;
+  border: 1px solid #a8c5e7;
+  background: #edf5ff;
+}
+
+/* 12. Secondary account and security messaging */
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #8998a9;
+  font:
+    500 8px "DM Mono",
+    monospace;
+  letter-spacing: 0.12em;
+}
+
+.form-divider::before,
+.form-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #cfdae7;
+}
+
+.signup-copy {
+  margin: 20px 0 28px;
+  color: #718095;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.signup-link {
+  margin-left: 4px;
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid #d0dbe8;
+  background: #f1f6fc;
+  color: #728297;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.security-note svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: #4e79aa;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
