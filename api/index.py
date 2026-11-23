@@ -375,12 +375,46 @@ def combine_compounds(payload: CombineRequest):
 
     # If no reaction is found in database
     if not reaction_res.data:
+        # Dynamic Fallback: Attempt double-replacement ion swap using DB tables
+        comp_res = supabase.table("compounds").select(COMPOUND_SELECT).in_("id", sorted_ids).execute()
+        if len(comp_res.data) < 2:
+            raise HTTPException(status_code=404, detail="One or both compounds not found.")
+
+        c1, c2 = comp_res.data[0], comp_res.data[1]
+        elem_map = {r["symbol"]: r for r in supabase.table("elements").select("*").execute().data}
+        poly_map = {r["formula"]: r for r in supabase.table("polyatomic_ions").select("*").execute().data}
+
+        parsed1 = parse_ionic_compound(c1["formula"], elem_map, poly_map)
+        parsed2 = parse_ionic_compound(c2["formula"], elem_map, poly_map)
+
+        if parsed1 and parsed2:
+            (cat1, an1), (cat2, an2) = parsed1, parsed2
+            if cat1["formula"] != cat2["formula"] and an1["formula"] != an2["formula"]:
+                prod1 = build_ionic_product(cat1, an2)
+                prod2 = build_ionic_product(cat2, an1)
+                return {
+                    "reacted": True,
+                    "isKnownReaction": False,
+                    "reactantKey": reactant_key,
+                    "reaction": {
+                        "name": "Double Replacement Reaction",
+                        "reactionType": "double-replacement",
+                        "equation": f"{c1['formula']} + {c2['formula']} -> {prod1['formula']} + {prod2['formula']}",
+                        "description": f"{c1['name']} and {c2['name']} exchange ions to form {prod1['name']} and {prod2['name']}."
+                    },
+                    "products": [
+                        {"coefficient": 1, "compound": prod1},
+                        {"coefficient": 1, "compound": prod2}
+                    ]
+                }
+
         return {
             "reacted": False,
             "reactantKey": reactant_key,
             "message": "No chemical reaction occurs between these compounds.",
             "products": []
         }
+
 
     reaction = reaction_res.data[0]
 
@@ -452,7 +486,7 @@ def combine_compounds(payload: CombineRequest):
     }
 
 # ===========================================================
-# HELPER FUNCTION (Parsing Ionic Compounds into Cation + Anion)
+# HELPER FUNCTION (Parsing Ionic Compounds)
 # ===========================================================
 
 def parse_ionic_compound(formula: str, elem_map: dict, poly_map: dict):
