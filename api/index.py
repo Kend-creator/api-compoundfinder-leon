@@ -726,3 +726,49 @@ def create_discovery(
             "compound": to_api(comp_res.data[0]),
         },
     }
+
+# ===========================================================
+# DELETE DISCOVERY - ADMIN ONLY (Protected)
+# ===========================================================
+
+@app.delete(
+    "/api/v1/discoveries/{compound_id}",
+    dependencies=[Depends(verify_API_KEY)],
+)
+def delete_discovery(
+    compound_id: int,
+    user_id: Optional[str] = Query(default=None),
+    current_user: dict = Depends(get_current_user),
+):
+    target_user_id = current_user["id"]
+    if user_id and user_id != current_user["id"]:
+        if current_user["role"] != "admin":
+            raise HTTPException(
+                status_code=403,
+                detail="Only admins can delete discoveries for another user.",
+            )
+        target_user_id = user_id
+
+    existing_res = (
+        supabase.table("compound_discoveries")
+        .select("id")
+        .eq("user_id", target_user_id)
+        .eq("compound_id", compound_id)
+        .execute()
+    )
+    if not existing_res.data:
+        raise HTTPException(status_code=404, detail="Discovery not found.")
+
+    (
+        supabase.table("compound_discoveries")
+        .delete()
+        .eq("user_id", target_user_id)
+        .eq("compound_id", compound_id)
+        .execute()
+    )
+
+    return {
+        "deleted": True,
+        "userId": target_user_id,
+        "compoundId": compound_id,
+    }
