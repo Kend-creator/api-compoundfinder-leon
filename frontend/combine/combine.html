@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Document metadata, stylesheet, and pre-render theme initialization -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compound Combine | Compound Lab</title>
+    <link rel="stylesheet" href="./combine.css" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("compound-lab-theme");
+        const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+        document.documentElement.dataset.theme = savedTheme || preferredTheme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="site-shell" id="root">
+      <!-- Shared navigation, page links, and light/dark theme controls -->
+      <header class="topbar combine-topbar">
+        <a class="brand" href="../index.html" aria-label="Compound Lab home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="../index.html#experiences">Finder</a>
+          <a href="../index.html#experiences">Craft</a>
+          <a class="is-current" href="./combine.html">Combine</a>
+          <a class="nav-game-link" href="../index.html#experiences">Play Guessr</a>
+        </nav>
+        <div class="topbar-actions">
+          <a class="login-link" href="../login/login.html">Sign in</a>
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.2 15.4A8.7 8.7 0 0 1 8.6 3.8 8.7 8.7 0 1 0 20.2 15.4Z"></path>
+            </svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.7"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path>
+            </svg>
+          </button>
+          <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle menu">
+            <span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Compound Combine application -->
+      <main class="combine-page">
+        <!-- Introductory hero and reaction-flow illustration -->
+        <section class="combine-intro">
+          <div class="combine-grid" aria-hidden="true"></div>
+          <div class="combine-intro-copy">
+            <a class="back-link" href="../index.html"> <span>←</span> Back to the lab </a>
+            <span class="combine-kicker">COMPOUND COMBINE / REACTION LAB</span>
+            <h1>Mix. React.<br /><em>Discover.</em></h1>
+            <p>
+              Choose two compounds, bring them together, and observe what happens at a molecular
+              level.
+            </p>
+          </div>
+          <div class="combine-intro-visual" aria-hidden="true">
+            <div class="combine-orbit"></div>
+            <div class="combine-node node-a">A</div>
+            <div class="combine-node node-b">B</div>
+            <div class="combine-node node-result">?</div>
+            <svg viewBox="0 0 420 260">
+              <path d="M88 70 C160 76 165 124 210 130"></path>
+              <path d="M88 196 C160 190 165 140 210 130"></path>
+              <path d="M210 130 C268 130 300 130 340 130"></path>
+            </svg>
+            <span class="visual-label label-input">INPUTS</span>
+            <span class="visual-label label-output">REACTION</span>
+          </div>
+        </section>
+
+        <!-- Interactive reaction workspace -->
+        <section class="combine-workspace">
+          <!-- Workspace title and session discovery count -->
+          <div class="workspace-heading">
+            <div>
+              <span class="combine-kicker">VIRTUAL WORKBENCH</span>
+              <h2>What will you combine?</h2>
+            </div>
+            <div class="session-status">
+              <span class="status-dot"></span>
+              <span><strong class="discovery-count">0</strong> discoveries this session</span>
+            </div>
+          </div>
+
+          <!-- Reactant vessels and reaction result chamber -->
+          <div class="lab-layout">
+            <!-- Compound selection and mixing controls -->
+            <div class="mixing-panel">
+              <div class="panel-label">
+                <span>01 / SELECT REACTANTS</span>
+                <button class="reset-mix" type="button">Clear all</button>
+              </div>
+
+              <div class="mixing-stage">
+                <button class="mix-slot is-active" type="button" data-slot="a">
+                  <span class="slot-letter">A</span>
+                  <span class="beaker">
+                    <span class="beaker-liquid"></span>
+                    <span class="beaker-lines"></span>
+                  </span>
+                  <span class="slot-content">
+                    <strong>Select compound</strong>
+                    <small>Choose from the shelf below</small>
+                  </span>
+                </button>
+
+                <div class="mix-symbol" aria-hidden="true">
+                  <span></span>
+                  <i>+</i>
+                  <span></span>
+                </div>
+
+                <button class="mix-slot" type="button" data-slot="b">
+                  <span class="slot-letter">B</span>
+                  <span class="beaker">
+                    <span class="beaker-liquid"></span>
+                    <span class="beaker-lines"></span>
+                  </span>
+                  <span class="slot-content">
+                    <strong>Select compound</strong>
+                    <small>Choose from the shelf below</small>
+                  </span>
+                </button>
+              </div>
+
+              <button class="combine-button" type="button" disabled>
+                <span class="combine-button-icon" aria-hidden="true"> <i></i><i></i><i></i> </span>
+                <span class="combine-button-label">Select two compounds</span>
+                <b>→</b>
+              </button>
+            </div>
+
+            <!-- Live reaction feedback and chemical equation -->
+            <aside class="result-panel" aria-live="polite">
+              <div class="panel-label"><span>02 / OBSERVE RESULT</span></div>
+              <div class="result-empty">
+                <div class="result-vessel" aria-hidden="true">
+                  <span class="result-bubble bubble-one"></span>
+                  <span class="result-bubble bubble-two"></span>
+                  <span class="result-bubble bubble-three"></span>
+                </div>
+                <strong>Awaiting reaction</strong>
+                <p>Your result will appear here after combining two compounds.</p>
+              </div>
+              <div class="result-content" hidden>
+                <span class="reaction-type">REACTION DETECTED</span>
+                <div class="result-formula">—</div>
+                <h3 class="result-name">Unknown result</h3>
+                <p class="result-description"></p>
+                <div class="reaction-equation">
+                  <span class="equation-inputs"></span>
+                  <i>→</i>
+                  <strong class="equation-output"></strong>
+                </div>
+                <span class="discovery-badge">NEW DISCOVERY</span>
+              </div>
+            </aside>
+          </div>
+
+          <!-- Available compounds used to fill the active vessel -->
+          <div class="compound-shelf">
+            <div class="shelf-heading">
+              <div>
+                <span class="combine-kicker">COMPOUND SHELF</span>
+                <h3>Choose a reactant</h3>
+              </div>
+              <span class="shelf-hint">Adding to vessel <strong>A</strong></span>
+            </div>
+
+            <div class="compound-list">
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="H₂O"
+                data-key="H2O"
+                data-name="Water"
+                style="--liquid: #4db9d2"
+              >
+                <span class="compound-dot"></span><strong>H₂O</strong><small>Water</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="CO₂"
+                data-key="CO2"
+                data-name="Carbon dioxide"
+                style="--liquid: #72a9bd"
+              >
+                <span class="compound-dot"></span><strong>CO₂</strong><small>Carbon dioxide</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="HCl"
+                data-key="HCl"
+                data-name="Hydrochloric acid"
+                style="--liquid: #26a7a0"
+              >
+                <span class="compound-dot"></span><strong>HCl</strong
+                ><small>Hydrochloric acid</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="NaOH"
+                data-key="NaOH"
+                data-name="Sodium hydroxide"
+                style="--liquid: #087e89"
+              >
+                <span class="compound-dot"></span><strong>NaOH</strong
+                ><small>Sodium hydroxide</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="CH₃COOH"
+                data-key="CH3COOH"
+                data-name="Acetic acid"
+                style="--liquid: #69c6ae"
+              >
+                <span class="compound-dot"></span><strong>CH₃COOH</strong><small>Acetic acid</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="NaHCO₃"
+                data-key="NaHCO3"
+                data-name="Sodium bicarbonate"
+                style="--liquid: #8fc9bf"
+              >
+                <span class="compound-dot"></span><strong>NaHCO₃</strong
+                ><small>Sodium bicarbonate</small>
+              </button>
+              <button
+                class="compound-option"
+                type="button"
+                data-formula="NH₃"
+                data-key="NH3"
+                data-name="Ammonia"
+                style="--liquid: #3b8faf"
+              >
+                <span class="compound-dot"></span><strong>NH₃</strong><small>Ammonia</small>
+              </button>
+            </div>
+          </div>
+
+          <!-- Compounds discovered during the current browser session -->
+          <div class="discoveries-strip">
+            <div>
+              <span class="combine-kicker">YOUR DISCOVERIES</span>
+              <h3>Reaction log</h3>
+            </div>
+            <div class="discovery-list">
+              <span class="empty-discoveries">Your discovered compounds will collect here.</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Combine-specific footer and return path to the main lab -->
+      <footer class="combine-footer">
+        <a class="brand footer-brand" href="../index.html">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
+        <p>Experiment freely. Discover thoughtfully.</p>
+        <span>COMPOUND COMBINE / REACTION LAB</span>
+      </footer>
+    </div>
+    <!-- Interaction, theme, and reaction simulation logic -->
+    <script type="module" src="./combine.js"></script>
+  </body>
+</html>
