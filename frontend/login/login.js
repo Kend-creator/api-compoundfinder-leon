@@ -1,3 +1,9 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const SUPABASE_URL = "https://ulnzqrwzomzzopvocvzj.supabase.co";
+const SUPABASE_ANON_KEY = "<your-full-publishable-key>";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Theme controls and persistent preference
 const themeToggle = document.querySelector(".theme-toggle");
 
@@ -33,10 +39,26 @@ passwordToggle.addEventListener("click", () => {
   passwordToggle.setAttribute("aria-label", isVisible ? "Show password" : "Hide password");
 });
 
-// Frontend validation and status messaging
+// Form validation and status messaging
 const form = document.querySelector(".login-form");
 const emailInput = document.querySelector("#email");
+const rememberInput = document.querySelector('input[name="remember"]');
 const statusMessage = document.querySelector(".form-status");
+const submitButton = form.querySelector(".submit-button");
+
+function showStatus(message) {
+  statusMessage.textContent = message;
+  statusMessage.classList.add("is-visible");
+}
+
+function getRedirectTarget() {
+  const params = new URLSearchParams(window.location.search);
+  const next = params.get("next");
+  if (next && next.startsWith("/") && !next.startsWith("//")) {
+    return next;
+  }
+  return "../index.html";
+}
 
 function setFieldError(input, message) {
   const shell = input.closest(".input-shell");
@@ -67,6 +89,12 @@ function validateForm() {
   return emailValid && passwordValue.length >= 8;
 }
 
+// If already signed in, return to the lab
+const { data: initialSession } = await supabase.auth.getSession();
+if (initialSession?.session) {
+  window.location.replace(getRedirectTarget());
+}
+
 [emailInput, passwordInput].forEach((input) => {
   input.addEventListener("input", () => {
     if (input.getAttribute("aria-invalid") === "true") validateForm();
@@ -75,24 +103,78 @@ function validateForm() {
   });
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!validateForm()) return;
 
-  statusMessage.textContent =
-    "Login interface validated successfully. Connect an authentication service to sign in.";
-  statusMessage.classList.add("is-visible");
+  submitButton.disabled = true;
+  showStatus("Signing in to Compound Lab...");
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email: emailInput.value.trim(),
+    password: passwordInput.value,
+  });
+
+  if (error) {
+    submitButton.disabled = false;
+    showStatus(error.message || "Could not sign in. Check your credentials.");
+    return;
+  }
+
+  try {
+    localStorage.setItem("compound-lab-remember", String(Boolean(rememberInput?.checked)));
+  } catch {
+    // Ignore storage errors in restricted browsing modes.
+  }
+
+  showStatus("Signed in! Redirecting to the lab...");
+  window.location.assign(getRedirectTarget());
 });
 
-// Non-authentication actions explain their current frontend-only state
-document.querySelector(".forgot-link").addEventListener("click", () => {
-  statusMessage.textContent =
-    "Password recovery will become available when authentication is connected.";
-  statusMessage.classList.add("is-visible");
+// Password recovery
+document.querySelector(".forgot-link").addEventListener("click", async () => {
+  const emailValue = emailInput.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    setFieldError(emailInput, "Enter your email address first to reset your password.");
+    emailInput.focus();
+    return;
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(emailValue, {
+    redirectTo: window.location.origin + window.location.pathname,
+  });
+
+  if (error) {
+    showStatus(error.message || "Unable to send reset email.");
+    return;
+  }
+
+  showStatus("Password reset instructions sent if an account exists for that email.");
 });
 
-document.querySelector(".signup-link").addEventListener("click", () => {
-  statusMessage.textContent =
-    "Account creation will become available when authentication is connected.";
-  statusMessage.classList.add("is-visible");
+// Account creation
+document.querySelector(".signup-link").addEventListener("click", async () => {
+  if (!validateForm()) return;
+
+  submitButton.disabled = true;
+  showStatus("Creating your Compound Lab account...");
+
+  const { data, error } = await supabase.auth.signUp({
+    email: emailInput.value.trim(),
+    password: passwordInput.value,
+  });
+
+  submitButton.disabled = false;
+
+  if (error) {
+    showStatus(error.message || "Could not create account.");
+    return;
+  }
+
+  if (data?.session) {
+    showStatus("Account created! Redirecting to the lab...");
+    window.location.assign(getRedirectTarget());
+  } else {
+    showStatus("Account created! Check your email to confirm your address before signing in.");
+  }
 });
