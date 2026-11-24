@@ -92,6 +92,13 @@ COMPOUND_SELECT = "*, compound_composition(element, symbol, atoms)"
 def to_api(row):
     """Convert a database row (snake_case, flat) into the API's response shape,
     validating it against the Compound model on the way out."""
+    supabase_url = os.environ["SUPABASE_URL"].rstrip("/")
+    cas = (row.get("cas_number") or "").strip()
+    image_url = row.get("image_url") or (
+        f"{supabase_url}/storage/v1/object/public/compound-images/{cas}.png"
+        if cas else None
+    )
+
     compound = {
         "id": row["id"],
         "name": row["name"],
@@ -117,7 +124,7 @@ def to_api(row):
         },
         "uses": row["uses"] or [],
         "description": row["description"],
-        "imageUrl": row.get("image_url"),
+        "imageUrl": image_url,
     }
     return Compound(**compound).model_dump()
 
