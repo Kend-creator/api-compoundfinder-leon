@@ -921,6 +921,21 @@ footer {
     width: 100%;
   }
 
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .auth-link {
+    max-width: 120px;
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+
+  .logout-button {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
   .hero {
     min-height: auto;
     display: block;
@@ -1202,6 +1217,29 @@ html[data-theme="dark"] .toast {
 
 html[data-theme="dark"] .toast .toast-message {
   color: #071629;
+}
+
+html[data-theme="dark"] .auth-link {
+  color: #edf5ff;
+  background: #102b4c;
+  border-color: #31577f;
+}
+
+html[data-theme="dark"] .auth-link:hover {
+  color: #67a9ff;
+  border-color: #67a9ff;
+  background: #14355e;
+}
+
+html[data-theme="dark"] .logout-button {
+  background: #2b82ef;
+  border-color: #2b82ef;
+  color: #fff;
+}
+
+html[data-theme="dark"] .logout-button:hover:not(:disabled) {
+  background: #56a0ff;
+  border-color: #56a0ff;
 }
 
 @media (max-width: 760px) {
