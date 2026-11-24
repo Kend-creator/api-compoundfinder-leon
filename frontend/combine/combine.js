@@ -41,44 +41,6 @@ navigation.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', closeMenu)
 })
 
-// Known reaction outcomes indexed by alphabetized reactant keys
-const reactions = {
-  'HCl+NaOH': {
-    type: 'NEUTRALIZATION',
-    formula: 'NaCl + H₂O',
-    name: 'Sodium chloride + Water',
-    description:
-      'An acid and a base neutralize one another, forming salt and water while releasing heat.',
-  },
-  'CH3COOH+NaHCO3': {
-    type: 'ACID–CARBONATE',
-    formula: 'CH₃COONa + CO₂ + H₂O',
-    name: 'Sodium acetate + Carbon dioxide',
-    description:
-      'A lively acid–carbonate reaction creates sodium acetate, water, and bubbles of carbon dioxide.',
-  },
-  'CO2+H2O': {
-    type: 'SYNTHESIS',
-    formula: 'H₂CO₃',
-    name: 'Carbonic acid',
-    description: 'Dissolved carbon dioxide combines reversibly with water to produce a weak acid.',
-  },
-  'HCl+NaHCO3': {
-    type: 'ACID–CARBONATE',
-    formula: 'NaCl + CO₂ + H₂O',
-    name: 'Sodium chloride + Carbon dioxide',
-    description:
-      'The bicarbonate reacts with acid, rapidly producing salt, water, and carbon dioxide gas.',
-  },
-  'H2O+NH3': {
-    type: 'ACID–BASE EQUILIBRIUM',
-    formula: 'NH₄⁺ + OH⁻',
-    name: 'Ammonium + Hydroxide ions',
-    description:
-      'Ammonia accepts a proton from water, establishing an equilibrium of ammonium and hydroxide ions.',
-  },
-}
-
 // Reaction workspace elements and in-memory session state
 const slots = {
   a: document.querySelector('[data-slot="a"]'),
