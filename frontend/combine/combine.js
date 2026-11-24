@@ -199,17 +199,15 @@ function showReaction(result, isDiscovery) {
 }
 
 // Run the reaction simulation and resolve known or stable mixtures
-mixButton.addEventListener('click', () => {
+mixButton.addEventListener('click', async () => {
   if (!selections.a || !selections.b) return
 
-  const reactionKey = [selections.a.key, selections.b.key].sort().join('+')
-  const knownReaction = reactions[reactionKey]
-  const result = knownReaction || {
-    type: 'NO REACTION OBSERVED',
-    formula: 'No reaction',
-    name: 'Stable mixture',
-    description:
-      'These compounds do not produce a clear reaction under standard virtual-lab conditions. Try another pairing.',
+  if (!selections.a.id || !selections.b.id) {
+    resetResult()
+    resultEmpty.querySelector('strong').textContent = 'Missing compound IDs'
+    resultEmpty.querySelector('p').textContent =
+      'Reload the shelf from the API so compounds have database IDs.'
+    return
   }
 
   resultContent.hidden = true
@@ -220,11 +218,72 @@ mixButton.addEventListener('click', () => {
   mixButton.disabled = true
   mixButtonLabel.textContent = 'Reaction in progress…'
 
-  reactionTimer = window.setTimeout(() => {
-    const isDiscovery = knownReaction ? addDiscovery(result) : false
-    showReaction(result, isDiscovery)
+  try {
+    const response = await fetch(`${PROXY_URL}?path=/compounds/combine`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        compoundIds: [selections.a.id, selections.b.id],
+      }),
+    })
+
+    if (!response.ok) {
+      const errBody = await response.json().catch(() => ({}))
+      throw new Error(errBody.detail || `Combine request failed (${response.status})`)
+    }
+
+    const data = await response.json()
+
+    let result
+    if (data.reacted && data.products?.length) {
+      const productFormula = data.products
+        .map((p) => `${p.coefficient > 1 ? `${p.coefficient} ` : ''}${p.compound.formula}`)
+        .join(' + ')
+      const productNames = data.products.map((p) => p.compound.name).join(' + ')
+
+      result = {
+        type: (data.reaction?.reactionType || 'REACTION DETECTED').toUpperCase(),
+        formula: productFormula,
+        name: data.reaction?.name || productNames,
+        description:
+          data.reaction?.description ||
+          `${selections.a.name} and ${selections.b.name} reacted to form ${productNames}.`,
+        equation:
+          data.reaction?.equation || `${selections.a.formula} + ${selections.b.formula} -> ${productFormula}`,
+      }
+    } else {
+      result = {
+        type: 'NO REACTION OBSERVED',
+        formula: 'No reaction',
+        name: 'Stable mixture',
+        description:
+          data.message ||
+          'These compounds do not produce a clear reaction under standard virtual-lab conditions. Try another pairing.',
+        equation: `${selections.a.formula} + ${selections.b.formula} → No reaction`,
+      }
+    }
+
+    const isDiscovery = data.reacted ? addDiscovery(result) : false
+    resultPanel.classList.remove('is-reacting')
+    resultEmpty.hidden = true
+    resultContent.hidden = false
+    resultContent.querySelector('.reaction-type').textContent = result.type
+    resultContent.querySelector('.result-formula').textContent = result.formula
+    resultContent.querySelector('.result-name').textContent = result.name
+    resultContent.querySelector('.result-description').textContent = result.description
+    resultContent.querySelector('.equation-inputs').textContent =
+      `${selections.a.formula} + ${selections.b.formula}`
+    resultContent.querySelector('.equation-output').textContent = result.formula
+    resultContent.querySelector('.discovery-badge').hidden = !isDiscovery
+  } catch (error) {
+    console.error(error)
+    resetResult()
+    resultEmpty.querySelector('strong').textContent = 'Connection error'
+    resultEmpty.querySelector('p').textContent =
+      error.message || 'Could not reach the reaction API. Check your proxy and backend.'
+  } finally {
     updateMixState()
-  }, 950)
+  }
 })
 
 // Clear both vessels without removing the session discovery history
@@ -243,3 +302,80 @@ document.querySelector('.reset-mix').addEventListener('click', () => {
   resetResult()
   updateMixState()
 })
+
+const compoundListEl = document.querySelector('.compound-list')
+let shelfCompounds = []
+
+// Pick a display liquid color based on physical state, with a fallback palette
+function getLiquidColor(compound, index) {
+  const palette = ['#4db9d2', '#72a9bd', '#26a7a0', '#087e89', '#69c6ae', '#8fc9bf', '#3b8faf']
+  const state = (compound.physicalProperties?.state || '').toLowerCase()
+  if (state === 'liquid') return '#26a7a0'
+  if (state === 'gas') return '#72a9bd'
+  if (state === 'solid') return '#4db9d2'
+  return palette[index % palette.length]
+}
+
+// Attach click handlers to all shelf buttons so selecting one fills the active vessel
+function bindShelfOptions() {
+  document.querySelectorAll('.compound-option').forEach((option) => {
+    option.addEventListener('click', () => {
+      // Parse database ID so it can be sent to /compounds/combine later
+      const id = Number(option.dataset.id)
+      const compound = {
+        id: Number.isFinite(id) && id > 0 ? id : null,
+        key: option.dataset.key,
+        formula: option.dataset.formula,
+        name: option.dataset.name,
+        color: getComputedStyle(option).getPropertyValue('--liquid').trim(),
+      }
+      placeCompound(activeSlot, compound)
+
+      // Automatically advance from vessel A to vessel B on first selection
+      if (activeSlot === 'a' && !selections.b) {
+        setActiveSlot('b')
+      }
+    })
+  })
+}
+
+// Fetch live compounds from the backend proxy and populate the shelf
+async function loadShelfCompounds() {
+  try {
+    const response = await fetch(`${PROXY_URL}?path=/compounds`)
+    if (!response.ok) throw new Error('Failed to load compounds')
+    const data = await response.json()
+    shelfCompounds = data.compounds || []
+
+    // Keep static HTML buttons if the API returns an empty list
+    if (!shelfCompounds.length) return
+
+    // Render shelf buttons with each compound's database ID, formula, and name
+    compoundListEl.innerHTML = shelfCompounds
+      .map((c, idx) => {
+        const color = getLiquidColor(c, idx)
+        return `
+          <button
+            class="compound-option"
+            type="button"
+            data-id="${c.id}"
+            data-key="${c.formula}"
+            data-formula="${c.formula}"
+            data-name="${c.name}"
+            style="--liquid: ${color}"
+          >
+            <span class="compound-dot"></span><strong>${c.formula}</strong><small>${c.name}</small>
+          </button>
+        `
+      })
+      .join('')
+
+    // Re-bind events after replacing the shelf markup and refresh button states
+    bindShelfOptions()
+    updateMixState()
+  } catch (err) {
+    // Fall back to existing static shelf options if fetching fails
+    console.error('Shelf load error:', err)
+    bindShelfOptions()
+  }
+}
