@@ -124,10 +124,10 @@ function updateMixState() {
   mixButtonLabel.textContent = ready ? 'Combine compounds' : 'Select two compounds'
 
   document.querySelectorAll('.compound-option').forEach((option) => {
-    option.classList.toggle(
-      'is-used',
-      option.dataset.key === selections.a?.key || option.dataset.key === selections.b?.key,
-    )
+    const optionId = option.dataset.id ? Number(option.dataset.id) : null
+    const matchesA = optionId ? optionId === selections.a?.id : option.dataset.key === selections.a?.key
+    const matchesB = optionId ? optionId === selections.b?.id : option.dataset.key === selections.b?.key
+    option.classList.toggle('is-used', Boolean(matchesA || matchesB))
   })
 }
 
@@ -348,7 +348,10 @@ async function loadShelfCompounds() {
     shelfCompounds = data.compounds || []
 
     // Keep static HTML buttons if the API returns an empty list
-    if (!shelfCompounds.length) return
+    if (!shelfCompounds.length) {
+      bindShelfOptions()
+      return
+    }
 
     // Render shelf buttons with each compound's database ID, formula, and name
     compoundListEl.innerHTML = shelfCompounds
@@ -379,3 +382,5 @@ async function loadShelfCompounds() {
     bindShelfOptions()
   }
 }
+
+loadShelfCompounds()
