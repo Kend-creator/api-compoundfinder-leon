@@ -9,19 +9,29 @@ export default async function handler(req, res) {
 
   const { path, q, all_users, user_id } = req.query;
 
-  // Allow only /compounds (and /compounds/{id}, /compounds/search) or /discoveries (and /discoveries/{id})
-  const isCompoundRoute =
+  // Categorize allowed upstream API paths by route group and HTTP method
+  const isCompoundReadRoute =
     typeof path === "string" && /^\/compounds(\/\d+|\/search)?$/.test(path);
+  const isCompoundPostRoute =
+    typeof path === "string" && /^\/compounds\/(combine|craft)$/.test(path);
+  const isElementsRoute =
+    typeof path === "string" && path === "/elements";
   const isDiscoveryRoute =
     typeof path === "string" && /^\/discoveries(\/\d+)?$/.test(path);
 
-  if (!isCompoundRoute && !isDiscoveryRoute) {
+  // Reject any path outside the approved API routes
+  if (!isCompoundReadRoute && !isCompoundPostRoute && !isElementsRoute && !isDiscoveryRoute) {
     return res.status(400).json({ error: "Invalid path" });
   }
 
-  // Compounds are read-only via this proxy; discoveries allow GET, POST, and DELETE
-  if (isCompoundRoute && req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed for compounds" });
+  // Enforce GET-only access on compound read routes and elements
+  if ((isCompoundReadRoute || isElementsRoute) && req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  // Enforce POST-only access on compound craft and combine routes
+  if (isCompoundPostRoute && req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   // Build forwarded query string parameters safely
@@ -69,8 +79,8 @@ export default async function handler(req, res) {
     );
     const data = await upstream.json();
 
-    // Cache public compound reads at the edge, but never publicly cache user discoveries
-    if (upstream.ok && req.method === "GET" && isCompoundRoute) {
+    // Cache public GET reads for compounds and elements at the edge; keep discoveries uncached
+    if (upstream.ok && req.method === "GET" && (isCompoundReadRoute || isElementsRoute)) {
       res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
     } else if (req.method === "GET" && isDiscoveryRoute) {
       res.setHeader("Cache-Control", "private, no-store");
