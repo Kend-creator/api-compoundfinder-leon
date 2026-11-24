@@ -222,6 +222,62 @@ for resetting default browser layout and design
   display: none;
 }
 
+/* Auth Link & Logout Button in Topbar */
+.auth-link {
+  color: #0c1627;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 13px;
+  border: 1px solid #c9d8eb;
+  border-radius: 2px;
+  background: #f4f8ff;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.auth-link:hover {
+  color: #1769e0;
+  border-color: #8eb7ed;
+  background: #e8f2ff;
+  transform: translateY(-1px);
+}
+
+.logout-button {
+  border: 1px solid #0c1627;
+  background: #0c1627;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 2px;
+  font:
+    600 11px "DM Mono",
+    monospace;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.logout-button:hover:not(:disabled) {
+  background: #1769e0;
+  border-color: #1769e0;
+  transform: translateY(-1px);
+}
+
+.logout-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Hero Layout and Parent Elements Design */
 .hero {
   min-height: 685px;
