@@ -1,75 +1,171 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompoundCraft</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <meta
+      name="description"
+      content="Build familiar compounds atom by atom in the Compound Craft sandbox."
+    >
+    <title>Compound Craft | Compound Lab</title>
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('compound-lab-theme')
+        const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+        document.documentElement.dataset.theme = savedTheme || preferredTheme
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
+    <link rel="stylesheet" href="craft.css">
+  </head>
 
-<body>
-    <header>
-        <div class="header-inner">
-            <a class="back-link" href="../">&larr; Compound Lab</a>
-            <div class="title-row">
-                <h1>Compound<span class="title-accent">Craft</span></h1>
-                <span class="progress-tag" id="progressTag">0 / 0 discovered</span>
-            </div>
-            <p class="subtitle">Combine elements on the bench. Match a real compound to discover it.</p>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="../index.html" aria-label="Compound Lab home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="../finder/finder.html">Finder</a>
+          <a class="is-current" href="craft.html">Craft</a>
+          <a href="../combine/combine.html">Combine</a>
+          <a href="../guessr/guessr.html">Play Guessr</a>
+        </nav>
+
+        <div class="topbar-actions">
+          <a class="login-link" href="../login/login.html">Sign in</a>
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.2 15.4A8.7 8.7 0 0 1 8.6 3.8 8.7 8.7 0 1 0 20.2 15.4Z"></path>
+            </svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.7"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path>
+            </svg>
+          </button>
+          <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle menu">
+            <span></span><span></span>
+          </button>
         </div>
-    </header>
+      </header>
 
-    <main>
-        <!-- PERIODIC TABLE -->
-        <section class="tray-section">
-            <div class="section-label">Elements &mdash; <span id="activeCount">0</span> of 118 unlocked</div>
-            <div id="periodicTable" class="periodic-table">
-                <p class="status-text">Loading elements…</p>
+      <main>
+        <section class="craft-hero">
+          <div class="hero-grid" aria-hidden="true"></div>
+          <div class="hero-copy">
+            <a class="back-link" href="../index.html"><span>←</span> Back to the lab</a>
+            <span class="eyebrow">02 · MOLECULAR SANDBOX</span>
+            <h1>Build it.<br><em>Atom by atom.</em></h1>
+            <p>
+              Select elements, tune their quantities, and match a real molecular formula to add it
+              to your discovery log.
+            </p>
+            <div class="hero-meta">
+              <span class="progress-tag" id="progressTag">0 / 0 discovered</span>
+              <span class="connection-tag"><i></i> Offline sample library</span>
             </div>
+          </div>
+
+          <div class="hero-model" aria-hidden="true">
+            <span class="atom atom-carbon">C</span>
+            <span class="atom atom-hydrogen atom-h-one">H</span>
+            <span class="atom atom-hydrogen atom-h-two">H</span>
+            <span class="atom atom-hydrogen atom-h-three">H</span>
+            <span class="atom atom-hydrogen atom-h-four">H</span>
+            <i class="bond bond-one"></i>
+            <i class="bond bond-two"></i>
+            <i class="bond bond-three"></i>
+            <i class="bond bond-four"></i>
+          </div>
         </section>
 
-        <!-- WORKBENCH -->
-        <section class="bench-section">
+        <section class="craft-workspace" aria-label="Compound Craft workspace">
+          <div class="workspace-heading">
+            <div>
+              <span class="section-index">VIRTUAL WORKBENCH</span>
+              <h2>Craft a compound.</h2>
+            </div>
+            <p>
+              The sample library works entirely in your browser. Connect your API later to unlock
+              the full compound catalog.
+            </p>
+          </div>
+
+          <section class="lab-panel element-panel" aria-labelledby="elementsTitle">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-step">01 / CHOOSE ELEMENTS</span>
+                <h3 id="elementsTitle">Periodic shelf</h3>
+              </div>
+              <span class="active-count"><b id="activeCount">0</b> of 118 active</span>
+            </div>
+            <div id="periodicTable" class="periodic-table" aria-live="polite">
+              <p class="status-text">Preparing elements…</p>
+            </div>
+          </section>
+
+          <section class="lab-panel bench-panel" aria-labelledby="benchTitle">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-step">02 / ASSEMBLE FORMULA</span>
+                <h3 id="benchTitle">Molecular bench</h3>
+              </div>
+              <div class="bench-actions">
+                <button class="secondary-button" id="clearBtn" type="button">Clear bench</button>
+                <button class="primary-button" id="hintBtn" type="button">Give me a hint</button>
+              </div>
+            </div>
+
             <div class="bench">
-                <div id="benchSlots" class="bench-slots">
-                    <p class="bench-placeholder">Click elements above to place them here</p>
-                </div>
-                <div class="bench-actions">
-                    <button class="secondary" id="clearBtn">Clear bench</button>
-                    <button class="secondary" id="hintBtn">Hint</button>
-                </div>
+              <div id="benchSlots" class="bench-slots">
+                <p class="bench-placeholder">Select an active element from the shelf above</p>
+              </div>
+              <div class="bench-formula" aria-hidden="true">
+                <span>INPUT</span>
+                <strong id="formulaPreview">—</strong>
+              </div>
             </div>
-            <p id="benchStatus" class="bench-status"></p>
-        </section>
+            <p id="benchStatus" class="bench-status" aria-live="polite"></p>
+          </section>
 
-        <!-- DISCOVERY LOG -->
-        <section class="log-section">
-            <div class="section-heading">
-                <h2>Discovery Log</h2>
-                <span class="section-rule"></span>
+          <section class="lab-panel log-panel" aria-labelledby="logTitle">
+            <div class="panel-heading">
+              <div>
+                <span class="panel-step">03 / LOG DISCOVERIES</span>
+                <h3 id="logTitle">Compound archive</h3>
+              </div>
+              <span class="archive-note">Saved in this browser</span>
             </div>
             <div id="discoveryLog" class="discovery-grid">
-                <p class="status-text">Loading compounds…</p>
+              <p class="status-text">Preparing compounds…</p>
             </div>
+          </section>
         </section>
-    </main>
+      </main>
 
-    <footer>
-        <p>Built on the Simple Compound Element API &middot; CompoundCraft v1.0.0</p>
-    </footer>
-
-    <!-- DISCOVERY REVEAL MODAL -->
-    <div id="revealOverlay" class="modal-overlay" hidden>
-        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="revealTitle">
-            <button class="modal-close" onclick="closeReveal()" aria-label="Close">&times;</button>
-            <div id="revealContent"></div>
-        </div>
+      <footer class="site-footer">
+        <a class="footer-brand" href="../index.html">
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
+        <p>Build carefully. Stay curious.</p>
+        <span>CRAFT / FRONTEND DEMO</span>
+      </footer>
     </div>
 
-    <script src="app.js"></script>
-</body>
+    <div id="revealOverlay" class="modal-overlay" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="revealTitle">
+        <button class="modal-close" id="modalCloseButton" type="button" aria-label="Close">×</button>
+        <div id="revealContent"></div>
+      </div>
+    </div>
+
+    <script src="craft.js"></script>
+  </body>
 </html>
