@@ -1,15 +1,2244 @@
 /* Link Design and Layout */
-.back-link {
-    display: inline-block;
-    margin-bottom: 18px;
-    font-family: var(--font-mono);
-    font-size: 0.82em;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: color 0.15s ease;
+/* 01. Font imports and document defaults */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root {
+  font-family: 'Manrope', sans-serif;
+  color: #09111f;
+  background: #dceaff;
+  font-synthesis: none;
 }
 
-.back-link:hover {
-    color: var(--accent-bright);
+/* 02. Browser reset and base element behavior */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: #dceaff;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+/* 03. Shared page shell */
+.site-shell {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* 04. Shared topbar layout */
+.topbar {
+  height: 76px;
+  padding: 0 clamp(24px, 5vw, 78px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid #c9d8eb;
+  backdrop-filter: blur(14px);
+  position: relative;
+  z-index: 50;
+}
+
+/* 05. Compound Lab wordmark and molecular symbol */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #0c1627;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.brand strong {
+  color: #1769e0;
+}
+
+.brand-mark {
+  width: 31px;
+  height: 27px;
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.brand-mark span {
+  position: absolute;
+  border-radius: 50%;
+  background: #1769e0;
+  width: 8px;
+  height: 8px;
+}
+
+.brand-mark span:nth-child(1) {
+  top: 2px;
+  left: 11px;
+}
+
+.brand-mark span:nth-child(2) {
+  bottom: 2px;
+  left: 2px;
+}
+
+.brand-mark span:nth-child(3) {
+  bottom: 2px;
+  right: 2px;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: '';
+  position: absolute;
+  height: 1.5px;
+  width: 15px;
+  top: 14px;
+  left: 5px;
+  background: #1769e0;
+  transform: rotate(-54deg);
+  transform-origin: center;
+}
+
+.brand-mark::after {
+  left: 12px;
+  transform: rotate(54deg);
+}
+
+/* 06. Primary desktop navigation */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.main-nav a {
+  color: #536074;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+
+.main-nav a:hover {
+  color: #1769e0;
+}
+
+.main-nav button {
+  border: 0;
+  background: #0c1627;
+  color: white;
+  padding: 12px 19px;
+  border-radius: 2px;
+  font:
+    600 12px 'Manrope',
+    sans-serif;
+  letter-spacing: 0.03em;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.main-nav button:hover {
+  transform: translateY(-2px);
+  background: #1769e0;
+}
+
+/* 07. Mobile menu trigger */
+.menu-button {
+  display: none;
+}
+
+/* 08. Theme switcher and topbar actions */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #c9d8eb;
+  border-radius: 50%;
+  background: #f4f8ff;
+  color: #1b3557;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  color: #1769e0;
+  border-color: #8eb7ed;
+  transform: rotate(-8deg);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sun-icon {
+  display: none;
+}
+
+.hero {
+  min-height: 685px;
+  background:
+    radial-gradient(circle at 78% 44%, #82b8ff 0%, #a9ceff 21%, transparent 48%),
+    linear-gradient(125deg, #d9eaff 0%, #b9d7ff 56%, #94c2ff 100%);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.93fr) minmax(480px, 1.07fr);
+  align-items: center;
+  padding: 76px clamp(24px, 7vw, 112px) 90px;
+  isolation: isolate;
+  border-bottom: 1px solid #dfe6ef;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(#6695d0 1px, transparent 1px),
+    linear-gradient(90deg, #6695d0 1px, transparent 1px);
+  background-size: 66px 66px;
+  mask-image: linear-gradient(to right, transparent, black 40%, black);
+  opacity: 0.32;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0 49% 0 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #d9eaff 70%, transparent);
+}
+
+.hero-copy {
+  max-width: 660px;
+  z-index: 2;
+}
+
+.status-pill {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 11px;
+  border: 1px solid #c9d5e6;
+  background: rgba(225, 239, 255, 0.82);
+  color: #536074;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.15em;
+}
+
+.status-pill span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #18a56f;
+  box-shadow: 0 0 0 4px #18a56f1c;
+}
+
+.hero h1 {
+  margin: 28px 0 22px;
+  font-size: clamp(56px, 6.6vw, 99px);
+  line-height: 0.92;
+  letter-spacing: -0.068em;
+  font-weight: 700;
+}
+
+.hero h1 em {
+  color: #1769e0;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.hero-copy > p {
+  max-width: 555px;
+  color: #59677b;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.75;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.primary-action {
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  background: #1769e0;
+  color: #fff;
+  padding: 16px 18px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid #1769e0;
+  box-shadow: 6px 6px 0 #c9dcfa;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.primary-action:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #c9dcfa;
+}
+
+.primary-action span {
+  font-size: 19px;
+}
+
+.text-action {
+  padding: 9px 0;
+  border: 0;
+  border-bottom: 1px solid #aab7c9;
+  background: transparent;
+  color: #253348;
+  font:
+    600 13px 'Manrope',
+    sans-serif;
+}
+
+.text-action span {
+  color: #1769e0;
+  margin-left: 8px;
+}
+
+.trust-line {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-top: 48px;
+  color: #7b8798;
+  font:
+    400 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.04em;
+}
+
+.trust-line strong {
+  color: #49566a;
+  font-weight: 500;
+}
+
+.mini-atoms {
+  display: flex;
+  align-items: center;
+}
+
+.mini-atoms i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1769e0;
+  border: 2px solid #d9eaff;
+  margin-left: -2px;
+}
+
+.mini-atoms i:nth-child(2) {
+  width: 11px;
+  height: 11px;
+  background: #0c1627;
+}
+
+.molecule-stage {
+  height: min(580px, 47vw);
+  min-height: 480px;
+  max-width: 650px;
+  width: 100%;
+  justify-self: end;
+  position: relative;
+}
+
+.molecule-stage::before {
+  content: '';
+  position: absolute;
+  width: 66%;
+  aspect-ratio: 1;
+  top: 16%;
+  left: 17%;
+  background: radial-gradient(circle, #d6e6ff 0%, #e5f0ff99 37%, transparent 68%);
+  filter: blur(8px);
+}
+
+.molecule-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 20px 16px #1b4c8d14);
+  animation: molecule-float 7s ease-in-out infinite;
+}
+
+.molecule-lines path {
+  fill: none;
+  stroke: #8396b2;
+  stroke-width: 6;
+}
+
+.atom {
+  stroke: #fff;
+  stroke-width: 5;
+}
+
+.atom-blue {
+  fill: #1769e0;
+}
+
+.atom-white {
+  fill: #dcecff;
+  stroke: #8295af;
+  stroke-width: 4;
+}
+
+.atom-navy {
+  fill: #0c2144;
+}
+
+.atom-labels {
+  fill: white;
+  text-anchor: middle;
+  font:
+    600 17px 'DM Mono',
+    monospace;
+}
+
+.formula {
+  position: absolute;
+  background: rgba(221, 237, 255, 0.9);
+  border: 1px solid #cbd8e9;
+  padding: 8px 10px;
+  color: #486079;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  box-shadow: 4px 4px 0 #dce8f8;
+}
+
+.formula-one {
+  top: 12%;
+  left: 0;
+}
+
+.formula-two {
+  right: 2%;
+  bottom: 19%;
+}
+
+.lab-note {
+  position: absolute;
+  right: 2%;
+  top: 17%;
+  color: #7d8da4;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.15em;
+  transform: rotate(90deg) translateX(100%);
+  transform-origin: right top;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px dashed #9eb4d2;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.orbit-one {
+  width: 74%;
+  height: 48%;
+  left: 13%;
+  top: 25%;
+  transform: rotate(28deg);
+}
+
+.orbit-two {
+  width: 60%;
+  height: 70%;
+  left: 20%;
+  top: 14%;
+  transform: rotate(-25deg);
+}
+
+.scroll-cue {
+  position: absolute;
+  right: 28px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8491a3;
+  font:
+    500 8px 'DM Mono',
+    monospace;
+  letter-spacing: 0.17em;
+}
+
+.scroll-cue i {
+  width: 38px;
+  height: 1px;
+  background: #abb8c8;
+}
+
+.experiences {
+  padding: 100px clamp(24px, 7vw, 112px) 115px;
+  background: #fff;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 60px;
+  max-width: 1280px;
+  margin: 0 auto 48px;
+}
+
+.section-kicker {
+  display: block;
+  margin-bottom: 15px;
+  color: #1769e0;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.16em;
+}
+
+.section-heading h2 {
+  font-size: clamp(34px, 4vw, 55px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 650;
+}
+
+.section-heading > p {
+  max-width: 400px;
+  color: #667387;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.feature-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid #9db9dc;
+  border-left: 1px solid #9db9dc;
+}
+
+.feature-card {
+  position: relative;
+  min-height: 425px;
+  padding: 22px 25px 25px;
+  background: #f4f8ff;
+  border: 0;
+  border-right: 1px solid #9db9dc;
+  border-bottom: 1px solid #9db9dc;
+  color: #0c1627;
+  text-align: left;
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  height: 4px;
+  background: var(--accent);
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms ease;
+}
+
+.feature-card:hover {
+  z-index: 2;
+  transform: translateY(-8px);
+  background: #e8f2ff;
+  box-shadow: 0 22px 40px #1b365817;
+}
+
+.feature-card:hover::after {
+  transform: scaleX(1);
+}
+
+.card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #9aa6b5;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.1em;
+}
+
+.card-tag {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
+  padding: 5px 7px;
+}
+
+.icon-box {
+  width: 58px;
+  height: 58px;
+  margin: 48px 0 32px;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, white);
+}
+
+.icon-box svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-eyebrow {
+  color: var(--accent);
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.feature-card h3 {
+  margin: 8px 0 13px;
+  font-size: 24px;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+
+.feature-card p {
+  color: #687588;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.card-action {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #26364c;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.card-action i {
+  color: var(--accent);
+  font-style: normal;
+  font-size: 17px;
+  transition: transform 180ms ease;
+}
+
+.feature-card:hover .card-action i {
+  transform: translateX(5px);
+}
+
+footer {
+  min-height: 100px;
+  padding: 25px clamp(24px, 7vw, 112px);
+  background: #0c1627;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #738096;
+  font:
+    400 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.footer-brand {
+  color: #fff;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  z-index: 100;
+  transform: translate(-50%, 30px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 13px 17px;
+  background: #0c1627;
+  color: #fff;
+  box-shadow: 6px 6px 0 #b9d3fa;
+  font-size: 12px;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.toast span {
+  color: #69a5ff;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.13em;
+  margin-right: 12px;
+}
+
+.toast .toast-message {
+  color: #fff;
+  font:
+    500 12px 'Manrope',
+    sans-serif;
+  letter-spacing: 0;
+  margin-right: 0;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@keyframes molecule-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@media (max-width: 1050px) {
+  .hero {
+    grid-template-columns: 1fr 0.8fr;
+  }
+
+  .molecule-stage {
+    transform: scale(0.88);
+    transform-origin: right center;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .topbar {
+    height: 68px;
+  }
+
+  .menu-button {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    background: transparent;
+    border: 0;
+  }
+
+  .menu-button span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: #0c1627;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: #fff;
+    border-bottom: 1px solid #c9d8eb;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    transform: translateY(-130%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 220ms ease,
+      opacity 180ms ease;
+  }
+
+  .main-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .main-nav button {
+    width: 100%;
+  }
+
+  .hero {
+    min-height: auto;
+    display: block;
+    padding-top: 65px;
+  }
+
+  .hero::before {
+    inset: 0;
+    background: linear-gradient(#d9eaff 0%, #d9eaffee 58%, transparent);
+  }
+
+  .hero h1 {
+    font-size: clamp(49px, 15vw, 72px);
+  }
+
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .trust-line {
+    margin-top: 34px;
+  }
+
+  .molecule-stage {
+    height: 400px;
+    min-height: 0;
+    margin: 30px auto -55px;
+    transform: none;
+  }
+
+  .formula-one {
+    left: 5%;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+
+  .experiences {
+    padding-top: 75px;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading > p {
+    margin-top: 24px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    min-height: 390px;
+  }
+
+  footer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 13px;
+  }
+
+  .toast {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+    transform: translateY(30px);
+  }
+
+  .toast.is-visible {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .molecule-svg {
+    animation: none;
+  }
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+  color: #edf5ff;
+  background: #061224;
+}
+
+html[data-theme='dark'] body {
+  background: #061224;
+}
+
+html[data-theme='dark'] .topbar {
+  background: rgba(6, 21, 41, 0.95);
+  border-bottom-color: #25466c;
+}
+
+html[data-theme='dark'] .brand {
+  color: #f2f7ff;
+}
+
+html[data-theme='dark'] .brand strong,
+html[data-theme='dark'] .main-nav a:hover,
+html[data-theme='dark'] .hero h1 em,
+html[data-theme='dark'] .text-action span,
+html[data-theme='dark'] .section-kicker {
+  color: #67a9ff;
+}
+
+html[data-theme='dark'] .main-nav a {
+  color: #b7c9df;
+}
+
+html[data-theme='dark'] .main-nav button {
+  background: #2b82ef;
+}
+
+html[data-theme='dark'] .main-nav button:hover {
+  background: #56a0ff;
+}
+
+html[data-theme='dark'] .theme-toggle {
+  color: #ffd56a;
+  background: #102b4c;
+  border-color: #31577f;
+}
+
+html[data-theme='dark'] .theme-toggle:hover {
+  color: #ffe39a;
+  border-color: #67a9ff;
+}
+
+html[data-theme='dark'] .moon-icon {
+  display: none;
+}
+
+html[data-theme='dark'] .sun-icon {
+  display: block;
+}
+
+html[data-theme='dark'] .menu-button span {
+  background: #e7f1ff;
+}
+
+html[data-theme='dark'] .hero {
+  background:
+    radial-gradient(circle at 78% 44%, #1768bd 0%, #104d8d 21%, transparent 49%),
+    linear-gradient(125deg, #0a1d36 0%, #0b3768 57%, #0758a1 100%);
+  border-bottom-color: #24496f;
+}
+
+html[data-theme='dark'] .hero::before {
+  background: linear-gradient(90deg, #091c35 70%, transparent);
+}
+
+html[data-theme='dark'] .hero-grid {
+  background-image:
+    linear-gradient(#4d7bad 1px, transparent 1px),
+    linear-gradient(90deg, #4d7bad 1px, transparent 1px);
+  opacity: 0.26;
+}
+
+html[data-theme='dark'] .status-pill {
+  color: #b8cde5;
+  background: rgba(11, 42, 75, 0.85);
+  border-color: #39658e;
+}
+
+html[data-theme='dark'] .hero-copy > p {
+  color: #bed2e9;
+}
+
+html[data-theme='dark'] .text-action {
+  color: #e5f0ff;
+  border-bottom-color: #55779d;
+}
+
+html[data-theme='dark'] .trust-line,
+html[data-theme='dark'] .scroll-cue,
+html[data-theme='dark'] .lab-note {
+  color: #91aac5;
+}
+
+html[data-theme='dark'] .trust-line strong {
+  color: #d7e7f8;
+}
+
+html[data-theme='dark'] .mini-atoms i {
+  border-color: #091c35;
+}
+
+html[data-theme='dark'] .mini-atoms i:nth-child(2) {
+  background: #d8e9ff;
+}
+
+html[data-theme='dark'] .molecule-stage::before {
+  background: radial-gradient(circle, #1768bd66 0%, #1d67ad38 38%, transparent 68%);
+}
+
+html[data-theme='dark'] .molecule-lines path {
+  stroke: #7197c0;
+}
+
+html[data-theme='dark'] .atom-white {
+  fill: #183b62;
+  stroke: #8aadd0;
+}
+
+html[data-theme='dark'] .formula {
+  color: #c1d9f2;
+  background: rgba(9, 34, 62, 0.9);
+  border-color: #416b93;
+  box-shadow: 4px 4px 0 #07162a;
+}
+
+html[data-theme='dark'] .orbit {
+  border-color: #6e96bf;
+}
+
+html[data-theme='dark'] .experiences {
+  background: #071629;
+}
+
+html[data-theme='dark'] .section-heading > p {
+  color: #9fb4ca;
+}
+
+html[data-theme='dark'] .feature-grid {
+  border-color: #315479;
+}
+
+html[data-theme='dark'] .feature-card {
+  color: #edf5ff;
+  background: #0d223d;
+  border-color: #315479;
+}
+
+html[data-theme='dark'] .feature-card:hover {
+  background: #12305a;
+  box-shadow: 0 22px 42px #00081475;
+}
+
+html[data-theme='dark'] .card-topline {
+  color: #8099b4;
+}
+
+html[data-theme='dark'] .card-tag,
+html[data-theme='dark'] .icon-box {
+  background: color-mix(in srgb, var(--accent) 18%, #0d223d);
+  border-color: color-mix(in srgb, var(--accent) 42%, #0d223d);
+}
+
+html[data-theme='dark'] .feature-card p {
+  color: #a8bdd3;
+}
+
+html[data-theme='dark'] .card-action {
+  color: #d9e8f8;
+}
+
+html[data-theme='dark'] footer {
+  background: #030c18;
+  color: #7891ad;
+}
+
+html[data-theme='dark'] .toast {
+  background: #e8f2ff;
+  color: #071629;
+  box-shadow: 6px 6px 0 #1769e0;
+}
+
+html[data-theme='dark'] .toast .toast-message {
+  color: #071629;
+}
+
+@media (max-width: 760px) {
+  html[data-theme='dark'] .main-nav {
+    background: #081b32;
+    border-bottom-color: #25466c;
+  }
+
+  html[data-theme='dark'] .hero::before {
+    background: linear-gradient(#091c35 0%, #091c35ee 58%, transparent);
+  }
+}
+
+/* ================================================================
+   COMPOUND COMBINE APPLICATION
+   ================================================================ */
+
+/* 09. Page-level visibility and blue-green application canvas */
+.page-hidden {
+  display: none !important;
+}
+
+.combine-page {
+  min-height: calc(100vh - 76px);
+  background: #edf9f8;
+  color: #082d35;
+}
+
+/* 10. Intro hero and molecular reaction-flow illustration */
+.combine-intro {
+  min-height: 430px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
+  align-items: center;
+  gap: 50px;
+  padding: 64px clamp(24px, 7vw, 112px);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 78% 44%, #42b9b66b 0%, transparent 30%),
+    linear-gradient(125deg, #073e4a 0%, #056879 58%, #038c91 100%);
+  color: #fff;
+}
+
+.combine-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(#a3e2dd 1px, transparent 1px),
+    linear-gradient(90deg, #a3e2dd 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(90deg, transparent, #000 35%, #000);
+}
+
+.combine-intro-copy {
+  max-width: 700px;
+  position: relative;
+  z-index: 2;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #bce9e7;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+}
+
+.back-link span {
+  font-size: 16px;
+  transition: transform 180ms ease;
+}
+
+.back-link:hover span {
+  transform: translateX(-4px);
+}
+
+.combine-kicker {
+  display: block;
+  color: #17a19f;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.15em;
+}
+
+.combine-intro .combine-kicker {
+  color: #89e5df;
+}
+
+.combine-intro h1 {
+  margin: 16px 0 20px;
+  font-size: clamp(54px, 6vw, 86px);
+  line-height: 0.93;
+  letter-spacing: -0.065em;
+}
+
+.combine-intro h1 em {
+  color: #7ce0d8;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.combine-intro-copy > p {
+  max-width: 570px;
+  color: #c9e9e8;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.combine-intro-visual {
+  width: min(100%, 500px);
+  aspect-ratio: 1.6;
+  justify-self: end;
+  position: relative;
+}
+
+.combine-intro-visual svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #7bd9d3;
+  stroke-width: 2;
+  stroke-dasharray: 5 6;
+}
+
+.combine-orbit {
+  position: absolute;
+  width: 245px;
+  height: 245px;
+  top: 50%;
+  right: 4%;
+  border: 1px solid #77d5d05c;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.combine-node {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 1px solid #a5e7e2;
+  border-radius: 50%;
+  background: #0b6876;
+  box-shadow: 0 0 0 9px #0a667252;
+  color: #d8f8f5;
+  font:
+    500 16px 'DM Mono',
+    monospace;
+}
+
+.node-a {
+  top: 12%;
+  left: 8%;
+}
+
+.node-b {
+  bottom: 12%;
+  left: 8%;
+}
+
+.node-result {
+  width: 86px;
+  height: 86px;
+  top: 50%;
+  right: 5%;
+  background: #63d2c9;
+  border-color: #d0fffb;
+  box-shadow:
+    0 0 0 13px #2eaaa755,
+    0 0 55px #72e0d677;
+  color: #063a43;
+  font-size: 27px;
+  transform: translateY(-50%);
+}
+
+.visual-label {
+  position: absolute;
+  color: #9ddedb;
+  font:
+    500 8px 'DM Mono',
+    monospace;
+  letter-spacing: 0.18em;
+}
+
+.label-input {
+  left: 8%;
+  bottom: -4px;
+}
+
+.label-output {
+  right: 6%;
+  bottom: -4px;
+}
+
+/* 11. Main virtual workbench and section heading */
+.combine-workspace {
+  padding: 78px clamp(24px, 7vw, 112px) 110px;
+  background: linear-gradient(#d6eeec66 1px, transparent 1px), #f7fcfc;
+  background-size: 100% 70px;
+}
+
+.workspace-heading,
+.shelf-heading {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.workspace-heading {
+  margin-bottom: 35px;
+}
+
+.workspace-heading h2 {
+  margin-top: 12px;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.session-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #59777c;
+  font:
+    400 10px 'DM Mono',
+    monospace;
+}
+
+.session-status strong {
+  color: #078d8c;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #18a985;
+  box-shadow: 0 0 0 4px #18a9851f;
+}
+
+/* 12. Two-column mixing and result laboratory */
+.lab-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.55fr);
+  border: 1px solid #96c5c6;
+  background: #fff;
+  box-shadow: 0 24px 60px #0c565016;
+}
+
+/* 13. Reactant selection panel */
+.mixing-panel {
+  min-height: 500px;
+  padding: 23px 28px 30px;
+  border-right: 1px solid #96c5c6;
+}
+
+.panel-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  color: #6f8f92;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.13em;
+}
+
+.reset-mix {
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid #adcbcc;
+  background: transparent;
+  color: #5d7f82;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+}
+
+.mixing-stage {
+  min-height: 350px;
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 14. Selectable compound vessels */
+.mix-slot {
+  min-width: 0;
+  height: 270px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #8eb9ba;
+  background: #f4fbfa;
+  color: #173c42;
+  transition:
+    border 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.mix-slot:hover,
+.mix-slot.is-active {
+  border: 1px solid #079496;
+  background: #eaf8f6;
+}
+
+.mix-slot.is-active {
+  box-shadow: inset 0 -3px #079496;
+}
+
+.slot-letter {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  color: #7b9c9e;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+}
+
+.beaker {
+  width: 73px;
+  height: 88px;
+  position: relative;
+  margin-bottom: 19px;
+  overflow: hidden;
+  border: 2px solid #5e9194;
+  border-top: 0;
+  border-radius: 3px 3px 17px 17px;
+}
+
+.beaker::before {
+  content: '';
+  width: 83px;
+  height: 2px;
+  position: absolute;
+  left: -7px;
+  top: 0;
+  background: #5e9194;
+}
+
+.beaker-liquid {
+  position: absolute;
+  inset: auto 5px 5px;
+  height: 0;
+  border-radius: 0 0 11px 11px;
+  background: var(--liquid, #3ab3b0);
+  opacity: 0.88;
+  transition:
+    height 300ms ease,
+    background 300ms ease;
+}
+
+.mix-slot.has-compound .beaker-liquid {
+  height: 57%;
+}
+
+.beaker-lines::before,
+.beaker-lines::after {
+  content: '';
+  width: 14px;
+  height: 1px;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: #80a7a8;
+}
+
+.beaker-lines::after {
+  top: 45px;
+  width: 9px;
+}
+
+.slot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.slot-content strong {
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+
+.slot-content small {
+  color: #799496;
+  font-size: 10px;
+}
+
+.mix-slot.has-compound .slot-content strong {
+  color: #087e82;
+  font:
+    500 22px 'DM Mono',
+    monospace;
+}
+
+.mix-symbol {
+  display: flex;
+  align-items: center;
+}
+
+.mix-symbol span {
+  flex: 1;
+  height: 1px;
+  background: #bed4d5;
+}
+
+.mix-symbol i {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #9cbdbe;
+  border-radius: 50%;
+  background: #fff;
+  color: #168c8d;
+  font-style: normal;
+}
+
+/* 15. Primary reaction action */
+.combine-button {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 19px;
+  border: 0;
+  background: #063f4b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.combine-button:disabled {
+  background: #c5d8d8;
+  color: #759294;
+  cursor: not-allowed;
+}
+
+.combine-button:not(:disabled):hover {
+  background: #078b8d;
+  transform: translateY(-2px);
+}
+
+.combine-button b {
+  margin-left: auto;
+  font-size: 20px;
+}
+
+.combine-button-icon {
+  width: 31px;
+  height: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+.combine-button-icon i {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.combine-button-icon i:nth-child(1) {
+  top: 0;
+  left: 11px;
+}
+
+.combine-button-icon i:nth-child(2) {
+  left: 2px;
+  bottom: 0;
+}
+
+.combine-button-icon i:nth-child(3) {
+  right: 2px;
+  bottom: 0;
+}
+
+/* 16. Reaction result chamber */
+.result-panel {
+  min-height: 500px;
+  padding: 23px 26px 30px;
+  background: #ecf8f7;
+}
+
+.result-empty,
+.result-content {
+  min-height: 410px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.result-empty strong {
+  margin: 25px 0 8px;
+  font-size: 17px;
+}
+
+.result-empty p {
+  max-width: 235px;
+  color: #739092;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.result-vessel {
+  width: 102px;
+  height: 102px;
+  position: relative;
+  border: 1px dashed #8bb6b6;
+  border-radius: 50%;
+}
+
+.result-vessel::before {
+  content: '?';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #8aadae;
+  font:
+    400 30px 'DM Mono',
+    monospace;
+}
+
+.result-bubble {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  border: 1px solid #5ea6a6;
+  border-radius: 50%;
+}
+
+.bubble-one {
+  left: 3px;
+  top: 12px;
+}
+
+.bubble-two {
+  right: -6px;
+  top: 38px;
+}
+
+.bubble-three {
+  left: 13px;
+  bottom: -4px;
+}
+
+.result-panel.is-reacting .result-vessel {
+  animation: reaction-pulse 700ms ease-in-out infinite;
+}
+
+.result-panel.is-reacting .result-bubble {
+  animation: bubble-rise 600ms ease-in infinite;
+}
+
+.result-content[hidden],
+.result-empty[hidden] {
+  display: none;
+}
+
+.reaction-type {
+  padding: 6px 8px;
+  border: 1px solid #7fc0ba;
+  background: #d9f2ef;
+  color: #087d7c;
+  font:
+    500 8px 'DM Mono',
+    monospace;
+  letter-spacing: 0.13em;
+}
+
+.result-formula {
+  margin-top: 28px;
+  color: #078789;
+  font:
+    500 clamp(26px, 3vw, 38px) 'DM Mono',
+    monospace;
+  letter-spacing: -0.05em;
+}
+
+.result-content h3 {
+  margin: 10px 0 12px;
+  font-size: 20px;
+}
+
+.result-description {
+  max-width: 275px;
+  color: #627f82;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.reaction-equation {
+  width: 100%;
+  margin-top: 25px;
+  padding: 13px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-top: 1px solid #b6d5d3;
+  border-bottom: 1px solid #b6d5d3;
+  color: #58787b;
+  font:
+    500 10px 'DM Mono',
+    monospace;
+}
+
+.reaction-equation i {
+  color: #0d9a98;
+  font-style: normal;
+  font-size: 15px;
+}
+
+.reaction-equation strong {
+  color: #087f80;
+}
+
+.discovery-badge {
+  margin-top: 23px;
+  color: #0a8e7c;
+  font:
+    500 8px 'DM Mono',
+    monospace;
+  letter-spacing: 0.14em;
+}
+
+/* 17. Compound shelf and discovery containers */
+.compound-shelf,
+.discoveries-strip {
+  max-width: 1280px;
+  margin: 42px auto 0;
+  padding: 30px;
+  border: 1px solid #a7cbca;
+  background: #fff;
+}
+
+.shelf-heading {
+  margin-bottom: 25px;
+}
+
+.shelf-heading h3,
+.discoveries-strip h3 {
+  margin-top: 7px;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+}
+
+.shelf-hint {
+  color: #708d8f;
+  font:
+    400 9px 'DM Mono',
+    monospace;
+}
+
+.shelf-hint strong {
+  color: #078789;
+}
+
+/* 18. Selectable compound library */
+.compound-list {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #b6d1d1;
+  border-left: 1px solid #b6d1d1;
+}
+
+.compound-option {
+  min-width: 0;
+  min-height: 112px;
+  padding: 15px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  border: 0;
+  border-right: 1px solid #b6d1d1;
+  border-bottom: 1px solid #b6d1d1;
+  background: #f8fcfc;
+  color: #163c41;
+  text-align: left;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.compound-option:hover {
+  z-index: 2;
+  background: #e8f7f5;
+  transform: translateY(-3px);
+}
+
+.compound-option.is-used {
+  background: #dff3f1;
+  box-shadow: inset 0 -3px var(--liquid);
+}
+
+.compound-dot {
+  width: 10px;
+  height: 10px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--liquid);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--liquid) 16%, transparent);
+}
+
+.compound-option strong {
+  font:
+    500 15px 'DM Mono',
+    monospace;
+}
+
+.compound-option small {
+  max-width: 100%;
+  overflow: hidden;
+  color: #789294;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 19. Session reaction log */
+.discoveries-strip {
+  min-height: 120px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  align-items: center;
+  gap: 30px;
+}
+
+.discovery-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.empty-discoveries {
+  color: #8ba2a3;
+  font-size: 11px;
+}
+
+.discovery-chip {
+  flex: 0 0 auto;
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #9bc8c4;
+  background: #eaf8f6;
+}
+
+.discovery-chip strong {
+  color: #087e7e;
+  font:
+    500 12px 'DM Mono',
+    monospace;
+}
+
+.discovery-chip span {
+  color: #5f7f81;
+  font-size: 9px;
+}
+
+/* 20. Reaction and molecule motion */
+@keyframes reaction-pulse {
+  50% {
+    transform: scale(1.08);
+    border-color: #099c99;
+    box-shadow: 0 0 30px #0ca4a333;
+  }
+}
+
+@keyframes bubble-rise {
+  to {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+}
+
+/* 21. Dark-mode workbench palette */
+html[data-theme='dark'] .combine-page {
+  color: #e4f6f4;
+  background: #061c24;
+}
+
+html[data-theme='dark'] .combine-intro {
+  background:
+    radial-gradient(circle at 78% 44%, #1b9d9b55 0%, transparent 31%),
+    linear-gradient(125deg, #031820 0%, #063e49 58%, #056b70 100%);
+}
+
+html[data-theme='dark'] .combine-workspace {
+  background: linear-gradient(#173d4238 1px, transparent 1px), #061b23;
+}
+
+html[data-theme='dark'] .session-status,
+html[data-theme='dark'] .panel-label,
+html[data-theme='dark'] .shelf-hint {
+  color: #8eaeaf;
+}
+
+html[data-theme='dark'] .lab-layout,
+html[data-theme='dark'] .compound-shelf,
+html[data-theme='dark'] .discoveries-strip {
+  border-color: #285b60;
+  background: #0a252e;
+  box-shadow: 0 24px 60px #0008;
+}
+
+html[data-theme='dark'] .mixing-panel {
+  border-color: #285b60;
+}
+
+html[data-theme='dark'] .mix-slot {
+  border-color: #376b6f;
+  background: #0a2028;
+  color: #e0f3f1;
+}
+
+html[data-theme='dark'] .mix-slot:hover,
+html[data-theme='dark'] .mix-slot.is-active {
+  border-color: #25aaa8;
+  background: #0d3037;
+}
+
+html[data-theme='dark'] .mix-symbol i {
+  background: #0a252e;
+  border-color: #3e7477;
+}
+
+html[data-theme='dark'] .combine-button:disabled {
+  background: #254147;
+  color: #789395;
+}
+
+html[data-theme='dark'] .result-panel {
+  background: #081e27;
+}
+
+html[data-theme='dark'] .result-empty p,
+html[data-theme='dark'] .result-description,
+html[data-theme='dark'] .compound-option small,
+html[data-theme='dark'] .empty-discoveries {
+  color: #8ba8aa;
+}
+
+html[data-theme='dark'] .compound-list,
+html[data-theme='dark'] .compound-option {
+  border-color: #315b5f;
+}
+
+html[data-theme='dark'] .compound-option {
+  color: #def2f0;
+  background: #0b2028;
+}
+
+html[data-theme='dark'] .compound-option:hover,
+html[data-theme='dark'] .compound-option.is-used {
+  background: #0d3439;
+}
+
+html[data-theme='dark'] .reaction-type,
+html[data-theme='dark'] .discovery-chip {
+  background: #0d393d;
+  border-color: #327a78;
+}
+
+html[data-theme='dark'] .reaction-equation {
+  border-color: #2f5b5e;
+}
+
+/* 22. Tablet layout */
+@media (max-width: 1050px) {
+  .combine-intro {
+    grid-template-columns: 1fr 0.75fr;
+  }
+
+  .lab-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .mixing-panel {
+    border-right: 0;
+    border-bottom: 1px solid #96c5c6;
+  }
+
+  .result-panel,
+  .result-empty,
+  .result-content {
+    min-height: 380px;
+  }
+
+  .compound-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 23. Mobile layout */
+@media (max-width: 760px) {
+  .combine-page {
+    min-height: calc(100vh - 68px);
+  }
+
+  .combine-intro {
+    min-height: 580px;
+    display: block;
+    padding-top: 45px;
+  }
+
+  .combine-intro h1 {
+    font-size: clamp(50px, 15vw, 70px);
+  }
+
+  .combine-intro-visual {
+    height: 220px;
+    margin: 30px auto -15px;
+  }
+
+  .combine-workspace {
+    padding-top: 60px;
+  }
+
+  .workspace-heading,
+  .shelf-heading {
+    display: block;
+  }
+
+  .session-status,
+  .shelf-hint {
+    margin-top: 20px;
+  }
+
+  .mixing-panel {
+    padding: 20px 17px;
+  }
+
+  .mixing-stage {
+    min-height: 560px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 45px 1fr;
+    padding: 20px 0;
+  }
+
+  .mix-slot {
+    width: 100%;
+    height: 235px;
+  }
+
+  .mix-symbol {
+    width: 90px;
+    margin: auto;
+  }
+
+  .compound-shelf,
+  .discoveries-strip {
+    padding: 22px 17px;
+  }
+
+  .compound-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .discoveries-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   COMBINE NAVIGATION AND FOOTER COLOR SYSTEM
+   ================================================================ */
+
+/* 24. Light-mode teal navigation */
+.combine-topbar {
+  background: rgba(5, 67, 78, 0.97);
+  border-bottom-color: #2b7e85;
+}
+.combine-topbar .brand {
+  color: #f1fffd;
+}
+.combine-topbar .brand > strong {
+  color: #72ddd4;
+}
+.combine-topbar .brand-mark span,
+.combine-topbar .brand-mark::before,
+.combine-topbar .brand-mark::after {
+  background: #72ddd4;
+}
+.combine-topbar .main-nav a {
+  color: #bce3e0;
+}
+.combine-topbar .login-link {
+  color: #bce3e0;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  transition: color 180ms ease;
+}
+.combine-topbar .login-link:hover {
+  color: #fff;
+}
+.combine-topbar .main-nav a:hover,
+.combine-topbar .main-nav a.is-current {
+  color: #fff;
+}
+.combine-topbar .main-nav a.is-current {
+  border-bottom: 1px solid #6cdbd2;
+}
+.combine-topbar .nav-game-link {
+  padding: 12px 19px;
+  background: #72ddd4;
+  color: #063f4b !important;
+  border-radius: 2px;
+}
+.combine-topbar .theme-toggle {
+  color: #e8fffc;
+  background: #08717b;
+  border-color: #57a6a8;
+}
+.combine-topbar .theme-toggle:hover {
+  color: #063f4b;
+  background: #72ddd4;
+  border-color: #a5f2eb;
+}
+
+/* 25. Light-mode teal footer */
+.combine-footer {
+  background: #07525e;
+  color: #a9d7d5;
+  border-top: 1px solid #2a7b82;
+}
+.combine-footer .brand {
+  color: #f1fffd;
+}
+.combine-footer .brand > strong {
+  color: #72ddd4;
+}
+.combine-footer .brand-mark span,
+.combine-footer .brand-mark::before,
+.combine-footer .brand-mark::after {
+  background: #72ddd4;
+}
+.combine-footer p {
+  color: #c0e4e1;
+}
+
+/* 26. Dark-mode navigation, theme control, and footer */
+html[data-theme='dark'] .combine-topbar {
+  background: rgba(3, 34, 42, 0.97);
+  border-bottom-color: #245d63;
+}
+html[data-theme='dark'] .combine-topbar .brand > strong {
+  color: #5fd2ca;
+}
+html[data-theme='dark'] .combine-topbar .login-link {
+  color: #9fc9c7;
+}
+html[data-theme='dark'] .combine-topbar .theme-toggle {
+  color: #7be1d9;
+  background: #082f38;
+  border-color: #2f6970;
+}
+html[data-theme='dark'] .combine-topbar .theme-toggle:hover {
+  color: #dffffb;
+  background: #0d5962;
+  border-color: #55aaa9;
+}
+html[data-theme='dark'] .combine-footer {
+  background: #02161b;
+  color: #6f999a;
+  border-top-color: #163f45;
+}
+html[data-theme='dark'] .combine-footer .brand {
+  color: #e7f8f6;
+}
+html[data-theme='dark'] .combine-footer .brand > strong {
+  color: #5fd2ca;
+}
+html[data-theme='dark'] .combine-footer p {
+  color: #90b9b8;
+}
+
+/* 27. Mobile navigation palette */
+@media (max-width: 760px) {
+  .combine-topbar .main-nav {
+    background: #06434e;
+    border-bottom-color: #2b7e85;
+  }
+  .combine-topbar .menu-button span {
+    background: #e8fffc;
+  }
 }
