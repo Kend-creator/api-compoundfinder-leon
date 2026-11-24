@@ -5,6 +5,47 @@ const toastMessage = document.querySelector(".toast-message");
 const themeToggle = document.querySelector(".theme-toggle");
 let toastTimer;
 
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const SUPABASE_URL = "[https://ulnzqrwzomzzopvocvzj.supabase.co](https://ulnzqrwzomzzopvocvzj.supabase.co)";
+const SUPABASE_ANON_KEY = "sb_publishable_5YwA1cJ-Ec6OtZRtzFwe1w_WxovqCFx";
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const authNavLink = document.querySelector("#auth-nav-link");
+
+/* SUPABASE AUTH */
+async function syncAuthNav() {
+  if (!authNavLink) return;
+  const { data } = await supabase.auth.getSession();
+  const user = data?.session?.user;
+
+  if (user) {
+    authNavLink.textContent = user.email;
+    authNavLink.title = "Click to sign out";
+    authNavLink.href = "#sign-out";
+    authNavLink.dataset.signedIn = "true";
+  } else {
+    authNavLink.textContent = "Sign in";
+    authNavLink.title = "Sign in to Compound Lab";
+    authNavLink.href = "./login/login.html";
+    authNavLink.dataset.signedIn = "false";
+  }
+}
+
+authNavLink?.addEventListener("click", async (event) => {
+  if (authNavLink.dataset.signedIn === "true") {
+    event.preventDefault();
+    await supabase.auth.signOut();
+    await syncAuthNav();
+  }
+});
+
+supabase.auth.onAuthStateChange(() => {
+  syncAuthNav();
+});
+
+syncAuthNav();
+
 /* Update the theme toggle button based on the current theme */
 function updateThemeButton(theme) {
   const nextTheme = theme === "dark" ? "light" : "dark";
