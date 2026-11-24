@@ -125,8 +125,8 @@ function updateMixState() {
 
   document.querySelectorAll('.compound-option').forEach((option) => {
     const optionId = option.dataset.id ? Number(option.dataset.id) : null
-    const matchesA = optionId ? optionId === selections.a?.id : option.dataset.key === selections.a?.key
-    const matchesB = optionId ? optionId === selections.b?.id : option.dataset.key === selections.b?.key
+    const matchesA = optionId && selections.a?.id ? optionId === selections.a.id : option.dataset.key === selections.a?.key
+    const matchesB = optionId && selections.b?.id ? optionId === selections.b.id : option.dataset.key === selections.b?.key
     option.classList.toggle('is-used', Boolean(matchesA || matchesB))
   })
 }

@@ -470,7 +470,13 @@ def combine_compounds(
     # If no reaction is found in database
     if not reaction_res.data:
         # Dynamic Fallback: Attempt double-replacement ion swap using DB tables
-        comp_res = supabase.table("compounds").select(COMPOUND_SELECT).in_("id", sorted_ids).execute()
+        comp_res = (
+            supabase.table("compounds")
+            .select(COMPOUND_SELECT)
+            .in_("id", sorted_ids)
+            .order("id")
+            .execute()
+        )
         if len(comp_res.data) < 2:
             raise HTTPException(status_code=404, detail="One or both compounds not found.")
 
@@ -512,6 +518,13 @@ def combine_compounds(
                         {"coefficient": 1, "compound": prod2}
                     ]
                 }
+
+            return {
+        "reacted": False,
+        "reactantKey": reactant_key,
+        "message": "No chemical reaction occurs between these compounds.",
+        "products": []
+        }
 
 
     reaction = reaction_res.data[0]
