@@ -624,8 +624,41 @@ button {
   line-height: 1.7;
 }
 
+/* Prominent "Create account" button */
 .signup-link {
-  margin-left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 18px;
+  background: #f4f8ff;
+  color: #0c1627;
+  border: 1px solid #8eb7ed;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 #dce8f8;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.signup-link:hover:not(:disabled) {
+  background: #e8f2ff;
+  border-color: #1769e0;
+  color: #1769e0;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #dce8f8;
+}
+
+.signup-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .security-note {
@@ -744,6 +777,21 @@ html[data-theme="dark"] .form-status.is-visible {
   border-color: #2d4c6c;
   background: #0c2139;
   color: #9bb0c8;
+}
+
+/* Dark theme support for the "Create account" button */
+html[data-theme="dark"] .signup-link {
+  background: #102b4c;
+  color: #edf5ff;
+  border-color: #3b6998;
+  box-shadow: 4px 4px 0 #07162a;
+}
+
+html[data-theme="dark"] .signup-link:hover:not(:disabled) {
+  background: #14355e;
+  border-color: #67a9ff;
+  color: #67a9ff;
+  box-shadow: 2px 2px 0 #07162a;
 }
 
 /* 14. Responsive tablet and mobile layout */
