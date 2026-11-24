@@ -1,19 +1,18 @@
-const menuButton = document.querySelector(".menu-button");
-const navigation = document.querySelector(".main-nav");
-const toast = document.querySelector(".toast");
-const toastMessage = document.querySelector(".toast-message");
-const themeToggle = document.querySelector(".theme-toggle");
-let toastTimer;
-
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+// ===========================================================
+// SUPABASE CLIENT & AUTH NAVIGATION SYNC
+// ===========================================================
+
+// Base Supabase project URL (no /rest/v1 suffix) and public browser publishable key
 const SUPABASE_URL = "https://ulnzqrwzomzzopvocvzj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_5YwA1cJ-Ec6OtZRtzFwe1w_WxovqCFx";
+const SUPABASE_ANON_KEY = "<your-full-publishable-key>";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// Top-bar link that switches between "Sign in" and the signed-in user's email
 const authNavLink = document.querySelector("#auth-nav-link");
 
-/* SUPABASE AUTH */
+// Reads the current session and updates the auth link text, href, and state
 async function syncAuthNav() {
   if (!authNavLink) return;
   const { data } = await supabase.auth.getSession();
@@ -32,6 +31,7 @@ async function syncAuthNav() {
   }
 }
 
+// Sign the user out when clicking the link while already signed in
 authNavLink?.addEventListener("click", async (event) => {
   if (authNavLink.dataset.signedIn === "true") {
     event.preventDefault();
@@ -40,13 +40,26 @@ authNavLink?.addEventListener("click", async (event) => {
   }
 });
 
+// Keep the header in sync whenever sign-in or sign-out happens
 supabase.auth.onAuthStateChange(() => {
   syncAuthNav();
 });
 
+// Run initial auth check on page load
 syncAuthNav();
 
-/* Update the theme toggle button based on the current theme */
+// ===========================================================
+// UI CONTROLS (THEME, MOBILE MENU & TOASTS)
+// ===========================================================
+
+const menuButton = document.querySelector(".menu-button");
+const navigation = document.querySelector(".main-nav");
+const toast = document.querySelector(".toast");
+const toastMessage = document.querySelector(".toast-message");
+const themeToggle = document.querySelector(".theme-toggle");
+let toastTimer;
+
+// Update the theme toggle button's accessible label and tooltip for the next mode
 function updateThemeButton(theme) {
   const nextTheme = theme === "dark" ? "light" : "dark";
   themeToggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
@@ -55,7 +68,7 @@ function updateThemeButton(theme) {
 
 updateThemeButton(document.documentElement.dataset.theme || "light");
 
-/* Toggle the theme when the theme toggle button is clicked */
+// Toggle light/dark theme and persist preference in localStorage
 themeToggle.addEventListener("click", () => {
   const currentTheme = document.documentElement.dataset.theme;
   const nextTheme = currentTheme === "dark" ? "light" : "dark";
@@ -65,26 +78,28 @@ themeToggle.addEventListener("click", () => {
   try {
     localStorage.setItem("compound-lab-theme", nextTheme);
   } catch {
-    // The theme still changes when storage is unavailable.
+    // Theme switching still works if browser storage is unavailable.
   }
 });
 
-/* Close the mobile menu when a link is clicked */
+// Close the mobile navigation drawer and reset aria-expanded
 function closeMenu() {
   navigation.classList.remove("is-open");
   menuButton.setAttribute("aria-expanded", "false");
 }
 
+// Toggle mobile navigation menu open/closed
 menuButton.addEventListener("click", () => {
   const isOpen = navigation.classList.toggle("is-open");
   menuButton.setAttribute("aria-expanded", String(isOpen));
 });
 
+// Automatically close the mobile menu after selecting a nav link
 navigation.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", closeMenu);
 });
 
-/* Toast and Toast Timer */
+// Display a temporary toast notification for elements marked with [data-launch]
 document.querySelectorAll("[data-launch]").forEach((button) => {
   button.addEventListener("click", () => {
     clearTimeout(toastTimer);
