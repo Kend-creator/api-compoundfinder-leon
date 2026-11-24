@@ -1,5 +1,4 @@
 const STORAGE_KEY = 'compound-craft-discovered'
-
 const PROXY_URL = '/api/proxy'
 
 async function fetchElements() {
@@ -13,108 +12,16 @@ async function fetchElements() {
   }
 }
 
-// Offline data keeps the frontend demonstrable until the user's API is connected.
-const SAMPLE_COMPOUNDS = [
-  {
-    id: 'water',
-    name: 'Water',
-    formula: 'H₂O',
-    composition: [
-      { symbol: 'H', element: 'Hydrogen', atoms: 2 },
-      { symbol: 'O', element: 'Oxygen', atoms: 1 },
-    ],
-    physicalProperties: {
-      state: 'Liquid',
-      molarMass: '18.02',
-      meltingPointCelsius: 0,
-      boilingPointCelsius: 100,
-    },
-    description:
-      'A bent polar molecule and the familiar solvent that supports life on Earth.',
-  },
-  {
-    id: 'carbon-dioxide',
-    name: 'Carbon dioxide',
-    formula: 'CO₂',
-    composition: [
-      { symbol: 'C', element: 'Carbon', atoms: 1 },
-      { symbol: 'O', element: 'Oxygen', atoms: 2 },
-    ],
-    physicalProperties: {
-      state: 'Gas',
-      molarMass: '44.01',
-      meltingPointCelsius: -56.6,
-      boilingPointCelsius: -78.5,
-    },
-    description:
-      'A linear gas used by plants during photosynthesis and produced by respiration.',
-  },
-  {
-    id: 'ammonia',
-    name: 'Ammonia',
-    formula: 'NH₃',
-    composition: [
-      { symbol: 'N', element: 'Nitrogen', atoms: 1 },
-      { symbol: 'H', element: 'Hydrogen', atoms: 3 },
-    ],
-    physicalProperties: {
-      state: 'Gas',
-      molarMass: '17.03',
-      meltingPointCelsius: -77.7,
-      boilingPointCelsius: -33.3,
-    },
-    description:
-      'A pungent nitrogen compound widely used in fertilizers and chemical manufacturing.',
-  },
-  {
-    id: 'methane',
-    name: 'Methane',
-    formula: 'CH₄',
-    composition: [
-      { symbol: 'C', element: 'Carbon', atoms: 1 },
-      { symbol: 'H', element: 'Hydrogen', atoms: 4 },
-    ],
-    physicalProperties: {
-      state: 'Gas',
-      molarMass: '16.04',
-      meltingPointCelsius: -182.5,
-      boilingPointCelsius: -161.5,
-    },
-    description: 'The simplest hydrocarbon, built around a tetrahedral carbon atom.',
-  },
-  {
-    id: 'sodium-chloride',
-    name: 'Sodium chloride',
-    formula: 'NaCl',
-    composition: [
-      { symbol: 'Na', element: 'Sodium', atoms: 1 },
-      { symbol: 'Cl', element: 'Chlorine', atoms: 1 },
-    ],
-    physicalProperties: {
-      state: 'Solid',
-      molarMass: '58.44',
-      meltingPointCelsius: 801,
-      boilingPointCelsius: 1465,
-    },
-    description: 'An ionic compound better known as table salt.',
-  },
-  {
-    id: 'hydrogen-chloride',
-    name: 'Hydrogen chloride',
-    formula: 'HCl',
-    composition: [
-      { symbol: 'H', element: 'Hydrogen', atoms: 1 },
-      { symbol: 'Cl', element: 'Chlorine', atoms: 1 },
-    ],
-    physicalProperties: {
-      state: 'Gas',
-      molarMass: '36.46',
-      meltingPointCelsius: -114.2,
-      boilingPointCelsius: -85.1,
-    },
-    description: 'A polar diatomic molecule that forms hydrochloric acid when dissolved in water.',
-  },
-]
+async function fetchCompounds() {
+  try {
+    const response = await fetch(`${PROXY_URL}?path=/compounds`)
+    if (!response.ok) throw new Error('Failed to load compounds')
+    const data = await response.json()
+    return Array.isArray(data.compounds) ? data.compounds : []
+  } catch {
+    return []
+  }
+}
 
 let allCompounds = []
 let discoveredIds = new Set()
