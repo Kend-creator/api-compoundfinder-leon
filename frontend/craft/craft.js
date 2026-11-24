@@ -1,7 +1,6 @@
-const PROXY_URL = "/api/proxy";
-
 const STORAGE_KEY = 'compound-craft-discovered'
 
+// Offline data keeps the frontend demonstrable until the user's API is connected.
 const SAMPLE_COMPOUNDS = [
   {
     id: 'water',
@@ -108,6 +107,7 @@ let allCompounds = []
 let discoveredIds = new Set()
 let bench = {}
 
+// Shared navigation, theme persistence, and responsive menu behavior.
 const themeToggle = document.querySelector('.theme-toggle')
 const menuButton = document.querySelector('.menu-button')
 const navigation = document.querySelector('.main-nav')
@@ -145,6 +145,7 @@ menuButton.addEventListener('click', () => {
 
 navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu))
 
+// Discovery progress is intentionally local to this browser.
 function loadDiscoveredFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
@@ -188,6 +189,7 @@ function init() {
   renderBench()
 }
 
+// Compact periodic-table maps avoid maintaining 118 separate position objects.
 const PERIODIC_ROWS = [
   'H,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,He',
   'Li,Be,.,.,.,.,.,.,.,.,.,.,B,C,N,O,F,Ne',
@@ -201,6 +203,7 @@ const PERIODIC_ROWS = [
 const LANTHANIDES = 'La,Ce,Pr,Nd,Pm,Sm,Eu,Gd,Tb,Dy,Ho,Er,Tm,Yb,Lu'.split(',')
 const ACTINIDES = 'Ac,Th,Pa,U,Np,Pu,Am,Cm,Bk,Cf,Es,Fm,Md,No,Lr'.split(',')
 
+// Build active and inactive element cells from the loaded compound set.
 function buildPeriodicTable(compounds) {
   const container = document.querySelector('#periodicTable')
   const elementNames = new Map()
@@ -263,6 +266,7 @@ function buildCell(symbol, elementNames) {
   return tile
 }
 
+// Bench state stores each selected element symbol and its current atom count.
 function addToBench(symbol) {
   bench[symbol] = (bench[symbol] || 0) + 1
   renderBench()
@@ -318,6 +322,7 @@ function buildFormula(symbols) {
   return symbols.map((symbol) => `${symbol}${bench[symbol] > 1 ? bench[symbol] : ''}`).join('')
 }
 
+// Canonical sorted signatures make composition matching independent of click order.
 function compositionSignature(composition) {
   const map = {}
   composition.forEach((element) => {
@@ -348,6 +353,7 @@ function checkForMatch() {
   setStatus('No exact match yet — keep experimenting.', false)
 }
 
+// Successful formulas are persisted and revealed without requiring a server write.
 function discover(compound) {
   const isNew = !discoveredIds.has(compound.id)
   if (isNew) {
@@ -401,6 +407,7 @@ function updateProgressTag() {
     `${discoveredIds.size} / ${allCompounds.length} discovered`
 }
 
+// Hints select a random element from a compound that has not been discovered.
 function giveHint() {
   const undiscovered = allCompounds.filter((compound) => !discoveredIds.has(compound.id))
   if (undiscovered.length === 0) {
@@ -416,6 +423,7 @@ function giveHint() {
   )
 }
 
+// Populate and control the accessible discovery details modal.
 function showReveal(compound, isNewDiscovery) {
   const properties = compound.physicalProperties
   const content = document.querySelector('#revealContent')
@@ -448,6 +456,7 @@ function closeReveal() {
   }, 180)
 }
 
+// Wire static controls after the document has loaded at the end of craft.html.
 document.querySelector('#clearBtn').addEventListener('click', clearBench)
 document.querySelector('#hintBtn').addEventListener('click', giveHint)
 document.querySelector('#modalCloseButton').addEventListener('click', closeReveal)
