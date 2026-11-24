@@ -60,7 +60,7 @@ export default async function handler(req, res) {
   const fetchOptions = {
     method: req.method,
     headers,
-    signal: AbortSignal.timeout(8000),
+    signal: AbortSignal.timeout(20000),
   };
 
   // Forward JSON payload for POST and DELETE requests
@@ -87,7 +87,8 @@ export default async function handler(req, res) {
     }
 
     return res.status(upstream.status).json(data);
-  } catch {
-    return res.status(502).json({ error: "Could not reach the API" });
-  }
+  } catch (err) {
+  console.error("Proxy upstream error:", err);
+  return res.status(502).json({ error: "Could not reach the API" });
+    }
 }
