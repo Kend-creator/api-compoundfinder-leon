@@ -41,6 +41,16 @@ function displayCompounds(compounds) {
         card.innerHTML = `
             <div class="compound-formula">${compound.formula}</div>
             <h3>${compound.name}</h3>
+            ${compound.imageUrl ? `
+                <div class="compound-thumb">
+                    <img
+                        src="${compound.imageUrl}"
+                        alt="${compound.name} (${compound.formula})"
+                        loading="lazy"
+                        onerror="this.closest('.compound-thumb').remove()"
+                    >
+                </div>
+            ` : ""}
             <div class="badge-row">
                 <span class="state-badge" data-state="${state}">${props.state}</span>
                 ${compound.compoundType ? `<span class="type-badge">${compound.compoundType}</span>` : ""}
@@ -78,6 +88,17 @@ async function viewCompound(id) {
             <h3 id="modalTitle">${compound.name}</h3>
             <p class="modal-smiles">SMILES: ${compound.smiles}</p>
             ${compound.casNumber ? `<p class="modal-cas">CAS: ${compound.casNumber}</p>` : ""}
+
+            ${compound.imageUrl ? `
+                <div class="modal-image-wrap">
+                    <img
+                        class="modal-image"
+                        src="${compound.imageUrl}"
+                        alt="${compound.name} (${compound.formula})"
+                        onerror="this.closest('.modal-image-wrap').remove()"
+                    >
+                </div>
+            ` : ""}
 
             <div class="badge-row">
                 <span class="state-badge" data-state="${state}">${props.state}</span>
