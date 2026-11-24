@@ -7,7 +7,7 @@ let toastTimer;
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SUPABASE_URL = "[https://ulnzqrwzomzzopvocvzj.supabase.co](https://ulnzqrwzomzzopvocvzj.supabase.co)";
+const SUPABASE_URL = "https://ulnzqrwzomzzopvocvzj.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_5YwA1cJ-Ec6OtZRtzFwe1w_WxovqCFx";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
