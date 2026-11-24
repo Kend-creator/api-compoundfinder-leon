@@ -77,7 +77,13 @@ export default async function handler(req, res) {
       `${process.env.API_URL}/api/v1${path}${queryString}`,
       fetchOptions
     );
-    const data = await upstream.json();
+    const rawText = await upstream.text();
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      data = { detail: rawText || "Upstream returned a non-JSON response" };
+    }
 
     // Cache public GET reads for compounds and elements at the edge; keep discoveries uncached
     if (upstream.ok && req.method === "GET" && (isCompoundReadRoute || isElementsRoute)) {
