@@ -1,62 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompoundGuessr</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
+    <meta
+      name="description"
+      content="Use chemical clues to identify the mystery compound in Compound Guessr."
+    >
+    <title>Compound Guessr | Compound Lab</title>
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('compound-lab-theme')
+        const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+        document.documentElement.dataset.theme = savedTheme || preferredTheme
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
+    <link rel="stylesheet" href="guessr.css">
+  </head>
 
-<body>
-    <div class="topbar">
-        <a class="back-link" href="../">&larr; Compound Lab</a>
-        <span class="topbar-title">CompoundGuessr</span>
-        <span class="topbar-counter" id="guessesLeft">5 guesses left</span>
-    </div>
+  <body>
+    <div class="site-shell">
+      <!-- Shared Compound Lab navigation and persistent theme controls -->
+      <header class="topbar">
+        <a class="brand" href="../index.html" aria-label="Compound Lab home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
 
-    <main class="stage">
-        <div class="guess-zone">
-            <p class="tagline">Guess the mystery compound.</p>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="../finder/finder.html">Finder</a>
+          <a href="../craft/craft.html">Craft</a>
+          <a href="../combine/combine.html">Combine</a>
+          <a class="is-current" href="guessr.html">Play Guessr</a>
+        </nav>
 
-            <div class="hint-card">
-                <span class="hint-label">Hint</span>
-                <p id="hintText" class="hint-text"></p>
+        <div class="topbar-actions">
+          <a class="login-link" href="../login/login.html">Sign in</a>
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.2 15.4A8.7 8.7 0 0 1 8.6 3.8 8.7 8.7 0 1 0 20.2 15.4Z"></path>
+            </svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.7"></circle>
+              <path
+                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
+              ></path>
+            </svg>
+          </button>
+          <button class="menu-button" type="button" aria-expanded="false" aria-label="Toggle menu">
+            <span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <main class="guessr-page">
+        <!-- Editorial introduction and game rules -->
+        <section class="guessr-intro">
+          <div class="intro-grid" aria-hidden="true"></div>
+          <div class="intro-copy">
+            <a class="back-link" href="../index.html"><span>←</span> Back to the lab</a>
+            <span class="eyebrow">04 · CHEMISTRY DEDUCTION</span>
+            <h1>Read the clues.<br><em>Name the compound.</em></h1>
+            <p>
+              You have five attempts. Compare physical state, compound type, molar mass, and shared
+              elements to narrow down the mystery molecule.
+            </p>
+            <div class="intro-status">
+              <span><i></i> Offline sample library</span>
+              <span>Five attempts per round</span>
+            </div>
+          </div>
+
+          <!-- Decorative clue matrix previews the game's three feedback tiers -->
+          <div class="clue-matrix" aria-hidden="true">
+            <div class="matrix-head">
+              <span>CLUE MATRIX</span>
+              <strong>?</strong>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">STATE</span>
+              <span class="matrix-cell hit">GAS</span>
+              <span class="matrix-cell miss">SOLID</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">MASS</span>
+              <span class="matrix-cell close">44.01 ↑</span>
+              <span class="matrix-cell miss">58.44 ↓</span>
+            </div>
+            <div class="matrix-row">
+              <span class="matrix-label">ELEMENTS</span>
+              <span class="matrix-cell hit">C, O</span>
+              <span class="matrix-cell close">O</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Self-contained browser game; no server writes are required -->
+        <section class="game-section" aria-labelledby="gameTitle">
+          <div class="game-heading">
+            <div>
+              <span class="section-index">COMPOUND GUESSR / ACTIVE ROUND</span>
+              <h2 id="gameTitle">Identify the mystery.</h2>
+            </div>
+            <p>
+              The sample set runs locally. Connect your compound API later to expand the possible
+              answers.
+            </p>
+          </div>
+
+          <div class="game-shell">
+            <!-- Round scoreboard and remaining-attempt counter -->
+            <div class="score-strip">
+              <div>
+                <span>ROUND STATUS</span>
+                <strong id="roundStatus">In progress</strong>
+              </div>
+              <div class="attempt-counter">
+                <span>ATTEMPTS</span>
+                <strong id="guessesLeft">5 guesses left</strong>
+              </div>
             </div>
 
-            <div class="guess-input-row">
-                <input
+            <div class="game-layout">
+              <!-- Hint, guess field, and clue legend -->
+              <section class="guess-console" aria-label="Submit a compound guess">
+                <span class="console-step">01 / STUDY THE HINT</span>
+                <div class="hint-card">
+                  <span class="hint-label">Compound description</span>
+                  <p id="hintText" class="hint-text">Preparing a mystery compound…</p>
+                </div>
+
+                <span class="console-step">02 / ENTER YOUR GUESS</span>
+                <div class="guess-input-row">
+                  <input
                     type="text"
                     id="guessInput"
                     list="compoundNames"
-                    placeholder="Type a compound name..."
+                    placeholder="Type a compound name…"
+                    aria-label="Compound name"
                     autocomplete="off"
-                >
-                <datalist id="compoundNames"></datalist>
-                <button id="submitGuessBtn">Guess</button>
+                  >
+                  <datalist id="compoundNames"></datalist>
+                  <button id="submitGuessBtn" type="button">Submit guess <span>→</span></button>
+                </div>
+                <p id="guessError" class="guess-error" aria-live="polite"></p>
+
+                <div class="clue-legend" aria-label="Clue color key">
+                  <span><i class="legend-dot hit"></i> Exact match</span>
+                  <span><i class="legend-dot close"></i> Close</span>
+                  <span><i class="legend-dot miss"></i> No match</span>
+                </div>
+              </section>
+
+              <!-- New guesses are prepended to this live comparison log -->
+              <section class="history-panel" aria-labelledby="historyTitle">
+                <div class="history-heading">
+                  <div>
+                    <span class="console-step">03 / COMPARE CLUES</span>
+                    <h3 id="historyTitle">Analysis log</h3>
+                  </div>
+                  <span>Newest first</span>
+                </div>
+                <div id="guessHistory" class="guess-feed" aria-live="polite">
+                  <div class="empty-history">
+                    <span>?</span>
+                    <p>Your comparison clues will appear here.</p>
+                  </div>
+                </div>
+              </section>
             </div>
-            <p id="guessError" class="guess-error"></p>
+          </div>
+        </section>
+      </main>
 
-            <div class="clue-legend">
-                <span><span class="legend-dot hit"></span> Match</span>
-                <span><span class="legend-dot close"></span> Close</span>
-                <span><span class="legend-dot miss"></span> No match</span>
-            </div>
-        </div>
-
-        <div id="guessHistory" class="guess-feed"></div>
-    </main>
-
-    <div id="roundEndPanel" class="round-end-panel" hidden>
-        <div class="round-card">
-            <div id="roundEndContent"></div>
-            <button id="playAgainBtn" class="primary">Play again</button>
-        </div>
+      <!-- Shared site footer -->
+      <footer class="site-footer">
+        <a class="footer-brand" href="../index.html">
+          <span>COMPOUND</span><strong>LAB</strong>
+        </a>
+        <p>Think carefully. Stay curious.</p>
+        <span>GUESSR / FRONTEND DEMO</span>
+      </footer>
     </div>
 
-    <script src="app.js"></script>
-</body>
+    <!-- Round result modal; content is populated by guessr.js -->
+    <div id="roundEndPanel" class="round-end-panel" hidden>
+      <div class="round-card" role="dialog" aria-modal="true" aria-labelledby="roundEndTitle">
+        <span class="result-kicker">ROUND COMPLETE</span>
+        <div id="roundEndContent"></div>
+        <button id="playAgainBtn" class="play-again-button" type="button">
+          Start another round <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <script src="guessr.js"></script>
+  </body>
 </html>
