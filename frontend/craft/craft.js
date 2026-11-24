@@ -85,8 +85,8 @@ function saveDiscoveredToStorage() {
 
 async function init() {
   loadDiscoveredFromStorage()
-  allCompounds = SAMPLE_COMPOUNDS
-  const dbElements = await fetchElements()
+  const [compounds, dbElements] = await Promise.all([fetchCompounds(), fetchElements()])
+  allCompounds = compounds
   buildPeriodicTable(allCompounds, dbElements)
   renderDiscoveryLog()
   updateProgressTag()
