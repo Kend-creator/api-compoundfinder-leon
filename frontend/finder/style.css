@@ -104,4 +104,6 @@ html[data-theme="dark"] .badge-flammable { color: #ffc266; background: #3a2a10; 
   .finder-head { padding: 52px 24px 44px; }
   .search { flex-wrap: wrap; } .search input { flex-basis: 100%; }
   .modal-card { padding: 28px 22px; } .modal-props { grid-template-columns: 1fr; }
+  .compound-thumb {height: 120px;  }
+  .modal-image {max-height: 190px;}
 }
