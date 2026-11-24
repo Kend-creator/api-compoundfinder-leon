@@ -11,6 +11,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Top-bar link that switches between "Sign in" and the signed-in user's email
 const authNavLink = document.querySelector("#auth-nav-link");
+const logoutButton = document.querySelector("#logout-button");
 
 // Reads the current session and updates the auth link text, href, and state
 async function syncAuthNav() {
@@ -20,16 +21,28 @@ async function syncAuthNav() {
 
   if (user) {
     authNavLink.textContent = user.email;
-    authNavLink.title = "Click to sign out";
-    authNavLink.href = "#sign-out";
+    authNavLink.title = `Signed in as ${user.email}`;
+    authNavLink.href = "#";
     authNavLink.dataset.signedIn = "true";
+    if (logoutButton) logoutButton.hidden = false;
   } else {
     authNavLink.textContent = "Sign in";
     authNavLink.title = "Sign in to Compound Lab";
     authNavLink.href = "./login/login.html";
     authNavLink.dataset.signedIn = "false";
+    if (logoutButton) logoutButton.hidden = true;
   }
 }
+
+logoutButton?.addEventListener("click", async () => {
+  logoutButton.disabled = true;
+  try {
+    await supabase.auth.signOut();
+    await syncAuthNav();
+  } finally {
+    logoutButton.disabled = false;
+  }
+});
 
 // Sign the user out when clicking the link while already signed in
 authNavLink?.addEventListener("click", async (event) => {
