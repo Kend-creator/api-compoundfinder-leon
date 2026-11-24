@@ -110,23 +110,6 @@ Object.entries(slots).forEach(([name, slot]) => {
   slot.addEventListener('click', () => setActiveSlot(name))
 })
 
-// Convert shelf data attributes into a compound selection
-document.querySelectorAll('.compound-option').forEach((option) => {
-  option.addEventListener('click', () => {
-    const compound = {
-      key: option.dataset.key,
-      formula: option.dataset.formula,
-      name: option.dataset.name,
-      color: getComputedStyle(option).getPropertyValue('--liquid').trim(),
-    }
-    placeCompound(activeSlot, compound)
-
-    if (activeSlot === 'a' && !selections.b) {
-      setActiveSlot('b')
-    }
-  })
-})
-
 // Add newly produced compounds to the session reaction log
 function addDiscovery(result) {
   if (discoveries.has(result.formula)) return false
