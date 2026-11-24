@@ -1,5 +1,18 @@
 const STORAGE_KEY = 'compound-craft-discovered'
 
+const PROXY_URL = '/api/proxy'
+
+async function fetchElements() {
+  try {
+    const response = await fetch(`${PROXY_URL}?path=/elements`)
+    if (!response.ok) throw new Error('Failed to load elements')
+    const data = await response.json()
+    return Array.isArray(data.elements) ? data.elements : []
+  } catch {
+    return []
+  }
+}
+
 // Offline data keeps the frontend demonstrable until the user's API is connected.
 const SAMPLE_COMPOUNDS = [
   {
@@ -163,27 +176,11 @@ function saveDiscoveredToStorage() {
   }
 }
 
-/*
-BACKEND INTEGRATION — intentionally disabled for this frontend-only delivery.
-
-Replace SAMPLE_COMPOUNDS in init() with the server response when your proxy is ready:
-
-  const PROXY_URL = '/api/proxy'
-  const response = await fetch(`${PROXY_URL}?path=/compounds`)
-  if (!response.ok) throw new Error('API request failed')
-  const data = await response.json()
-  allCompounds = data.compounds
-
-Each compound should include:
-  id, name, formula, description,
-  composition: [{ symbol, element, atoms }],
-  physicalProperties: { state, molarMass, meltingPointCelsius, boilingPointCelsius }
-*/
-
-function init() {
+async function init() {
   loadDiscoveredFromStorage()
   allCompounds = SAMPLE_COMPOUNDS
-  buildPeriodicTable(allCompounds)
+  const dbElements = await fetchElements()
+  buildPeriodicTable(allCompounds, dbElements)
   renderDiscoveryLog()
   updateProgressTag()
   renderBench()
@@ -204,9 +201,15 @@ const LANTHANIDES = 'La,Ce,Pr,Nd,Pm,Sm,Eu,Gd,Tb,Dy,Ho,Er,Tm,Yb,Lu'.split(',')
 const ACTINIDES = 'Ac,Th,Pa,U,Np,Pu,Am,Cm,Bk,Cf,Es,Fm,Md,No,Lr'.split(',')
 
 // Build active and inactive element cells from the loaded compound set.
-function buildPeriodicTable(compounds) {
+function buildPeriodicTable(compounds, elements = []) {
   const container = document.querySelector('#periodicTable')
   const elementNames = new Map()
+
+  elements.forEach((el) => {
+    if (el.symbol && el.name) {
+      elementNames.set(el.symbol, el.name)
+    }
+  })
 
   compounds.forEach((compound) => {
     compound.composition.forEach((element) => {
